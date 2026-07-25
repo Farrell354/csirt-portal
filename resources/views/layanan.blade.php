@@ -21,31 +21,31 @@
         }
     </script>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-slate-900 dark:text-gray-200 font-sans flex flex-col min-h-screen">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 font-sans flex flex-col min-h-screen">
 
     <!-- NAVBAR -->
-    <nav class="bg-white dark:bg-slate-900 shadow-sm border-b border-gray-200 dark:border-slate-800 sticky top-0 z-50 transition-colors duration-300">
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <a href="/" class="flex-shrink-0 flex items-center gap-2 hover:opacity-80 transition">
                     <div class="w-9 h-9 bg-kominfo flex items-center justify-center text-white font-bold text-sm">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                     </div>
-                    <span class="font-bold text-xl tracking-tight hidden sm:block text-slate-800 dark:text-white">JatimProv<span class="text-kominfo dark:text-blue-500">-CSIRT</span></span>
+                    <span class="font-bold text-xl tracking-tight hidden sm:block text-slate-800">JatimProv<span class="text-kominfo">-CSIRT</span></span>
                 </a>
                 <div class="flex items-center space-x-6">
                     <div class="hidden lg:flex space-x-6">
-                        <a href="/" class="hover:text-kominfo dark:hover:text-blue-400 font-medium text-sm transition">Beranda</a>
-                        <a href="/profil" class="hover:text-kominfo dark:hover:text-blue-400 font-medium text-sm transition">Profil</a>
-                        <a href="#" class="hover:text-kominfo dark:hover:text-blue-400 font-medium text-sm transition">Artikel</a>
-                        <a href="/rfc2350" class="hover:text-kominfo dark:hover:text-blue-400 font-medium text-sm transition">RFC2350</a>
-                        <a href="/layanan" class="text-kominfo dark:text-blue-500 font-bold text-sm transition border-b-2 border-kominfo pb-1">Layanan</a>
-                        <a href="/panduan" class="hover:text-kominfo dark:hover:text-blue-400 font-medium text-sm transition">Panduan</a>
-                        <a href="/kontak" class="hover:text-kominfo dark:hover:text-blue-400 font-medium text-sm transition">Kontak</a>
+                        <a href="/" class="hover:text-kominfo font-medium text-sm transition">Beranda</a>
+                        <a href="/profil" class="hover:text-kominfo font-medium text-sm transition">Profil</a>
+                        <a href="#" class="hover:text-kominfo font-medium text-sm transition">Artikel</a>
+                        <a href="/rfc2350" class="hover:text-kominfo font-medium text-sm transition">RFC2350</a>
+                        <a href="/layanan" class="text-kominfo font-bold text-sm transition border-b-2 border-kominfo pb-1">Layanan</a>
+                        <a href="/panduan" class="hover:text-kominfo font-medium text-sm transition">Panduan</a>
+                        <a href="/kontak" class="hover:text-kominfo font-medium text-sm transition">Kontak</a>
                     </div>
-                    <button id="theme-toggle" class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white transition">
-                        <span class="block dark:hidden"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></span>
-                        <span class="hidden dark:block"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></span>
+                    <button id="theme-toggle" class="p-2 text-gray-500 hover:text-gray-700 transition">
+                        <span class="block"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></span>
+                        <span class="hidden"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></span>
                     </button>
                     <a href="#" class="bg-kominfo hover:bg-kominfo_dark text-white px-5 py-2 text-sm font-semibold transition shadow-sm hidden sm:block rounded-sm">Login Admin</a>
                 </div>
@@ -54,14 +54,14 @@
     </nav>
 
     <!-- KONTEN UTAMA -->
-    <div class="flex-grow bg-white dark:bg-slate-900">
+    <div class="flex-grow bg-white">
         
         <!-- HEADER HALAMAN -->
-        <div class="bg-slate-50 dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 py-16">
+        <div class="bg-slate-50 border-b border-gray-200 py-16">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-3xl">
-                    <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-4">Layanan JatimProv-CSIRT</h1>
-                    <p class="text-lg text-gray-600 dark:text-gray-400">Kerangka kerja profesional dalam manajemen, penanggulangan, dan pemulihan insiden keamanan siber di lingkungan pemerintahan.</p>
+                    <h1 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight mb-4">Layanan JatimProv-CSIRT</h1>
+                    <p class="text-lg text-gray-600">Kerangka kerja profesional dalam manajemen, penanggulangan, dan pemulihan insiden keamanan siber di lingkungan pemerintahan.</p>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
             <!-- Deskripsi Pembuka -->
             <div class="mb-16">
                 <div class="border-l-4 border-kominfo pl-6 py-2">
-                    <p class="text-base text-gray-700 dark:text-gray-300 leading-relaxed max-w-4xl">
+                    <p class="text-base text-gray-700 leading-relaxed max-w-4xl">
                         Gov-CSIRT Indonesia berkomitmen untuk membantu konstituen dalam melakukan penanggulangan dan pemulihan insiden keamanan siber secara komprehensif, dengan fokus pada tiga pilar utama manajemen insiden:
                     </p>
                 </div>
@@ -81,12 +81,12 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 
                 <!-- Layanan 1 -->
-                <div class="group border border-gray-200 dark:border-slate-700 p-8 bg-white dark:bg-slate-800/50 hover:border-kominfo dark:hover:border-kominfo transition-colors duration-300 relative">
-                    <div class="text-6xl font-black text-gray-100 dark:text-slate-700/50 absolute top-6 right-6 pointer-events-none transition-colors group-hover:text-blue-50 dark:group-hover:text-slate-700">01</div>
+                <div class="group border border-gray-200 p-8 bg-white hover:border-kominfo transition-colors duration-300 relative">
+                    <div class="text-6xl font-black text-gray-100 absolute top-6 right-6 pointer-events-none transition-colors group-hover:text-blue-50">01</div>
                     <div class="relative z-10">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">5.1.1. Triase Insiden</h3>
+                        <h3 class="text-xl font-bold text-slate-900 mb-1">5.1.1. Triase Insiden</h3>
                         <p class="text-xs font-bold text-kominfo uppercase tracking-widest mb-6">Incident Triage</p>
-                        <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-300">
+                        <ul class="space-y-4 text-sm text-gray-600">
                             <li class="flex items-start">
                                 <svg class="w-5 h-5 text-kominfo mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                 <span class="leading-relaxed">Memastikan kebenaran insiden dan pelapor.</span>
@@ -100,12 +100,12 @@
                 </div>
 
                 <!-- Layanan 2 -->
-                <div class="group border border-gray-200 dark:border-slate-700 p-8 bg-white dark:bg-slate-800/50 hover:border-kominfo dark:hover:border-kominfo transition-colors duration-300 relative">
-                    <div class="text-6xl font-black text-gray-100 dark:text-slate-700/50 absolute top-6 right-6 pointer-events-none transition-colors group-hover:text-blue-50 dark:group-hover:text-slate-700">02</div>
+                <div class="group border border-gray-200 p-8 bg-white hover:border-kominfo transition-colors duration-300 relative">
+                    <div class="text-6xl font-black text-gray-100 absolute top-6 right-6 pointer-events-none transition-colors group-hover:text-blue-50">02</div>
                     <div class="relative z-10">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">5.1.2. Koordinasi Insiden</h3>
+                        <h3 class="text-xl font-bold text-slate-900 mb-1">5.1.2. Koordinasi Insiden</h3>
                         <p class="text-xs font-bold text-kominfo uppercase tracking-widest mb-6">Incident Coordination</p>
-                        <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-300">
+                        <ul class="space-y-4 text-sm text-gray-600">
                             <li class="flex items-start">
                                 <svg class="w-5 h-5 text-kominfo mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                 <span class="leading-relaxed">Mengkoordinasikan insiden dengan konstituen secara real-time.</span>
@@ -123,12 +123,12 @@
                 </div>
 
                 <!-- Layanan 3 -->
-                <div class="group border border-gray-200 dark:border-slate-700 p-8 bg-white dark:bg-slate-800/50 hover:border-kominfo dark:hover:border-kominfo transition-colors duration-300 relative">
-                    <div class="text-6xl font-black text-gray-100 dark:text-slate-700/50 absolute top-6 right-6 pointer-events-none transition-colors group-hover:text-blue-50 dark:group-hover:text-slate-700">03</div>
+                <div class="group border border-gray-200 p-8 bg-white hover:border-kominfo transition-colors duration-300 relative">
+                    <div class="text-6xl font-black text-gray-100 absolute top-6 right-6 pointer-events-none transition-colors group-hover:text-blue-50">03</div>
                     <div class="relative z-10">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">5.1.3. Resolusi Insiden</h3>
+                        <h3 class="text-xl font-bold text-slate-900 mb-1">5.1.3. Resolusi Insiden</h3>
                         <p class="text-xs font-bold text-kominfo uppercase tracking-widest mb-6">Incident Resolution</p>
-                        <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-300">
+                        <ul class="space-y-4 text-sm text-gray-600">
                             <li class="flex items-start">
                                 <svg class="w-5 h-5 text-kominfo mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                 <span class="leading-relaxed">Melakukan investigasi mendalam dan analisis dampak insiden.</span>
@@ -148,7 +148,7 @@
             </div>
 
             <!-- Call to Action -->
-            <div class="bg-slate-900 dark:bg-slate-950 p-8 sm:p-10 border-l-4 border-kominfo shadow-xl">
+            <div class="bg-slate-900 p-8 sm:p-10 border-l-4 border-kominfo shadow-xl">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-8">
                     <div class="flex-1">
                         <h4 class="text-white text-lg font-bold mb-2">Sentra Informasi Keamanan Siber</h4>
@@ -211,7 +211,7 @@
     <button id="chatbot-toggle" class="fixed bottom-6 right-6 bg-kominfo hover:bg-kominfo_dark text-white w-14 h-14 rounded-sm shadow-xl flex items-center justify-center transition-transform hover:scale-105 z-50 border border-blue-400/30">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
     </button>
-    <div id="chatbot-window" class="fixed bottom-24 right-6 w-80 sm:w-96 bg-white dark:bg-slate-900 rounded-sm shadow-2xl overflow-hidden hidden flex-col z-50 border border-gray-300 dark:border-slate-700 transition-all duration-300">
+    <div id="chatbot-window" class="fixed bottom-24 right-6 w-80 sm:w-96 bg-white rounded-sm shadow-2xl overflow-hidden hidden flex-col z-50 border border-gray-300 transition-all duration-300">
         <div class="bg-slate-900 text-white px-4 py-3 flex justify-between items-center border-b border-kominfo">
             <div class="flex items-center gap-3">
                 <svg class="w-5 h-5 text-kominfo" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
@@ -222,15 +222,15 @@
             </div>
             <button id="chatbot-close" class="text-gray-400 hover:text-white transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
         </div>
-        <div id="chat-messages" class="p-4 h-80 overflow-y-auto flex flex-col gap-4 bg-gray-50 dark:bg-slate-950 text-sm">
+        <div id="chat-messages" class="p-4 h-80 overflow-y-auto flex flex-col gap-4 bg-gray-50 text-sm">
             <div class="flex flex-col gap-1 items-start">
-                <div class="bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 p-3 rounded-sm border border-gray-200 dark:border-slate-700 shadow-sm max-w-[85%] leading-relaxed">
+                <div class="bg-white text-gray-800 p-3 rounded-sm border border-gray-200 shadow-sm max-w-[85%] leading-relaxed">
                     Selamat datang di layanan bantuan JatimProv-CSIRT. Silakan ketik pertanyaan atau laporan indikasi insiden siber Anda.
                 </div>
             </div>
         </div>
-        <div class="p-3 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 flex gap-2">
-            <input type="text" id="chat-input" placeholder="Ketik pesan..." class="flex-1 bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-gray-200 px-3 py-2 rounded-sm outline-none focus:ring-1 focus:ring-kominfo border border-transparent dark:border-slate-700 text-sm">
+        <div class="p-3 bg-white border-t border-gray-200 flex gap-2">
+            <input type="text" id="chat-input" placeholder="Ketik pesan..." class="flex-1 bg-gray-100 text-gray-800 px-3 py-2 rounded-sm outline-none focus:ring-1 focus:ring-kominfo border border-transparent text-sm">
             <button id="chat-send" class="bg-kominfo hover:bg-kominfo_dark text-white px-4 py-2 rounded-sm transition flex items-center justify-center">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
             </button>
@@ -259,10 +259,10 @@
             msgDiv.classList.add('flex', 'flex-col', 'gap-1');
             if (sender === 'user') {
                 msgDiv.classList.add('items-end');
-                msgDiv.innerHTML = `<div class="bg-slate-800 dark:bg-slate-700 text-white p-3 rounded-sm shadow-sm max-w-[85%] leading-relaxed">${text}</div>`;
+                msgDiv.innerHTML = `<div class="bg-slate-800 text-white p-3 rounded-sm shadow-sm max-w-[85%] leading-relaxed">${text}</div>`;
             } else {
                 msgDiv.classList.add('items-start');
-                msgDiv.innerHTML = `<div class="bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 p-3 rounded-sm border border-gray-200 dark:border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${text}</div>`;
+                msgDiv.innerHTML = `<div class="bg-white text-gray-800 p-3 rounded-sm border border-gray-200 shadow-sm max-w-[85%] leading-relaxed">${text}</div>`;
             }
             chatMessages.appendChild(msgDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight; 
@@ -277,7 +277,7 @@
             const loadingId = 'loading-' + Date.now();
             const loadingDiv = document.createElement('div');
             loadingDiv.id = loadingId;
-            loadingDiv.className = 'text-xs text-gray-500 dark:text-gray-400 italic ml-2 mt-1';
+            loadingDiv.className = 'text-xs text-gray-500 italic ml-2 mt-1';
             loadingDiv.innerText = 'Sistem sedang memproses...';
             chatMessages.appendChild(loadingDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -308,4 +308,5 @@
         chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessageToGrok(); });
     </script>
 </body>
+<x-chatbot />
 </html>
