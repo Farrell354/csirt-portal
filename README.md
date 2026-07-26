@@ -48,3 +48,19 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan lokal A
 ```bash
 git clone [https://github.com/USERNAME_ANDA/NAMA_REPO_ANDA.git](https://github.com/USERNAME_ANDA/NAMA_REPO_ANDA.git)
 cd NAMA_REPO_ANDA
+composer install
+npm install
+cp .env.example .env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=db_csirt
+DB_USERNAME=root
+DB_PASSWORD=
+
+GROQ_API_KEY=gsk_IsiDenganApiKeyGroqAnda
+
+php artisan key:generate
+php artisan migrate --seed
+npm run dev
+php artisan serve
