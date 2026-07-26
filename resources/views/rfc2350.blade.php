@@ -24,34 +24,7 @@
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 font-sans flex flex-col min-h-screen">
 
     <!-- NAVBAR -->
-    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <a href="/" class="flex-shrink-0 flex items-center gap-2 hover:opacity-80 transition">
-                    <div class="w-9 h-9 bg-kominfo flex items-center justify-center text-white font-bold text-sm">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                    </div>
-                    <span class="font-bold text-xl tracking-tight hidden sm:block text-slate-800">JatimProv<span class="text-kominfo">-CSIRT</span></span>
-                </a>
-                <div class="flex items-center space-x-6">
-                    <div class="hidden lg:flex space-x-6">
-                        <a href="/" class="hover:text-kominfo font-medium text-sm transition">Beranda</a>
-                        <a href="/profil" class="hover:text-kominfo font-medium text-sm transition">Profil</a>
-                        <a href="#" class="hover:text-kominfo font-medium text-sm transition">Artikel</a>
-                        <a href="/rfc2350" class="text-kominfo font-bold text-sm transition border-b-2 border-kominfo pb-1">RFC2350</a>
-                        <a href="/layanan" class="hover:text-kominfo font-medium text-sm transition">Layanan</a>
-                        <a href="/panduan" class="hover:text-kominfo font-medium text-sm transition">Panduan</a>
-                        <a href="/kontak" class="hover:text-kominfo font-medium text-sm transition">Kontak</a>
-                    </div>
-                    <button id="theme-toggle" class="p-2 text-gray-500 hover:text-gray-700 transition">
-                        <span class="block"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></span>
-                        <span class="hidden"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></span>
-                    </button>
-                    <a href="#" class="bg-kominfo hover:bg-kominfo_dark text-white px-5 py-2 text-sm font-semibold transition shadow-sm hidden sm:block rounded-sm">Login Admin</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <x-navbar />
 
     <!-- KONTEN UTAMA -->
     <div class="flex-grow bg-slate-100 flex flex-col items-center">
@@ -126,105 +99,7 @@
     </footer>
 
     <!-- WIDGET CHATBOT CSIRT -->
-    <button id="chatbot-toggle" class="fixed bottom-6 right-6 bg-kominfo hover:bg-kominfo_dark text-white w-14 h-14 rounded-sm shadow-xl flex items-center justify-center transition-transform hover:scale-105 z-50 border border-blue-400/30">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-    </button>
-    <div id="chatbot-window" class="fixed bottom-24 right-6 w-80 sm:w-96 bg-white rounded-sm shadow-2xl overflow-hidden hidden flex-col z-50 border border-gray-300 transition-all duration-300">
-        <div class="bg-slate-900 text-white px-4 py-3 flex justify-between items-center border-b border-kominfo">
-            <div class="flex items-center gap-3">
-                <svg class="w-5 h-5 text-kominfo" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                <div>
-                    <h3 class="font-bold text-sm tracking-wide">CSIRT Virtual Assistant</h3>
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Sistem Online</p>
-                </div>
-            </div>
-            <button id="chatbot-close" class="text-gray-400 hover:text-white transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-        </div>
-        <div id="chat-messages" class="p-4 h-80 overflow-y-auto flex flex-col gap-4 bg-gray-50 text-sm">
-            <div class="flex flex-col gap-1 items-start">
-                <div class="bg-white text-gray-800 p-3 rounded-sm border border-gray-200 shadow-sm max-w-[85%] leading-relaxed">
-                    Selamat datang di layanan bantuan JatimProv-CSIRT. Silakan ketik pertanyaan atau laporan indikasi insiden siber Anda.
-                </div>
-            </div>
-        </div>
-        <div class="p-3 bg-white border-t border-gray-200 flex gap-2">
-            <input type="text" id="chat-input" placeholder="Ketik pesan..." class="flex-1 bg-gray-100 text-gray-800 px-3 py-2 rounded-sm outline-none focus:ring-1 focus:ring-kominfo border border-transparent text-sm">
-            <button id="chat-send" class="bg-kominfo hover:bg-kominfo_dark text-white px-4 py-2 rounded-sm transition flex items-center justify-center">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-            </button>
-        </div>
-    </div>
-
-    <!-- SCRIPT TEMA & CHATBOT -->
-    <script>
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-        themeToggleBtn.addEventListener('click', () => { htmlElement.classList.toggle('dark'); });
-
-        const chatbotToggle = document.getElementById('chatbot-toggle');
-        const chatbotWindow = document.getElementById('chatbot-window');
-        const chatbotClose = document.getElementById('chatbot-close');
-        chatbotToggle.addEventListener('click', () => { chatbotWindow.classList.toggle('hidden'); chatbotWindow.classList.toggle('flex'); });
-        chatbotClose.addEventListener('click', () => { chatbotWindow.classList.add('hidden'); chatbotWindow.classList.remove('flex'); });
-
-        const chatInput = document.getElementById('chat-input');
-        const chatSend = document.getElementById('chat-send');
-        const chatMessages = document.getElementById('chat-messages');
-        const GROK_API_KEY = 'MASUKKAN_API_KEY_GROK_ANDA_DISINI'; 
-
-        function appendMessage(sender, text) {
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('flex', 'flex-col', 'gap-1');
-            if (sender === 'user') {
-                msgDiv.classList.add('items-end');
-                msgDiv.innerHTML = `<div class="bg-slate-800 text-white p-3 rounded-sm shadow-sm max-w-[85%] leading-relaxed">${text}</div>`;
-            } else {
-                msgDiv.classList.add('items-start');
-                msgDiv.innerHTML = `<div class="bg-white text-gray-800 p-3 rounded-sm border border-gray-200 shadow-sm max-w-[85%] leading-relaxed">${text}</div>`;
-            }
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight; 
-        }
-
-        async function sendMessageToGrok() {
-            const message = chatInput.value.trim();
-            if (!message) return;
-            appendMessage('user', message);
-            chatInput.value = '';
-
-            const loadingId = 'loading-' + Date.now();
-            const loadingDiv = document.createElement('div');
-            loadingDiv.id = loadingId;
-            loadingDiv.className = 'text-xs text-gray-500 italic ml-2 mt-1';
-            loadingDiv.innerText = 'Sistem sedang memproses...';
-            chatMessages.appendChild(loadingDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            try {
-                const response = await fetch('https://api.x.ai/v1/chat/completions', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROK_API_KEY}` },
-                    body: JSON.stringify({
-                        model: "grok-beta",
-                        messages: [
-                            { role: "system", content: "Anda adalah CSIRT Virtual Assistant. Jawab formal, ringkas, dan profesional." },
-                            { role: "user", content: message }
-                        ]
-                    })
-                });
-                const data = await response.json();
-                document.getElementById(loadingId).remove();
-                if (data.choices && data.choices.length > 0) { appendMessage('bot', data.choices[0].message.content); } 
-                else { appendMessage('bot', 'Kesalahan respons server. Silakan coba lagi.'); }
-            } catch (error) {
-                document.getElementById(loadingId).remove();
-                appendMessage('bot', 'Koneksi ke server gagal. Periksa jaringan Anda.');
-            }
-        }
-
-        chatSend.addEventListener('click', sendMessageToGrok);
-        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessageToGrok(); });
-    </script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </body>
 <x-chatbot />
 </html>

@@ -12,6 +12,14 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+        <div class="mb-6 flex justify-end">
+                <a href="/admin/laporan" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg font-bold shadow-md transition-colors flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>Verifikasi Laporan Bug</span>
+                </a>
+            </div>
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
                 <div class="p-6 text-gray-900">
                     

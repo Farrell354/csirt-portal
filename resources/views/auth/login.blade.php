@@ -64,6 +64,12 @@
                 <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3.5 px-4 rounded-md transition-all duration-300 text-sm uppercase tracking-widest shadow-lg shadow-blue-700/30 hover:shadow-xl hover:-translate-y-0.5">
                     Masuk Ke Sistem
                 </button>
+                <div class="mt-6 text-center text-sm text-gray-600">
+    Belum punya akun Bug Hunter? 
+    <a href="{{ route('register') }}" class="font-bold text-blue-700 hover:text-blue-900 hover:underline transition-colors">
+        Daftar di sini
+    </a>
+</div>
                 
                 <!-- Link Kembali -->
                 <div class="mt-8 text-center pt-6 border-t border-gray-100">
