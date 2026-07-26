@@ -3,12 +3,16 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             <!-- Logo -->
-            <a href="/" class="flex-shrink-0 flex items-center gap-2 hover:opacity-80 transition">
-                <div class="w-9 h-9 bg-blue-700 flex items-center justify-center text-white font-bold text-sm">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                </div>
-                <span class="font-bold text-xl tracking-tight hidden sm:block text-slate-800 dark:text-white">JatimProv<span class="text-blue-700 dark:text-blue-500">-CSIRT</span></span>
-            </a>
+<a href="/" class="flex-shrink-0 flex items-center gap-2 hover:opacity-80 transition">
+    
+    <!-- INI BAGIAN YANG DIUBAH (Ganti SVG dengan tag IMG) -->
+    <img src="{{ asset('img/logo-csirt.png') }}" alt="Logo CSIRT" class="h-10 w-auto">
+    
+    <!-- Teks Judul (Tetap dibiarkan) -->
+    <span class="font-bold text-xl tracking-tight hidden sm:block text-slate-800 dark:text-white">
+        JatimProv<span class="text-blue-700 dark:text-blue-500">-CSIRT</span>
+    </span>
+</a>
             
             <div class="flex items-center space-x-6">
                 <!-- Menu Tengah (Lengkap & Pintar) -->
@@ -46,3 +50,27 @@
         </div>
     </div>
 </nav>
+
+<script>
+    const themeToggleBtn = document.getElementById('theme-toggle');
+
+    // 1. Cek tema saat halaman pertama kali dimuat (dari memori browser atau sistem OS)
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+
+    // 2. Fungsi saat tombol Dark Mode diklik
+    themeToggleBtn.addEventListener('click', function() {
+        // Tambah/hapus kelas 'dark' pada tag <html>
+        document.documentElement.classList.toggle('dark');
+
+        // Simpan pilihan user di memori browser agar tidak hilang saat refresh
+        if (document.documentElement.classList.contains('dark')) {
+            localStorage.setItem('color-theme', 'dark');
+        } else {
+            localStorage.setItem('color-theme', 'light');
+        }
+    });
+</script>

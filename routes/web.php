@@ -212,18 +212,20 @@ Route::post('/chatbot-reply', function (Request $request) {
             'Authorization' => 'Bearer ' . env('GROQ_API_KEY'),
             'Content-Type'  => 'application/json',
         ])->post('https://api.groq.com/openai/v1/chat/completions', [
-            'model' => 'llama3-8b-8192', 
+            'model' => 'llama-3.1-8b-instant', 
             'messages' => [
                 [
                     'role' => 'system',
-                    'content' => "Anda adalah Asisten AI resmi JatimProv-CSIRT. Jawablah pertanyaan user berdasarkan DATA BERIKUT:\n\n" . $panduanCSIRT . "\n\nJika user bertanya di luar konteks ini, arahkan dengan sopan ke menu Kontak."
+                    'content' => "Anda adalah Asisten AI resmi JatimProv-CSIRT. Jawablah pertanyaan user HANYA berdasarkan DATA BERIKUT:\n\n" . $panduanCSIRT . "\n\nATURAN PENTING:\n1. Basa-basi/Sapaan: Jika pengguna hanya menyapa (contoh: hi, halo, p, assalamualaikum, pagi), JANGAN ditolak. Balaslah sapaannya dengan ramah dan tawarkan bantuan terkait layanan CSIRT.\n2. Typo: Pengguna mungkin salah ketik. Tebak maksudnya sebelum menjawab.\n3. Luar Topik: HANYA tolak dan arahkan ke menu Kontak jika pertanyaan benar-benar melenceng jauh dari keamanan siber dan BUKAN sebuah sapaan."
                 ],
                 [
                     'role' => 'user',
                     'content' => $pesanUser
                 ]
             ],
-            'temperature' => 0.3,
+            // Naikkan sedikit suhunya (misal ke 0.4) agar AI lebih fleksibel mencerna typo, 
+            // tapi tidak terlalu tinggi agar tidak mengarang jawaban.
+            'temperature' => 0.4, 
         ]);
 
         if ($response->successful()) {
@@ -231,7 +233,7 @@ Route::post('/chatbot-reply', function (Request $request) {
             return response()->json(['reply' => $balasanAI]);
         }
 
-        return response()->json(['reply' => 'Maaf, server AI sedang sibuk.']);
+        return response()->json(['reply' => 'Maaf, server AI sedang sibuk. Silakan coba beberapa saat lagi.']);
 
     } catch (\Exception $e) {
         return response()->json(['reply' => 'Waduh, koneksi ke AI terputus.']);

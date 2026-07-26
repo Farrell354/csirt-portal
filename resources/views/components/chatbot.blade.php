@@ -1,5 +1,5 @@
 <!-- ========================================== -->
-<!-- WIDGET CHATBOT KELAS BADAK (ANTI KONFLIK)  -->
+<!-- WIDGET CHATBOT KELAS BADAK (POWERED BY AI) -->
 <!-- ========================================== -->
 <div class="csirt-bot-container fixed bottom-6 right-6 z-[9999]">
     
@@ -26,7 +26,7 @@
             </div>
         </div>
         
-        <!-- Area Input (Mengirim posisi elemen itu sendiri menggunakan 'this') -->
+        <!-- Area Input -->
         <div class="p-3 border-t border-gray-200 bg-white flex">
             <input type="text" autocomplete="off" onkeydown="csirtBotEnter(event, this)" class="flex-1 border border-gray-300 rounded-l-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-700 text-sm" placeholder="Ketik pesan Anda...">
             
@@ -44,47 +44,69 @@
 </div>
 
 <script>
-    // Memastikan fungsi hanya dideklarasikan sekali saja untuk mencegah error
     if (typeof window.csirtBotKirim === 'undefined') {
         
-        window.csirtBotKirim = function(inputElement) {
-            // Mencari wadah chat yang sedang aktif berdasarkan posisi elemen yang diketik
+        // Ubah menjadi async function agar bisa menggunakan await fetch
+        window.csirtBotKirim = async function(inputElement) {
             const container = inputElement.closest('.csirt-bot-container');
             const messagesArea = container.querySelector('.csirt-bot-messages');
             const text = inputElement.value.trim();
             
             if (!text) return;
 
-            // Memunculkan Chat User
+            // 1. Memunculkan Chat User
             messagesArea.innerHTML += `<div class="flex items-end justify-end"><div class="bg-blue-700 text-white rounded-lg rounded-tr-none p-3 max-w-[85%] shadow-sm font-medium mb-3">${text}</div></div>`;
             inputElement.value = '';
             messagesArea.scrollTop = messagesArea.scrollHeight;
 
-            // Memunculkan Balasan Bot
-            setTimeout(() => {
-                let reply = "Maaf, silakan hubungi tim kami melalui menu Kontak untuk bantuan lebih lanjut.";
-                let lower = text.toLowerCase();
-                
-                if(lower.includes('lapor') || lower.includes('insiden') || lower.includes('hack')) {
-                    reply = "Silakan isi form di menu 'Layanan' atau kirim email ke csirt@jatimprov.go.id.";
-                } else if(lower.includes('halo') || lower.includes('hai')) {
-                    reply = "Halo! Ada yang bisa saya bantu hari ini?";
-                }
+            // 2. Memunculkan Indikator Loading (Animasi Mengetik)
+            const loadingId = 'loading-' + Date.now();
+            messagesArea.innerHTML += `<div id="${loadingId}" class="flex items-start"><div class="bg-gray-200 text-gray-600 rounded-lg rounded-tl-none p-3 max-w-[85%] shadow-sm font-medium mb-3 animate-pulse">AI sedang mengetik...</div></div>`;
+            messagesArea.scrollTop = messagesArea.scrollHeight;
 
-                messagesArea.innerHTML += `<div class="flex items-start"><div class="bg-blue-100 text-blue-900 rounded-lg rounded-tl-none p-3 max-w-[85%] shadow-sm font-medium mb-3">${reply}</div></div>`;
+            // 3. Ambil CSRF Token
+            let csrfMeta = document.querySelector('meta[name="csrf-token"]');
+            let csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '';
+
+            // 4. Hubungkan ke Backend (Groq AI)
+            try {
+                let response = await fetch('/chatbot-reply', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({ message: text })
+                });
+
+                let data = await response.json();
+
+                // Hapus indikator loading
+                document.getElementById(loadingId).remove();
+
+                // Tampilkan balasan asli dari AI
+                messagesArea.innerHTML += `<div class="flex items-start"><div class="bg-blue-100 text-blue-900 rounded-lg rounded-tl-none p-3 max-w-[85%] shadow-sm font-medium mb-3">${data.reply}</div></div>`;
                 messagesArea.scrollTop = messagesArea.scrollHeight;
-            }, 800);
+
+            } catch (error) {
+                // Hapus indikator loading jika error
+                let loadEl = document.getElementById(loadingId);
+                if (loadEl) loadEl.remove();
+
+                // Tampilkan pesan error
+                messagesArea.innerHTML += `<div class="flex items-start"><div class="bg-red-100 text-red-800 rounded-lg rounded-tl-none p-3 max-w-[85%] shadow-sm font-medium mb-3">Waduh, koneksi ke server AI terputus nih. Coba lagi ya!</div></div>`;
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+            }
         };
 
         window.csirtBotEnter = function(event, inputElement) {
             if (event.key === 'Enter' || event.keyCode === 13) {
-                event.preventDefault(); // Cegah fungsi bawaan
+                event.preventDefault(); 
                 window.csirtBotKirim(inputElement);
             }
         };
 
         window.csirtBotClick = function(btnElement) {
-            // Mengambil elemen input yang berada persis sebelum tombol ini
             const inputElement = btnElement.previousElementSibling;
             window.csirtBotKirim(inputElement);
         };
