@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hall of Fame - JatimProv CSIRT</title>
+    <link rel="icon" type="image/png" href="{{ asset('img/logo-csirt.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Konfigurasi agar Tailwind mengenali Dark Mode berbasis Class -->
     <script>
