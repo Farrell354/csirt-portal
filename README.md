@@ -1,4 +1,4 @@
-# 🛡️ Portal JatimProv-CSIRT & Bug Bounty System
+#  Portal JatimProv-CSIRT & Bug Bounty System
 
 <p align="center">
   <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel">
@@ -12,26 +12,26 @@
 
 ---
 
-## ✨ Fitur Unggulan
+##  Fitur Unggulan
 
-### 🤖 1. Smart AI Assistant (Groq & LLaMA 3.1)
+###  1. Smart AI Assistant (Groq & LLaMA 3.1)
 - **Toleran Terhadap Typo**: Didukung oleh prompt AI pintar yang mampu memahami maksud pengguna meskipun terdapat kesalahan pengetikan atau bahasa tidak baku.
 - **Dedicated Knowledge Base**: Sistem jawaban terisolasi pada basis pengetahuan resmi CSIRT Jatim (`app/KnowledgeBase.php`).
 - **Respon Super Cepat**: Menggunakan API Groq dengan model `llama-3.1-8b-instant`.
 
-### 🏆 2. Bug Bounty & Hall of Fame (Leaderboard)
+###  2. Bug Bounty & Hall of Fame (Leaderboard)
 - **Sistem Poin Reputasi**: Memberikan apresiasi real-time kepada *Bug Hunter* yang berhasil menemukan kerentanan sistem secara sah.
 - **Top Podium Status**: Tampilan khusus podium 3 besar (Gold, Silver, Bronze) serta daftar peringkat publik global.
 - **Verifikasi Laporan**: Panel khusus admin untuk memvalidasi laporan insiden/kerentanan sebelum poin dialokasikan.
 
-### 🌐 3. Portal Informasi & Kepatuhan Standar
+###  3. Portal Informasi & Kepatuhan Standar
 - **Pedoman RFC2350**: Mengikuti dokumentasi standar internasional untuk penanganan insiden siber.
 - **Dark Mode Support**: Antarmuka responsif yang dilengkapi switch mode gelap/terang berbasis Tailwind CSS.
 - **Sistem Pelaporan Terpadu**: Formulir pelaporan insiden langsung bagi Organisasi Perangkat Daerah (OPD) dan masyarakat umum.
 
 ---
 
-## 🛠️ Spesifikasi Teknologi
+##  Spesifikasi Teknologi
 
 - **Backend**: Laravel 10.x / PHP 8.1+
 - **Frontend**: Blade Templating, Tailwind CSS, Alpine.js / Vite
@@ -40,7 +40,7 @@
 
 ---
 
-## 🚀 Panduan Instalasi Lokal
+##  Panduan Instalasi Lokal
 
 Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan lokal Anda:
 
