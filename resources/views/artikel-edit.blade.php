@@ -1,61 +1,94 @@
-<x-app-layout>
-    <x-slot name="header">
-        <div class="flex items-center space-x-4">
-            <a href="/dashboard" class="text-gray-500 hover:text-amber-500 transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            </a>
-            <h2 class="font-bold text-xl text-gray-800 leading-tight">
-                {{ __('Edit Berita') }}
-            </h2>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Berita - JatimProv CSIRT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-slate-900 text-gray-800 dark:text-gray-200 font-sans flex flex-col min-h-screen transition-colors duration-300">
+
+    <x-navbar />
+
+    <div class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <!-- Tombol Kembali -->
+        <a href="/dashboard" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-amber-600 dark:hover:text-amber-400 mb-6 transition-colors">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Batal Edit & Kembali
+        </a>
+
+        <!-- Header Form -->
+        <div class="bg-white dark:bg-slate-800 rounded-t-2xl border-b-4 border-amber-500 p-8 shadow-sm">
+            <h1 class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Edit Artikel</h1>
+            <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm">Perbarui informasi artikel yang sudah dipublikasikan. Pastikan data sudah benar sebelum disimpan.</p>
         </div>
-    </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200 p-8">
-                
-                <form action="/dashboard/artikel/{{ $artikel->id }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    
-                    <div class="mb-6">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Judul Artikel</label>
-                        <input type="text" name="judul" value="{{ $artikel->judul }}" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500">
+        <!-- Area Form -->
+        <div class="bg-white dark:bg-slate-800 rounded-b-2xl shadow-sm p-8 mt-1 border border-gray-100 dark:border-slate-700">
+            
+            <form action="/dashboard/artikel/{{ $artikel->id }}" method="POST">
+                <!-- SATPAM LARAVEL -->
+                @csrf
+                <!-- WAJIB ADA METHOD PUT UNTUK UPDATE DATA DI LARAVEL -->
+                @method('PUT')
+
+                <!-- Judul Artikel -->
+                <div class="mb-6">
+                    <label for="judul" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Judul Artikel <span class="text-red-500">*</span></label>
+                    <input type="text" name="judul" id="judul" value="{{ $artikel->judul }}" required 
+                        class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900 dark:text-white transition-all">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- Kategori -->
+                    <div>
+                        <label for="kategori" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Kategori <span class="text-red-500">*</span></label>
+                        <select name="kategori" id="kategori" required class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900 dark:text-white cursor-pointer transition-all">
+                            <option value="Peringatan Keamanan" {{ $artikel->kategori == 'Peringatan Keamanan' ? 'selected' : '' }}>Peringatan Keamanan</option>
+                            <option value="Berita Siber" {{ $artikel->kategori == 'Berita Siber' ? 'selected' : '' }}>Berita Siber</option>
+                            <option value="Panduan Mitigasi" {{ $artikel->kategori == 'Panduan Mitigasi' ? 'selected' : '' }}>Panduan Mitigasi</option>
+                            <option value="Rilis Resmi" {{ $artikel->kategori == 'Rilis Resmi' ? 'selected' : '' }}>Rilis Resmi</option>
+                        </select>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Kategori</label>
-                            <select name="kategori" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500">
-                                <option value="Berita Siber" {{ $artikel->kategori == 'Berita Siber' ? 'selected' : '' }}>Berita Siber</option>
-                                <option value="Peringatan Keamanan" {{ $artikel->kategori == 'Peringatan Keamanan' ? 'selected' : '' }}>Peringatan Keamanan</option>
-                                <option value="Panduan Mitigasi" {{ $artikel->kategori == 'Panduan Mitigasi' ? 'selected' : '' }}>Panduan Mitigasi</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Nama Penulis</label>
-                            <input type="text" name="penulis" value="{{ $artikel->penulis }}" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500">
-                        </div>
+                    <!-- Penulis -->
+                    <div>
+                        <label for="penulis" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Nama Penulis <span class="text-red-500">*</span></label>
+                        <input type="text" name="penulis" id="penulis" value="{{ $artikel->penulis }}" required 
+                            class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900 dark:text-white transition-all">
                     </div>
+                </div>
 
-                    <div class="mb-6">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Link Gambar *Thumbnail*</label>
-                        <input type="url" name="gambar" value="{{ $artikel->gambar }}" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500">
-                    </div>
+                <!-- Link Gambar -->
+                <div class="mb-6">
+                    <label for="gambar" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">URL Gambar (Thumbnail) <span class="text-red-500">*</span></label>
+                    <input type="url" name="gambar" id="gambar" value="{{ $artikel->gambar }}" required 
+                        class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900 dark:text-white transition-all text-sm font-mono">
+                </div>
 
-                    <div class="mb-8">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Isi Konten Berita</label>
-                        <textarea name="konten" rows="8" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500">{{ $artikel->konten }}</textarea>
-                    </div>
+                <!-- Konten -->
+                <div class="mb-8">
+                    <label for="konten" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Isi Konten Berita <span class="text-red-500">*</span></label>
+                    <textarea name="konten" id="konten" rows="10" required 
+                        class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900 dark:text-white transition-all leading-relaxed">{{ $artikel->konten }}</textarea>
+                </div>
 
-                    <div class="flex justify-end">
-                        <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded transition-colors shadow-md uppercase text-sm tracking-wider">
-                            Simpan Perubahan
-                        </button>
-                    </div>
-                </form>
+                <!-- Tombol Submit -->
+                <div class="flex justify-end gap-3 pt-6 border-t border-gray-100 dark:border-slate-700">
+                    <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3.5 px-8 rounded-xl transition-all shadow-lg shadow-amber-500/30 hover:shadow-xl flex items-center gap-2 text-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </form>
 
-            </div>
         </div>
     </div>
-</x-app-layout>
+
+    <x-chatbot />
+</body>
+</html>

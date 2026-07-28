@@ -240,3 +240,16 @@ Route::post('/chatbot-reply', function (Request $request) {
     }
 });
 require __DIR__.'/auth.php';
+
+// Rute untuk melihat Profil Publik Hunter dari Leaderboard
+Route::get('/hunter/{id}', function ($id) {
+    // Cari data user berdasarkan ID yang diklik
+    $hunter = App\Models\User::where('role', 'hunter')->findOrFail($id);
+    
+    // Hitung statistik khusus hunter ini
+    $laporanValid = $hunter->laporans()->where('status', 'Valid')->count();
+    $totalLaporan = $hunter->laporans()->count();
+    $validitas = $totalLaporan > 0 ? round(($laporanValid / $totalLaporan) * 100, 1) : 0;
+
+    return view('hunter-public-profil', compact('hunter', 'laporanValid', 'validitas'));
+});

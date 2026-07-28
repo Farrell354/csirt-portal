@@ -41,11 +41,33 @@
                 </button>
                 
                 <!-- Tombol Lapor / Dashboard -->
-                @auth
-                    <a href="/dashboard" class="bg-blue-700 hover:bg-blue-800 text-white px-5 py-2 text-sm font-semibold transition shadow-sm hidden sm:block rounded-sm">Dashboard Hunter</a>
-                @else
-                    <a href="/login" class="bg-blue-700 hover:bg-blue-800 text-white px-5 py-2 text-sm font-semibold transition shadow-sm hidden sm:block rounded-sm">Lapor / Login</a>
-                @endauth
+                <!-- KONDISI JIKA USER SUDAH LOGIN -->
+@auth
+    <div class="flex items-center gap-2">
+        <!-- Tombol Dashboard -->
+        <a href="/dashboard" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors">
+            Dashboard
+        </a>
+        
+        <!-- Tombol Logout -->
+        <form method="POST" action="{{ route('logout') }}" class="m-0 p-0">
+            @csrf
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors shadow-md">
+                Logout
+            </button>
+        </form>
+    </div>
+@else
+<!-- KONDISI JIKA USER BELUM LOGIN -->
+    <div class="flex items-center gap-2">
+        <a href="{{ route('login') }}" class="text-gray-600 hover:text-blue-600 font-bold text-sm transition-colors">
+            Masuk
+        </a>
+        <a href="{{ route('register') }}" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors shadow-md">
+            Daftar
+        </a>
+    </div>
+@endauth
             </div>
         </div>
     </div>
