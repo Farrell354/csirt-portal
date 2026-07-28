@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Artikel;
 use Illuminate\Support\Facades\Http;
 use App\KnowledgeBase;
+use Illuminate\Support\Facades\Hash;
 
 // ==========================================
 // RUTE PUBLIK (PENGUNJUNG WEB)
@@ -238,6 +239,40 @@ Route::post('/chatbot-reply', function (Request $request) {
     } catch (\Exception $e) {
         return response()->json(['reply' => 'Waduh, koneksi ke AI terputus.']);
     }
+});
+// Rute untuk Cetak Rekap Laporan CSIRT (Admin)
+Route::get('/admin/laporan/cetak', function () {
+    // Ambil semua laporan beserta data usernya
+    $laporans = App\Models\Laporan::with('user')->orderBy('created_at', 'desc')->get();
+    return view('admin-laporan-cetak', compact('laporans'));
+});
+// Rute Pengaturan Profil
+Route::get('/settings', function () {
+    return view('settings');
+});
+
+Route::put('/settings', function (Request $request) {
+    $user = auth()->user();
+
+    // Validasi inputan
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255|unique:users,email,'.$user->id,
+        'password' => 'nullable|min:8|confirmed', // Harus ada konfirmasi password jika diisi
+    ]);
+
+    // Update Nama dan Email
+    $user->name = $request->name;
+    $user->email = $request->email;
+
+    // Update Password HANYA jika form password diisi
+    if ($request->filled('password')) {
+        $user->password = Hash::make($request->password);
+    }
+
+    $user->save();
+
+    return back()->with('sukses', 'Profil berhasil diperbarui!');
 });
 require __DIR__.'/auth.php';
 
