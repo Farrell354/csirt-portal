@@ -53,4 +53,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Laporan::class);
     }
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        
+        // Cukup tambahkan tulisan 'encrypted' di sebelah nama kolom database-nya
+        'email' => 'encrypted',
+        'nama_asli' => 'encrypted',
+        'no_rekening' => 'encrypted', // Jika ada sistem reward
+    ];
 }

@@ -58,13 +58,7 @@
                 </div>
 
                 <!-- Info Nama & Username -->
-                <div class="md:ml-40 mt-4 md:mt-0 w-full">
-                    <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-3">
-                        <h1 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">{{ $hunter->name }}</h1>
-                        <span class="bg-indigo-50 text-indigo-500 font-medium text-sm px-3 py-1 rounded-lg border border-indigo-100 w-fit">
-                            {{ $hunter->email }}
-                        </span>
-                    </div>
+                
                     
                     <!-- Badges -->
                     <div class="flex flex-wrap items-center gap-2">

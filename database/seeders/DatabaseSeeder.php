@@ -15,11 +15,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // 1. Akun Admin (Untuk cek dan validasi laporan masuk)
+        User::create([
+            'name' => 'Administrator CSIRT',
+            'username' => 'admin_csirt',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('11223344'),
+            'role' => 'admin' // Sesuaikan jika nama role admin Bos berbeda
         ]);
-    }
+
+        // 2. Akun Hunter (Untuk Bos ngetes kirim laporan bug nyata)
+        User::create([
+            'name' => 'Farel',
+            'username' => 'farel_hunter',
+            'email' => 'farel@hunter.com',
+            'password' => bcrypt('11223344'),
+            'role' => 'hunter'
+        ]);
+}
 }

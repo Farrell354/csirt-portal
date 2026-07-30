@@ -45,7 +45,7 @@
                     JatimProv-CSIRT
                 </h1>
                 <p class="text-sm md:text-base text-gray-400 mb-10 leading-relaxed max-w-3xl mx-auto">
-                    Jawa Timur Province Computer Security Incident Response Team ( JatimProv-CSIRT ). Bertanggung jawab sebagai ketua adalah Kepala Dinas Komunikasi dan Informatika Provinsi Jawa Timur. Tim tanggap darurat yang beranggotakan staf teknis seksi persandian dan keamanan informasi.
+                    Jawa Timur Province Computer Security Incident Response Team ( JatimProv-CSIRT ). Bertanggung jawab sebagai ketua adalah Kepala Dinas Komunikasi dan Informatika Provinsi Jawa Timur. Tim tanggap darurat yang beranggotakan bidang persandian dan keamanan informasi.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <a href="/profil" class="px-8 py-3 border border-gray-500 text-gray-300 hover:bg-white hover:text-slate-900 hover:border-white transition-all duration-300 font-semibold text-sm tracking-wide rounded-sm">Pelajari Lebih Lanjut</a>
@@ -53,92 +53,8 @@
                 </div>
             </div>
         </header>
-        <!-- ========================================== -->
-<!-- SECTION LIVE THREAT MAP (PETA SERANGAN) -->
-<!-- ========================================== -->
-<section class="bg-[#0b1120] text-white py-16 border-y border-gray-800 relative overflow-hidden font-sans">
-    
-    <!-- Judul Section -->
-    <div class="text-center mb-10 relative z-10">
-        <h2 class="text-3xl font-bold">Peta Ancaman Siber <span class="text-blue-500">Real-Time</span></h2>
-        <p class="text-gray-400 text-sm mt-2">Monitoring serangan siber terhadap infrastruktur digital JatimProv-CSIRT</p>
-    </div>
 
-    <!-- Container Utama: Grid 3 Kolom -->
-    <div class="max-w-[1400px] mx-auto px-4 grid grid-cols-1 lg:grid-cols-4 gap-6 relative z-10">
-        
-        <!-- KOLOM KIRI: Total Serangan -->
-        <div class="lg:col-span-1 flex flex-col justify-start pt-10">
-            <div class="bg-gray-900/50 border border-gray-800 p-6 rounded-xl backdrop-blur-sm">
-                <div class="flex items-center gap-2 mb-2">
-                    <span class="relative flex h-3 w-3">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                    </span>
-                    <span class="text-xs text-gray-400 font-semibold tracking-wider">LIVE THREAT MAP</span>
-                </div>
-                <!-- Angka bisa dibuat berputar/animasi nanti pakai JS -->
-                <h3 class="text-5xl font-bold text-white tracking-tight" id="live-attack-count">104.001</h3>
-                <p class="text-xs text-gray-500 mt-2">serangan terdeteksi 24 jam terakhir</p>
-            </div>
-        </div>
-
-        <!-- KOLOM TENGAH: Tempat Bola Dunia (Globe) -->
-        <div class="lg:col-span-2 h-[500px] flex items-center justify-center relative">
-            <!-- Ini adalah wadah (canvas) tempat Globe 3D akan dirender oleh JavaScript -->
-            <div id="globe-container" class="w-full h-full flex items-center justify-center">
-                <!-- Teks placeholder sebelum JS Globe dipasang -->
-                <div class="text-gray-600 animate-pulse flex flex-col items-center">
-                    <svg class="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
-                    <p>Memuat Engine Globe.gl 3D...</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- KOLOM KANAN: Statistik Top Serangan -->
-        <div class="lg:col-span-1 flex flex-col gap-4">
-            
-            <!-- Widget 1: Serangan Terbanyak -->
-            <div class="bg-gray-900/50 border border-gray-800 p-4 rounded-xl backdrop-blur-sm">
-                <h4 class="text-xs text-gray-400 font-semibold mb-3 flex items-center gap-2">
-                    <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                    SERANGAN TERBANYAK
-                </h4>
-                <ul class="space-y-2 text-sm">
-                    <li class="flex justify-between items-center"><span class="text-gray-300"><span class="text-gray-600 mr-2">1</span> Reconnaissance</span> <span class="text-red-500 font-mono">37,939</span></li>
-                    <li class="flex justify-between items-center"><span class="text-gray-300"><span class="text-gray-600 mr-2">2</span> SQL Injection</span> <span class="text-orange-500 font-mono">20,357</span></li>
-                    <li class="flex justify-between items-center"><span class="text-gray-300"><span class="text-gray-600 mr-2">3</span> Cross-Site Scripting</span> <span class="text-yellow-500 font-mono">12,723</span></li>
-                </ul>
-            </div>
-
-            <!-- Widget 2: Negara Sumber -->
-            <div class="bg-gray-900/50 border border-gray-800 p-4 rounded-xl backdrop-blur-sm">
-                <h4 class="text-xs text-gray-400 font-semibold mb-3">NEGARA SUMBER</h4>
-                <ul class="space-y-2 text-sm">
-                    <li class="flex justify-between items-center"><span class="text-gray-300">🇮🇳 India</span> <span class="text-orange-500 font-mono">45,493</span></li>
-                    <li class="flex justify-between items-center"><span class="text-gray-300">🇸🇬 Singapore</span> <span class="text-blue-400 font-mono">31,987</span></li>
-                    <li class="flex justify-between items-center"><span class="text-gray-300">🇮🇩 Indonesia</span> <span class="text-blue-400 font-mono">7,676</span></li>
-                </ul>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Ticker Running Text di bawah -->
-    <div class="absolute bottom-0 w-full bg-gray-900/80 border-t border-gray-800 p-2 overflow-hidden flex whitespace-nowrap text-xs text-gray-500 font-mono z-20">
-        <div class="animate-marquee inline-block">
-            <span class="mx-4"><span class="text-red-500 mr-1">●</span> SQL Injection from 82.197.69.49 -> JatimProv [HIGH]</span>
-            <span class="mx-4"><span class="text-orange-500 mr-1">●</span> Reconnaissance from 165.22.221.124 -> JatimProv [MED]</span>
-            <span class="mx-4"><span class="text-red-500 mr-1">●</span> DDoS Attempt from 145.110.242.20 -> Server Kominfo [HIGH]</span>
-        </div>
-    </div>
-    
-    <!-- Animasi CSS untuk marquee -->
-    <style>
-        @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
-        .animate-marquee { animation: marquee 25s linear infinite; }
-    </style>
-</section>
+<x-live-map />
 <!-- ========================================== -->
 <!-- SCRIPT ENGINE BOLA DUNIA (GLOBE.GL) ULTIMATE -->
 <!-- ========================================== -->
