@@ -2,9 +2,9 @@
     
     <!-- CONTAINER PETA: Background Penuh Layar (Sangat Gelap) -->
     <div class="absolute inset-0 z-0 flex items-center justify-center overflow-hidden opacity-40">
-        <!-- Bayangan Peta Globe Komdigi (Ganti dengan Engine JS Aslinya Nanti) -->
+        <!-- Bayangan Peta Globe -->
         <div id="globe-container" class="w-[120%] h-[120%] rounded-full shadow-[inset_0_0_100px_rgba(0,0,0,1)] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-[#050b14] to-[#050b14] flex items-center justify-center relative mt-40">
-             <!-- Titik Pusat "JatimProv" (Meniru gaya titik Komdigi) -->
+             <!-- Titik Pusat "JatimProv" -->
              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center gap-2">
                  <span class="relative flex h-3 w-3">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
@@ -30,9 +30,11 @@
     <!-- AREA WIDGET (Melayang Kiri & Kanan) -->
     <div class="absolute inset-0 z-10 flex flex-col md:flex-row justify-between items-center px-4 md:px-12 pointer-events-none pt-32 pb-16">
         
-        <!-- WIDGET KIRI: Total Serangan -->
-        <div class="w-full md:w-auto pointer-events-auto mb-6 md:mb-0">
-            <div class="bg-[#0a1122]/60 border border-gray-800/60 p-6 rounded-2xl backdrop-blur-md w-72 shadow-lg">
+        <!-- WIDGET KIRI: Total Serangan & Kategori Kerentanan -->
+        <div class="w-full md:w-[320px] flex flex-col gap-4 pointer-events-auto mb-6 md:mb-0">
+            
+            <!-- Kotak 1: Live Threat Map -->
+            <div class="bg-[#0a1122]/60 border border-gray-800/60 p-6 rounded-2xl backdrop-blur-md shadow-lg">
                 <div class="flex items-center gap-2 mb-3">
                     <span class="relative flex h-2.5 w-2.5">
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
@@ -43,6 +45,68 @@
                 <h3 class="text-5xl font-bold text-white tracking-tight" id="live-attack-count">104.001</h3>
                 <p class="text-[10px] text-gray-500 mt-2 font-mono">serangan terdeteksi 24 jam terakhir</p>
             </div>
+
+            <!-- Kotak 2: Aduan Kerentanan (Dinamis dari Laporan Hunter) -->
+            <div class="bg-[#0a1122]/60 border border-gray-800/60 p-4 rounded-xl backdrop-blur-md shadow-lg">
+                <h4 class="text-[10px] text-gray-400 font-bold tracking-widest mb-3 flex items-center gap-2 uppercase">
+                    <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    Aduan Kerentanan Terbanyak
+                </h4>
+                <ul class="space-y-2.5 text-[11px] font-mono">
+                    
+                    <!-- Cek apakah data dari Controller dikirim dan tidak kosong -->
+                    @if(isset($topKerentanan) && $topKerentanan->count() > 0)
+                        @foreach($topKerentanan as $index => $rentan)
+                        <li class="flex justify-between items-center group">
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] font-black bg-blue-600/20 text-blue-500 border border-blue-600/30 w-4 h-4 flex items-center justify-center rounded-[3px]">{{ $index + 1 }}</span>
+                                <span class="text-sm text-gray-300 group-hover:text-white transition-colors truncate max-w-[180px]" title="{{ $rentan->nama_kerentanan }}">{{ $rentan->nama_kerentanan }}</span>
+                            </div>
+                            <span class="text-xs font-bold text-blue-400">{{ number_format($rentan->jumlah, 0, ',', '.') }}</span>
+                        </li>
+                        @endforeach
+                    @else
+                        <!-- Data Dummy Realistis (Muncul jika database belum ada isinya) -->
+                        <li class="flex justify-between items-center group">
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] font-black bg-blue-600/20 text-blue-500 border border-blue-600/30 w-4 h-4 flex items-center justify-center rounded-[3px]">1</span>
+                                <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Information Disclosure</span>
+                            </div>
+                            <span class="text-xs font-bold text-blue-400">142</span>
+                        </li>
+                        <li class="flex justify-between items-center group">
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] font-black bg-blue-600/20 text-blue-500 border border-blue-600/30 w-4 h-4 flex items-center justify-center rounded-[3px]">2</span>
+                                <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Cross-Site Scripting (XSS)</span>
+                            </div>
+                            <span class="text-xs font-bold text-blue-400">98</span>
+                        </li>
+                        <li class="flex justify-between items-center group">
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] font-black bg-blue-600/20 text-blue-500 border border-blue-600/30 w-4 h-4 flex items-center justify-center rounded-[3px]">3</span>
+                                <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Insecure Direct Object Ref.</span>
+                            </div>
+                            <span class="text-xs font-bold text-blue-400">75</span>
+                        </li>
+                        <li class="flex justify-between items-center group">
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] font-black bg-blue-600/20 text-blue-500 border border-blue-600/30 w-4 h-4 flex items-center justify-center rounded-[3px]">4</span>
+                                <span class="text-sm text-gray-300 group-hover:text-white transition-colors">SQL Injection (SQLi)</span>
+                            </div>
+                            <span class="text-xs font-bold text-blue-400">42</span>
+                        </li>
+                        <li class="flex justify-between items-center group">
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] font-black bg-blue-600/20 text-blue-500 border border-blue-600/30 w-4 h-4 flex items-center justify-center rounded-[3px]">5</span>
+                                <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Business Logic Error</span>
+                            </div>
+                            <span class="text-xs font-bold text-blue-400">21</span>
+                        </li>
+                    @endif
+
+                </ul>
+            </div>
+
         </div>
 
         <!-- WIDGET KANAN: 3 Panel Tumpuk -->
@@ -99,17 +163,14 @@
         </div>
     </div>
 
-    <!-- TOMBOL SCROLL TO TOP (Opsional, meniru biru di kanan bawah gambar) -->
+    <!-- TOMBOL SCROLL TO TOP (Opsional) -->
     <button class="absolute bottom-8 right-8 z-20 bg-[#00a8ff] hover:bg-blue-600 text-white w-10 h-10 rounded-full flex justify-center items-center shadow-lg transition-transform hover:scale-105 pointer-events-auto">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"></path></svg>
     </button>
 
-    <!-- Ticker Running Text di Bawah (Z-Index dinaikkan agar tidak tertutup peta) -->
+    <!-- Ticker Running Text di Bawah -->
     <div class="absolute bottom-0 left-0 w-full bg-[#050b14]/95 border-t border-gray-800/60 p-2.5 overflow-hidden flex whitespace-nowrap text-[11px] text-gray-400 font-mono z-30 backdrop-blur-md shadow-[0_-5px_20px_rgba(0,0,0,0.5)]">
-        
-        <!-- Kontainer Marquee (Duplikat Data agar loop tidak putus) -->
         <div class="animate-marquee inline-block whitespace-nowrap">
-            
             <!-- SET DATA 1 -->
             <span class="mx-6"><span class="text-red-500 mr-2 animate-pulse">●</span> SQL Injection dari 82.197.69.49 &rarr; JatimProv <span class="bg-red-500/20 text-red-500 border border-red-500/30 px-1.5 py-0.5 rounded ml-1 font-bold">CRITICAL</span></span>
             <span class="mx-6"><span class="text-orange-500 mr-2 animate-pulse">●</span> Reconnaissance dari 165.22.221.124 &rarr; Diskominfo <span class="bg-orange-500/20 text-orange-500 border border-orange-500/30 px-1.5 py-0.5 rounded ml-1 font-bold">HIGH</span></span>
@@ -117,33 +178,25 @@
             <span class="mx-6"><span class="text-yellow-500 mr-2 animate-pulse">●</span> Brute Force SSH dari 103.111.42.11 &rarr; Database Server <span class="bg-yellow-500/20 text-yellow-500 border border-yellow-500/30 px-1.5 py-0.5 rounded ml-1 font-bold">MEDIUM</span></span>
             <span class="mx-6"><span class="text-blue-500 mr-2 animate-pulse">●</span> Malware Payload dari 45.33.32.156 &rarr; JatimProv <span class="bg-blue-500/20 text-blue-500 border border-blue-500/30 px-1.5 py-0.5 rounded ml-1 font-bold">LOW</span></span>
 
-            <!-- SET DATA 2 (Sengaja diduplikat agar teksnya langsung menyambung dari belakang layar) -->
+            <!-- SET DATA 2 -->
             <span class="mx-6"><span class="text-red-500 mr-2 animate-pulse">●</span> SQL Injection dari 82.197.69.49 &rarr; JatimProv <span class="bg-red-500/20 text-red-500 border border-red-500/30 px-1.5 py-0.5 rounded ml-1 font-bold">CRITICAL</span></span>
             <span class="mx-6"><span class="text-orange-500 mr-2 animate-pulse">●</span> Reconnaissance dari 165.22.221.124 &rarr; Diskominfo <span class="bg-orange-500/20 text-orange-500 border border-orange-500/30 px-1.5 py-0.5 rounded ml-1 font-bold">HIGH</span></span>
             <span class="mx-6"><span class="text-red-500 mr-2 animate-pulse">●</span> DDoS Attempt dari 145.110.242.20 &rarr; Server Utama <span class="bg-red-500/20 text-red-500 border border-red-500/30 px-1.5 py-0.5 rounded ml-1 font-bold">CRITICAL</span></span>
             <span class="mx-6"><span class="text-yellow-500 mr-2 animate-pulse">●</span> Brute Force SSH dari 103.111.42.11 &rarr; Database Server <span class="bg-yellow-500/20 text-yellow-500 border border-yellow-500/30 px-1.5 py-0.5 rounded ml-1 font-bold">MEDIUM</span></span>
             <span class="mx-6"><span class="text-blue-500 mr-2 animate-pulse">●</span> Malware Payload dari 45.33.32.156 &rarr; JatimProv <span class="bg-blue-500/20 text-blue-500 border border-blue-500/30 px-1.5 py-0.5 rounded ml-1 font-bold">LOW</span></span>
-            
         </div>
     </div>
     
-    <!-- Animasi CSS untuk marquee (Wajib di dalam file ini kalau dipisah ke component) -->
     <style>
         @keyframes marquee { 
             0% { transform: translateX(0%); } 
             100% { transform: translateX(-50%); } 
         }
-        .animate-marquee { 
-            animation: marquee 35s linear infinite; 
-            /* Kalau terasa kecepatan/kelambatan, ubah angka 35s di atas */
-        }
+        .animate-marquee { animation: marquee 35s linear infinite; }
     </style>
-    <!-- ========================================== -->
-    <!-- ENGINE 3D GLOBE.GL (MENGUBAH PETA JADI HIDUP) -->
-    <!-- ========================================== -->
-    <<!-- Load Library Globe.gl dari CDN -->
+
+    <!-- LOAD GLOBE.GL -->
     <script src="https://unpkg.com/globe.gl"></script>
-    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('globe-container');
@@ -175,11 +228,6 @@
             myGlobe.controls().autoRotateSpeed = 0.8;
             myGlobe.controls().enableZoom = false;
 
-            // ==========================================
-            // ENGINE SIMULASI SERANGAN REAL-TIME (SYNC)
-            // ==========================================
-            
-            // Data Negara (Lengkap dengan bendera)
             const sourceCountries = [
                 { name: 'India', flag: '🇮🇳', lat: 20.5936, lng: 78.9628, color: '#ef4444' },
                 { name: 'China', flag: '🇨🇳', lat: 35.8616, lng: 104.1953, color: '#ef4444' },
@@ -189,7 +237,6 @@
                 { name: 'North Korea', flag: '🇰🇵', lat: 40.3399, lng: 127.5101, color: '#ef4444' }
             ];
 
-            // Data Jenis Serangan
             const attackTypes = [
                 { name: 'SQL Injection', level: 'CRITICAL', textClass: 'text-red-500', bgClass: 'bg-red-500', badgeClass: 'bg-red-500/20 border-red-500/30 text-red-500' },
                 { name: 'DDoS Attempt', level: 'HIGH', textClass: 'text-orange-500', bgClass: 'bg-orange-500', badgeClass: 'bg-orange-500/20 border-orange-500/30 text-orange-500' },
@@ -200,15 +247,11 @@
 
             let activeAttacks = [];
 
-            // Eksekusi setiap 2,5 detik
             setInterval(() => {
-                // 1. Acak Data Serangan
                 const randomCountry = sourceCountries[Math.floor(Math.random() * sourceCountries.length)];
                 const randomAttack = attackTypes[Math.floor(Math.random() * attackTypes.length)];
-                // Bikin IP Address Acak (Contoh: 192.168.x.x)
                 const randomIP = `${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
 
-                // 2. Tembakkan Laser di Globe
                 const newAttack = {
                     startLat: randomCountry.lat + (Math.random() - 0.5) * 5,
                     startLng: randomCountry.lng + (Math.random() - 0.5) * 5,
@@ -227,10 +270,6 @@
                        .arcEndLng(d => d.endLng)
                        .arcColor(d => d.color);
 
-                // ==========================================
-                // 3. UPDATE NOTIFIKASI PIL (TENGAH BAWAH)
-                // ==========================================
-                // Cari elemen notifikasi pil berdasarkan posisinya
                 const pillTicker = document.querySelector('.absolute.bottom-8.left-1\\/2 > div');
                 if (pillTicker) {
                     pillTicker.innerHTML = `
@@ -243,28 +282,19 @@
                     `;
                 }
 
-                // ==========================================
-                // 4. UPDATE SLIDE GESER (MARQUEE)
-                // ==========================================
                 const marqueeContainer = document.querySelector('.animate-marquee');
                 if (marqueeContainer) {
-                    // Buat elemen span baru untuk dimasukkan ke slide geser
                     const newLog = document.createElement('span');
                     newLog.className = "mx-6";
                     newLog.innerHTML = `<span class="${randomAttack.textClass} mr-2 animate-pulse">●</span> ${randomAttack.name} dari ${randomIP} &rarr; JatimProv <span class="${randomAttack.badgeClass} border px-1.5 py-0.5 rounded ml-1 font-bold">${randomAttack.level}</span>`;
                     
-                    // Sisipkan di paling depan
                     marqueeContainer.prepend(newLog);
 
-                    // Hapus data lama agar memori browser tidak jebol (maksimal 20 teks geser)
                     if (marqueeContainer.children.length > 20) {
                         marqueeContainer.removeChild(marqueeContainer.lastChild);
                     }
                 }
 
-                // ==========================================
-                // 5. UPDATE ANGKA STATISTIK (KIRI)
-                // ==========================================
                 const countElement = document.getElementById('live-attack-count');
                 if (countElement) {
                     let currentCount = parseInt(countElement.innerText.replace(/\./g, ''));
@@ -272,12 +302,11 @@
                     countElement.innerText = currentCount.toLocaleString('id-ID');
                 }
 
-            }, 2500); // Tembak laser setiap 2.5 detik
+            }, 2500);
 
             window.addEventListener('resize', () => {
                 myGlobe.width(container.clientWidth).height(container.clientHeight);
             });
         });
     </script>
-
 </section>

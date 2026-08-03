@@ -21,6 +21,20 @@
             }
         }
     </script>
+    
+    <!-- ========================================== -->
+    <!-- ANIMASI BACKGROUND HERO SECTION -->
+    <!-- ========================================== -->
+    <style>
+        @keyframes panImage {
+            0% { transform: scale(1) translate(0px, 0px); }
+            50% { transform: scale(1.1) translate(-15px, 10px); }
+            100% { transform: scale(1) translate(0px, 0px); }
+        }
+        .animate-pan-bg {
+            animation: panImage 25s infinite alternate ease-in-out;
+        }
+    </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-slate-900 dark:text-gray-200 font-sans flex flex-col min-h-screen">
 
@@ -32,8 +46,10 @@
         
         <!-- HERO SECTION (Desain Command Center) -->
         <header class="relative w-full min-h-[calc(100vh-64px)] flex items-center justify-center bg-slate-900 overflow-hidden">
+            <!-- BACKGROUND IMAGE DENGAN ANIMASI -->
             <div class="absolute inset-0 z-0">
-                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop" alt="Cyber Background" class="w-full h-full object-cover opacity-20 grayscale">
+                <!-- Class animate-pan-bg ditambahkan di sini -->
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop" alt="Cyber Background" class="w-full h-full object-cover opacity-20 grayscale animate-pan-bg">
                 <div class="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-900/80 to-slate-950/95"></div>
             </div>
 

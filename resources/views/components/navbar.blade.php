@@ -44,6 +44,10 @@
                                 <a href="/panduan" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 hover:text-blue-700 dark:hover:text-blue-400 transition-colors {{ request()->is('panduan') ? 'font-bold text-blue-700 dark:text-blue-500' : '' }}">
                                     Panduan Penanganan
                                 </a>
+                                <!-- Link IoC (BARU) -->
+                                <a href="/ioc" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 hover:text-blue-700 dark:hover:text-blue-400 transition-colors {{ request()->is('ioc') ? 'font-bold text-blue-700 dark:text-blue-500' : '' }}">
+                                    Indicator of Compromise
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ use App\Models\Artikel;
 use Illuminate\Support\Facades\Http;
 use App\KnowledgeBase;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\BerandaController;
 
 // ==========================================
 // RUTE PUBLIK (PENGUNJUNG WEB)
@@ -274,6 +275,20 @@ Route::put('/settings', function (Request $request) {
 
     return back()->with('sukses', 'Profil berhasil diperbarui!');
 });
+
+Route::get('/panduan/lihat', function () {
+    return view('panduan-viewer');
+});
+// Halaman Daftar IoC
+Route::get('/ioc', function () {
+    return view('ioc');
+});
+
+// Halaman Viewer IoC (Bisa numpang pakai file panduan-viewer yang sudah ada)
+Route::get('/ioc/lihat', function () {
+    return view('panduan-viewer');
+});
+Route::get('/', [BerandaController::class, 'index']);
 require __DIR__.'/auth.php';
 
 // Rute untuk melihat Profil Publik Hunter dari Leaderboard
