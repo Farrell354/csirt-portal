@@ -22,37 +22,38 @@
         }
     </script>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 font-sans flex flex-col min-h-screen">
+<body class="bg-gray-50 dark:bg-slate-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 font-sans flex flex-col min-h-screen">
 
     <!-- NAVBAR -->
     <x-navbar />
 
     <!-- KONTEN UTAMA -->
-    <div class="flex-grow bg-slate-100 flex flex-col items-center">
+    <div class="flex-grow bg-slate-100 dark:bg-slate-900 transition-colors duration-300 flex flex-col items-center">
         
         <!-- HEADER HALAMAN KECIL -->
-        <div class="w-full bg-white border-b border-gray-200 py-8">
+        <div class="w-full bg-white dark:bg-slate-800/50 border-b border-gray-200 dark:border-slate-700 py-8 transition-colors duration-300">
             <div class="max-w-7xl mx-auto px-4 text-center">
-                <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Dokumen RFC 2350 JatimProv-CSIRT</h1>
-                <p class="text-sm text-gray-500 mt-2">Versi 2.0 | Diterbitkan pada 21 Mei 2026</p>
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Dokumen RFC 2350 JatimProv-CSIRT</h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Versi 2.0 | Diterbitkan pada 21 Mei 2026</p>
             </div>
         </div>
 
         <!-- AREA PENAMPIL PDF -->
         <div class="w-full max-w-5xl mx-auto px-4 py-10 flex-grow flex flex-col">
-            <div class="w-full flex-grow min-h-[800px] border border-gray-300 rounded-sm shadow-xl bg-white overflow-hidden">
+            <!-- PENGATURAN TINGGI (HEIGHT) BARU: Menggunakan Viewport Height (vh) agar PDF terbuka lebar -->
+            <div class="w-full h-[75vh] md:h-[85vh] border border-gray-300 dark:border-slate-700 rounded-sm shadow-xl bg-white dark:bg-slate-800 overflow-hidden transition-colors duration-300">
                 <!-- Memanggil file PDF menggunakan iframe standar -->
                 <iframe 
                     src="{{ asset('dokumen/rfc2350.pdf') }}" 
-                    width="100%" 
-                    height="100%" 
+                    class="w-full h-full"
                     style="border: none;"
                     title="Penampil Dokumen RFC2350">
                     Browser Anda tidak mendukung penampil PDF. Silakan klik tombol unduh di bawah.
                 </iframe>
             </div>
+            
             <div class="text-center mt-6">
-                <a href="{{ asset('dokumen/rfc2350.pdf') }}" download class="inline-flex items-center text-sm font-bold text-kominfo hover:text-kominfo_dark uppercase tracking-widest transition-colors">
+                <a href="{{ asset('dokumen/rfc2350.pdf') }}" download class="inline-flex items-center text-sm font-bold text-kominfo dark:text-blue-400 hover:text-kominfo_dark dark:hover:text-blue-300 uppercase tracking-widest transition-colors">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                     Unduh Dokumen Secara Langsung
                 </a>
@@ -64,6 +65,6 @@
 
     <!-- WIDGET CHATBOT CSIRT -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <x-chatbot />
 </body>
-<x-chatbot />
 </html>

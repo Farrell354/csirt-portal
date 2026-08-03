@@ -48,8 +48,31 @@
                 @method('PUT')
 
                 <!-- Informasi Dasar -->
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4 border-b border-gray-100 dark:border-slate-700 pb-2">Informasi Dasar</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-slate-700 pb-2">Informasi Dasar</h3>
                 
+                <!-- BLOK FOTO PROFIL (BARU) -->
+                <div class="flex items-center gap-6 mb-8">
+                    <!-- Foto Profil Default (Otomatis dari Inisial Nama) -->
+                    <div class="relative w-24 h-24 rounded-full overflow-hidden border-4 border-blue-100 dark:border-blue-900/50 shadow-md shrink-0 bg-gray-100 dark:bg-slate-800">
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=2563eb&color=fff&size=256&bold=true" 
+                             alt="Foto Profil" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    
+                    <!-- Info Singkat & Tombol Ganti Foto -->
+                    <div>
+                        <h4 class="text-xl font-black text-gray-900 dark:text-white">{{ auth()->user()->name }}</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-3 capitalize font-medium">
+                            {{ auth()->user()->role === 'admin' ? 'Administrator CSIRT' : 'Bug Hunter' }}
+                        </p>
+                        <!-- Tombol Dummy (Belum fungsional untuk upload) -->
+                        <button type="button" class="px-4 py-2 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-200 text-xs font-bold rounded-lg transition-colors shadow-sm border border-gray-200 dark:border-slate-600">
+                            Ganti Foto Profil
+                        </button>
+                    </div>
+                </div>
+                <!-- AKHIR BLOK FOTO PROFIL -->
+
                 <div class="mb-5">
                     <label for="name" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Nama Lengkap / Username</label>
                     <input type="text" name="name" id="name" value="{{ auth()->user()->name }}" required 

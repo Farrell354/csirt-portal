@@ -32,11 +32,11 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
-                <!-- Input Email -->
+                <!-- Input Username -->
                 <div class="mb-5">
-                    <label for="email" class="block text-sm font-bold text-gray-700 mb-2">Alamat Email</label>
-                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 outline-none transition-all text-sm bg-gray-50" placeholder="admin@jatimprov.go.id">
-                    <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-500 text-xs font-semibold" />
+                    <label for="username" class="block text-sm font-bold text-gray-700 mb-2">Username</label>
+                    <input id="username" type="text" name="username" value="{{ old('username') }}" required autofocus autocomplete="username" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600 outline-none transition-all text-sm bg-gray-50" placeholder="contoh: admin_csirt">
+                    <x-input-error :messages="$errors->get('username')" class="mt-2 text-red-500 text-xs font-semibold" />
                 </div>
 
                 <!-- Input Password -->
