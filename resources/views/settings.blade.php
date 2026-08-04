@@ -22,10 +22,10 @@
         </div>
 
         <!-- Notifikasi Sukses -->
-        @if(session('sukses'))
+        @if(session('sukses') || session('status') == 'profile-updated')
             <div class="mb-6 bg-emerald-100 dark:bg-emerald-900/30 border border-emerald-400 dark:border-emerald-700 text-emerald-700 dark:text-emerald-400 px-4 py-3 rounded-xl flex items-center gap-3">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <span class="font-bold">{{ session('sukses') }}</span>
+                <span class="font-bold">Profil berhasil diperbarui!</span>
             </div>
         @endif
 
@@ -47,10 +47,10 @@
                 @csrf
                 @method('PUT')
 
-                <!-- Informasi Dasar -->
+                <!-- ================= INFORMASI DASAR ================= -->
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-slate-700 pb-2">Informasi Dasar</h3>
                 
-                <!-- BLOK FOTO PROFIL (BARU) -->
+                <!-- BLOK FOTO PROFIL -->
                 <div class="flex items-center gap-6 mb-8">
                     <!-- Foto Profil Default (Otomatis dari Inisial Nama) -->
                     <div class="relative w-24 h-24 rounded-full overflow-hidden border-4 border-blue-100 dark:border-blue-900/50 shadow-md shrink-0 bg-gray-100 dark:bg-slate-800">
@@ -71,21 +71,30 @@
                         </button>
                     </div>
                 </div>
-                <!-- AKHIR BLOK FOTO PROFIL -->
 
+                <!-- Input Nama -->
                 <div class="mb-5">
                     <label for="name" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Nama Lengkap / Username</label>
-                    <input type="text" name="name" id="name" value="{{ auth()->user()->name }}" required 
+                    <input type="text" name="name" id="name" value="{{ old('name', auth()->user()->name) }}" required 
                         class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white transition-all">
                 </div>
 
-                <div class="mb-8">
+                <!-- Input Email -->
+                <div class="mb-5">
                     <label for="email" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Alamat Email</label>
-                    <input type="email" name="email" id="email" value="{{ auth()->user()->email }}" required 
+                    <input type="email" name="email" id="email" value="{{ old('email', auth()->user()->email) }}" required 
                         class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white transition-all">
                 </div>
 
-                <!-- Ubah Password -->
+                <!-- Input LinkedIn (SUDAH DIPINDAHKAN & DIRAPIKAN) -->
+                <div class="mb-8">
+                    <label for="linkedin_url" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">URL LinkedIn (Opsional)</label>
+                    <!-- Type diubah jadi text agar browser tidak rewel -->
+                    <input type="text" name="linkedin_url" id="linkedin_url" value="{{ old('linkedin_url', auth()->user()->linkedin_url ?? '') }}" placeholder="Misal: linkedin.com/in/username" 
+                        class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white transition-all">
+                </div>
+
+                <!-- ================= KEAMANAN & PASSWORD ================= -->
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4 border-b border-gray-100 dark:border-slate-700 pb-2">Keamanan & Password</h3>
                 <p class="text-xs text-amber-600 dark:text-amber-400 mb-4 font-bold">*Kosongkan jika tidak ingin mengubah password.</p>
 
@@ -103,8 +112,8 @@
                 </div>
 
                 <!-- Tombol Simpan -->
-                <div class="flex justify-end pt-4">
-                    <button type="submit" class="bg-gray-900 dark:bg-blue-600 hover:bg-gray-800 dark:hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-md flex items-center gap-2">
+                <div class="flex justify-end pt-4 border-t border-gray-100 dark:border-slate-700 mt-4">
+                    <button type="submit" class="mt-4 bg-gray-900 dark:bg-blue-600 hover:bg-gray-800 dark:hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-md flex items-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         Simpan Perubahan
                     </button>
