@@ -9,8 +9,10 @@
                 <h4 class="text-white font-black tracking-widest mb-6 uppercase text-xs">Kategori</h4>
                 <ul class="space-y-3 text-sm">
                     <li><a href="/artikel?kategori=Peringatan Keamanan" class="hover:text-blue-400 transition-colors flex items-center gap-2"><span class="text-blue-500 text-lg leading-none">•</span> Peringatan Keamanan</a></li>
-                    <li><a href="/artikel?kategori=Berita Siber" class="hover:text-blue-400 transition-colors flex items-center gap-2"><span class="text-blue-500 text-lg leading-none">•</span> Berita Keamanan Siber</a></li>
-                    <li><a href="/artikel?kategori=Panduan Mitigasi" class="hover:text-blue-400 transition-colors flex items-center gap-2"><span class="text-blue-500 text-lg leading-none">•</span> Panduan Mitigasi</a></li>
+                    <li><a href="/artikel?kategori=Berita Keamanan Siber" class="hover:text-blue-400 transition-colors flex items-center gap-2"><span class="text-blue-500 text-lg leading-none">•</span> Berita Keamanan Siber</a></li>
+                    <li><a href="/artikel?kategori=Personal" class="hover:text-blue-400 transition-colors flex items-center gap-2"><span class="text-blue-500 text-lg leading-none">•</span> Personal</a></li>
+                    <li><a href="/artikel?kategori=Web Programming" class="hover:text-blue-400 transition-colors flex items-center gap-2"><span class="text-blue-500 text-lg leading-none">•</span> Web Programming</a></li>
+                    <li><a href="/artikel?kategori=Web Design" class="hover:text-blue-400 transition-colors flex items-center gap-2"><span class="text-blue-500 text-lg leading-none">•</span> Web Design</a></li>
                 </ul>
             </div>
 

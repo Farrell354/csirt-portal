@@ -42,15 +42,16 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <!-- Kategori -->
+                    <!-- Kategori (SUDAH DISESUAIKAN DENGAN DAFTAR BARU) -->
                     <div>
                         <label for="kategori" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Kategori <span class="text-red-500">*</span></label>
                         <select name="kategori" id="kategori" required class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white cursor-pointer transition-all">
                             <option value="" disabled selected>-- Pilih Kategori --</option>
                             <option value="Peringatan Keamanan">Peringatan Keamanan</option>
-                            <option value="Berita Siber">Berita Siber</option>
-                            <option value="Panduan Mitigasi">Panduan Mitigasi</option>
-                            <option value="Rilis Resmi">Rilis Resmi</option>
+                            <option value="Berita Keamanan Siber">Berita Keamanan Siber</option>
+                            <option value="Personal">Personal</option>
+                            <option value="Web Programming">Web Programming</option>
+                            <option value="Web Design">Web Design</option>
                         </select>
                     </div>
 
