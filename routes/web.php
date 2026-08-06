@@ -9,6 +9,8 @@ use App\KnowledgeBase;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\ThreatMapController;
+
 
 // ==========================================
 // RUTE PUBLIK (PENGUNJUNG WEB)
@@ -291,7 +293,7 @@ Route::get('/ioc/lihat', function () {
 });
 Route::get('/', [BerandaController::class, 'index']);
 Route::get('/artikel', [ArtikelController::class, 'index']);
-
+Route::get('/api/threat-data', [ThreatMapController::class, 'getThreatData']);
 require __DIR__.'/auth.php';
 
 // Rute untuk melihat Profil Publik Hunter dari Leaderboard
