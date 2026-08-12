@@ -3,40 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Berita Baru - JatimProv CSIRT</title>
+    <title>Tambah Publikasi Baru - JatimProv CSIRT</title>
     <link rel="icon" type="image/png" href="{{ asset('img/logo-csirt.png') }}">
     
-    <!-- Memanggil Tailwind -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Premium: Space Grotesk (Display) & JetBrains Mono (Tech) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        kominfo: '#0056B3',
-                        kominfo_dark: '#0A3A64',
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'grid-flow': 'gridFlow 20s linear infinite',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        gridFlow: {
-                            '0%': { backgroundPosition: '0 0' },
-                            '100%': { backgroundPosition: '50px 50px' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Memanggil Tailwind & Custom CSS via Vite -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- SCRIPT PENDETEKSI TEMA AWAL -->
     <script>
@@ -46,53 +22,31 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
-
-    <style>
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        
-        .bg-cyber-grid {
-            background-image: 
-                linear-gradient(to right, rgba(0, 168, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0, 168, 255, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-        .dark .bg-cyber-grid {
-            background-image: 
-                linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
-        }
-        
-        /* Custom Scrollbar untuk Textarea */
-        textarea::-webkit-scrollbar { width: 6px; }
-        textarea::-webkit-scrollbar-track { background: transparent; }
-        textarea::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 10px; }
-    </style>
 </head>
-<body class="bg-gray-50 dark:bg-slate-950 text-gray-800 dark:text-gray-200 font-sans flex flex-col min-h-screen transition-colors duration-300 relative overflow-x-hidden">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-500 dark:bg-[#020617] dark:text-gray-200 font-sans flex flex-col min-h-screen relative overflow-x-hidden selection:bg-cyan-500 selection:text-white">
 
-    <!-- Efek Jaring Animasi di Background -->
-    <div class="fixed inset-0 pointer-events-none bg-cyber-grid animate-grid-flow z-0"></div>
+    <!-- Efek Jaring Animasi di Background (Mewarisi style dari app.css) -->
+    <div class="fixed inset-0 pointer-events-none bg-mesh-grid opacity-30 dark:opacity-100 z-0"></div>
     
     <!-- Ambient Glow Background -->
-    <div class="fixed top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/10 dark:bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+    <div class="fixed top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/5 dark:bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
 
     <div class="relative z-50">
         <x-navbar />
     </div>
 
-    <div class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative z-10">
+    <div class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative z-10 pt-16">
         
         <!-- Tombol Kembali -->
         <div class="opacity-0 animate-fade-in-up">
             <a href="/dashboard" class="inline-flex items-center text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-cyan-400 mb-6 transition-transform hover:-translate-x-2 duration-300 uppercase tracking-widest bg-white/50 dark:bg-slate-900/50 px-4 py-2 rounded-full border border-gray-200 dark:border-slate-800 backdrop-blur-sm shadow-sm">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali ke Manajemen
             </a>
         </div>
 
         <!-- Form Wrapper (Glassmorphism) -->
-        <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl shadow-xl dark:shadow-[0_0_40px_rgba(0,0,0,0.4)] border border-gray-200/50 dark:border-slate-700/50 overflow-hidden opacity-0 animate-fade-in-up delay-100 relative">
+        <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl shadow-xl dark:shadow-[0_0_40px_rgba(0,0,0,0.4)] border border-gray-200/50 dark:border-slate-700/50 overflow-hidden opacity-0 animate-fade-in-up" style="animation-delay: 0.1s;">
             
             <!-- Dekorasi Garis Atas Nyala -->
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-cyan-400 to-blue-600"></div>
@@ -102,15 +56,15 @@
                 <!-- Aksen Glow Sudut Kanan Atas -->
                 <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
-                <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 font-mono text-[10px] font-bold tracking-widest mb-4 uppercase rounded-full shadow-sm">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800/50 text-blue-600 dark:text-cyan-400 font-mono text-[10px] font-bold tracking-widest mb-4 uppercase rounded-full shadow-sm">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500 shadow-[0_0_8px_#22d3ee]"></span>
                     </span>
                     DATA_ENTRY_MODE
                 </div>
 
-                <h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight mb-2">Tulis Publikasi <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-cyan-400 dark:to-blue-500">Baru</span></h1>
+                <h1 class="font-display text-3xl font-black text-slate-900 dark:text-white tracking-tight mb-2">Tulis Publikasi <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-cyan-400 dark:to-blue-500">Baru</span></h1>
                 <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Sistem publikasi informasi, peringatan ancaman, dan literasi keamanan siber.</p>
             </div>
 

@@ -32,7 +32,7 @@
     <!-- BACKGROUND GLOBE 3D -->
     <!-- ===================================================================== -->
     <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <!-- Wadah Globe. Sengaja dibuat agak turun (mt-12) agar pas di tengah -->
+        <!-- Wadah Globe -->
         <div id="globe-container" class="w-full h-full lg:w-[110%] lg:h-[110%] flex items-center justify-center relative mt-12 pointer-events-auto">
             <!-- Marker Placeholder (Ditiban JS nanti) -->
             <div id="jatim-marker" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none hidden">
@@ -149,13 +149,16 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- WIDGET NOTIFIKASI BAWAH -->
+    <!-- WIDGET NOTIFIKASI BAWAH (DIPERBAIKI POSISI TENGAHNYA) -->
     <!-- ===================================================================== -->
-    <div class="absolute bottom-14 left-1/2 transform -translate-x-1/2 z-40 pointer-events-auto opacity-0 animate-[fadeInUp_0.8s_ease-out_0.6s_forwards]">
-        <div id="latest-alert-pill" class="bg-[#0a1122]/95 border border-slate-700/80 backdrop-blur-md px-6 py-2.5 rounded-full flex items-center gap-3 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-            <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-orange-500"></span></span>
-            <span class="text-[10px] md:text-[11px] font-mono text-gray-300"><span class="text-orange-400 font-bold">Memulai Sistem...</span> &nbsp;|&nbsp; 🌐 Menghubungkan &nbsp;&rarr;&nbsp; <span class="text-cyan-400 font-bold">JatimProv</span></span>
-            <span class="bg-blue-500/20 text-blue-500 border border-blue-500/30 text-[9px] px-2 py-0.5 rounded font-bold ml-2 uppercase tracking-widest">INFO</span>
+    <div class="absolute bottom-14 left-1/2 transform -translate-x-1/2 z-40 pointer-events-auto flex justify-center w-full">
+        <!-- Wrapper animasi dipisah dari wrapper posisi CSS agar tidak bentrok -->
+        <div class="opacity-0 animate-[fadeInUp_0.8s_ease-out_0.6s_forwards]">
+            <div id="latest-alert-pill" class="bg-[#0a1122]/95 border border-slate-700/80 backdrop-blur-md px-6 py-2.5 rounded-full flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(0,0,0,0.5)] whitespace-nowrap">
+                <span class="relative flex h-2.5 w-2.5 shrink-0"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-orange-500"></span></span>
+                <span class="text-[10px] md:text-[11px] font-mono text-gray-300 truncate max-w-xs md:max-w-none"><span class="text-orange-400 font-bold">Memulai Sistem...</span> &nbsp;|&nbsp; 🌐 Menghubungkan &nbsp;&rarr;&nbsp; <span class="text-cyan-400 font-bold">JatimProv</span></span>
+                <span class="bg-blue-500/20 text-blue-500 border border-blue-500/30 text-[9px] px-2 py-0.5 rounded font-bold ml-2 uppercase tracking-widest shrink-0">INFO</span>
+            </div>
         </div>
     </div>
 
@@ -188,20 +191,18 @@
 
             const targetJatim = { lat: -7.2504, lng: 112.7688 };
 
-            // 1. INIT GLOBE: BUMI GELAP + BINTANG-BINTANG (Persis seperti gambar referensi Bos)
             const myGlobe = Globe({ animateIn: true })
                 (container)
                 .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-dark.jpg')
                 .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
-                .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png') // Bintang-bintang kembali!
-                .backgroundColor('rgba(5, 11, 20, 1)') // Menyesuaikan warna background web
+                .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
+                .backgroundColor('rgba(5, 11, 20, 1)')
                 .showAtmosphere(true)
                 .atmosphereColor('#0ea5e9')
                 .atmosphereAltitude(0.15)
                 .width(container.clientWidth)
                 .height(container.clientHeight);
 
-            // 2. MARKER TARGET JATIM
             const markerEl = document.createElement('div');
             markerEl.style.pointerEvents = 'none';
             markerEl.innerHTML = `
@@ -218,16 +219,14 @@
                 .htmlElement(() => markerEl)
                 .htmlAltitude(0.02);
 
-            // Set point of view kamera
             myGlobe.pointOfView({ lat: -5, lng: 113, altitude: 2.2 }, 0);
             setTimeout(() => { myGlobe.pointOfView({ lat: -5, lng: 113, altitude: 1.8 }, 3000); }, 200);
 
-            // 3. KONTROL KAMERA & LIGHT SABER (Laser tebal menyala)
             myGlobe
                 .arcDashLength(0.4)
                 .arcDashGap(0.15)
                 .arcDashAnimateTime(1500)
-                .arcStroke(1.2) // Laser Tebal
+                .arcStroke(1.2)
                 .ringColor(d => d.color)
                 .ringMaxRadius(4)
                 .ringPropagationSpeed(2)
@@ -237,7 +236,6 @@
             myGlobe.controls().autoRotateSpeed = 0.5;
             myGlobe.controls().enableZoom = false; 
 
-            // 4. ATTACK FEED API & SIMULATION
             let activeAttacks = [];
             let activeRings = [];
 
@@ -276,7 +274,6 @@
                 activeAttacks.push(newAttack);
                 if (activeAttacks.length > 15) activeAttacks.shift();
 
-                // Tembakkan Laser
                 myGlobe.arcsData(activeAttacks)
                     .arcStartLat(d => d.startLat)
                     .arcStartLng(d => d.startLng)
@@ -284,36 +281,33 @@
                     .arcEndLng(d => d.endLng)
                     .arcColor(d => ['rgba(255,255,255,0)', d.color]);
 
-                // Efek Cincin Ledakan Saat Laser Mendarat
                 setTimeout(() => {
                     activeRings.push({ lat: endLatOffset, lng: endLngOffset, color: newAttack.color });
                     if (activeRings.length > 6) activeRings.shift();
                     myGlobe.ringsData(activeRings);
                 }, 1500);
 
-                // Update Angka Live
                 const countElement = document.getElementById('live-attack-count');
                 if (countElement) {
                     let current = parseInt(countElement.innerText.replace(/\./g, '')) || 104001;
                     countElement.innerText = (current + Math.floor(Math.random() * 10) + 1).toLocaleString('id-ID');
                 }
 
-                // Update Notifikasi Pill Bawah
                 const pill = document.getElementById('latest-alert-pill');
                 if (pill) {
                     const severityColor = attack.severity === 'CRITICAL' || attack.severity === 'HIGH'
                         ? { text: 'text-red-500', bg: 'bg-red-500/20', border: 'border-red-500/30' }
                         : { text: 'text-yellow-500', bg: 'bg-yellow-500/20', border: 'border-yellow-500/30' };
 
+                    // Menggunakan struktur dalam pill yang sudah diamankan agar tak pecah
                     pill.innerHTML = `
-                        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span></span>
-                        <span class="text-[10px] md:text-[11px] font-mono text-gray-300"><span class="text-orange-400 font-bold">${attack.name}</span> &nbsp;|&nbsp; ${country.flag} ${country.name} &nbsp;&rarr;&nbsp; <span class="text-cyan-400 font-bold">JatimProv</span></span>
-                        <span class="${severityColor.bg} ${severityColor.text} ${severityColor.border} border text-[9px] px-2 py-0.5 rounded font-bold ml-2 uppercase tracking-widest">${attack.severity}</span>
+                        <span class="relative flex h-2.5 w-2.5 shrink-0"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-orange-500"></span></span>
+                        <span class="text-[10px] md:text-[11px] font-mono text-gray-300 truncate max-w-xs md:max-w-none"><span class="text-orange-400 font-bold">${attack.name}</span> &nbsp;|&nbsp; ${country.flag} ${country.name} &nbsp;&rarr;&nbsp; <span class="text-cyan-400 font-bold">JatimProv</span></span>
+                        <span class="${severityColor.bg} ${severityColor.text} ${severityColor.border} border text-[9px] px-2 py-0.5 rounded font-bold ml-2 uppercase tracking-widest shrink-0">${attack.severity}</span>
                     `;
                 }
             }
 
-            // Fungsi Bantuan Generator List
             const updateDynamicList = (containerId, listData, itemHtmlGenerator) => {
                 const container = document.getElementById(containerId);
                 if (!container || !listData) return;
@@ -324,7 +318,6 @@
                 container.innerHTML = htmlString; 
             };
 
-            // Jalankan Live Data
             setInterval(() => {
                 fetch('/api/threat-data')
                     .then(response => { if(response.ok) return response.json(); throw new Error('API failed'); })
@@ -394,7 +387,6 @@
                     
             }, 3000); 
 
-            // Pancing tembakan pertama
             setTimeout(runSimulatedAttack, 500);
 
             let resizeTimeout;

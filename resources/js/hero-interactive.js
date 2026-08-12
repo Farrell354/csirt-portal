@@ -2,7 +2,7 @@
  * hero-interactive.js
  * Efek untuk hero section JatimProv-CSIRT:
  * 1. Tilt 3D + ekstrusi pada judul "JatimProv-CSIRT" (scoped ke #hero-title-region)
- * 2. Background partikel interaktif yang mengisi seluruh <header> hero
+ * 2. Background partikel interaktif yang mengisi seluruh <header> hero (SANGAT TERLIHAT)
  */
 (function () {
     document.addEventListener('DOMContentLoaded', () => {
@@ -54,13 +54,13 @@
         });
 
         titleRegion.addEventListener('mouseenter', () => {
-            underline.style.width = '66%';
+            if(underline) underline.style.width = '66%';
         });
 
         titleRegion.addEventListener('mouseleave', () => {
             title.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
             title.style.textShadow = buildExtrusion(0.12, 0.12);
-            underline.style.width = '0%';
+            if(underline) underline.style.width = '0%';
         });
 
         title.style.textShadow = buildExtrusion(0.12, 0.12);
@@ -72,9 +72,11 @@
     function initParticleBackground({ heroHeader, canvas }) {
         const ctx = canvas.getContext('2d');
         const DPR = Math.min(window.devicePixelRatio || 1, 2);
-        const LINK_DIST = 110;
-        const MOUSE_LINK_DIST = 160;
-        const MOUSE_PUSH_DIST = 90;
+        
+        // Jarak tarikan disesuaikan agar lebih responsif
+        const LINK_DIST = 130; 
+        const MOUSE_LINK_DIST = 200; 
+        const MOUSE_PUSH_DIST = 100;
 
         let width, height, particles = [];
         let mouseInHero = false;
@@ -82,8 +84,10 @@
         let resizeTimeout;
 
         function particleCountForArea(w, h) {
-            const density = (w * h) / 14000;
-            return Math.max(60, Math.min(160, Math.round(density)));
+            // Dibuat lebih padat: pembagi dikecilkan dari 14000 ke 8000
+            const density = (w * h) / 8000;
+            // Batas maksimal partikel dinaikkan agar layar besar lebih meriah
+            return Math.max(80, Math.min(250, Math.round(density)));
         }
 
         function sizeCanvas() {
@@ -102,8 +106,8 @@
             particles = Array.from({ length: count }, () => ({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.25,
-                vy: (Math.random() - 0.5) * 0.25,
+                vx: (Math.random() - 0.5) * 0.4, // Gerakan sedikit lebih dinamis
+                vy: (Math.random() - 0.5) * 0.4,
             }));
         }
 
@@ -122,30 +126,35 @@
                     const dist = Math.hypot(dx, dy);
                     if (dist < MOUSE_PUSH_DIST && dist > 0.01) {
                         const force = (MOUSE_PUSH_DIST - dist) / MOUSE_PUSH_DIST;
-                        p.x += (dx / dist) * force * 1.4;
-                        p.y += (dy / dist) * force * 1.4;
+                        p.x += (dx / dist) * force * 1.5;
+                        p.y += (dy / dist) * force * 1.5;
                     }
                 }
             });
 
             for (let i = 0; i < particles.length; i++) {
+                // Gambar garis antar partikel
                 for (let j = i + 1; j < particles.length; j++) {
                     const a = particles[i], b = particles[j];
                     const dist = Math.hypot(a.x - b.x, a.y - b.y);
                     if (dist < LINK_DIST) {
-                        ctx.strokeStyle = `rgba(34, 211, 238, ${0.12 * (1 - dist / LINK_DIST)})`;
-                        ctx.lineWidth = 1;
+                        // Opacity garis ditingkatkan secara drastis (dari 0.12 jadi 0.45)
+                        ctx.strokeStyle = `rgba(34, 211, 238, ${0.45 * (1 - dist / LINK_DIST)})`;
+                        ctx.lineWidth = 1.2; // Garis lebih tebal
                         ctx.beginPath();
                         ctx.moveTo(a.x, a.y);
                         ctx.lineTo(b.x, b.y);
                         ctx.stroke();
                     }
                 }
+                
+                // Gambar garis tarikan ke Mouse (Warna Emas/Amber)
                 if (mouseInHero) {
                     const dist = Math.hypot(particles[i].x - mouseX, particles[i].y - mouseY);
                     if (dist < MOUSE_LINK_DIST) {
-                        ctx.strokeStyle = `rgba(245, 158, 11, ${0.28 * (1 - dist / MOUSE_LINK_DIST)})`;
-                        ctx.lineWidth = 1;
+                        // Opacity tarikan mouse dibuat sangat menyala terang (0.28 jadi 0.8)
+                        ctx.strokeStyle = `rgba(245, 158, 11, ${0.8 * (1 - dist / MOUSE_LINK_DIST)})`;
+                        ctx.lineWidth = 1.5; // Garis tarikan mouse lebih tebal
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(mouseX, mouseY);
@@ -154,10 +163,12 @@
                 }
             }
 
+            // Gambar titik (dot) partikel
             particles.forEach((p) => {
-                ctx.fillStyle = 'rgba(103, 232, 249, 0.7)';
+                // Warna solid 100% tanpa transparansi, ukuran dot dibesarkan ke 2.5
+                ctx.fillStyle = 'rgba(103, 232, 249, 1)';
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, 1.4, 0, Math.PI * 2);
+                ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
                 ctx.fill();
             });
 
