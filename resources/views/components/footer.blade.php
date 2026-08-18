@@ -94,7 +94,7 @@
             <div>
                 <h4 class="text-white font-black tracking-widest mb-6 uppercase text-xs flex items-center gap-2">
                     <span class="h-2 w-2 rounded-full bg-orange-400 shadow-[0_0_8px_#fbbf24]"></span>
-                    Lokasi Server & Kantor
+                    Lokasi Kantor
                 </h4>
                 <div class="w-full h-44 bg-slate-900 rounded-xl overflow-hidden border border-slate-700/80 shadow-lg relative group">
                     <!-- Google Maps Iframe Dinas Kominfo Jatim -->
