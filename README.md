@@ -1,4 +1,4 @@
-# 🛡️ Portal JatimProv-CSIRT & Bug Bounty System
+#  Portal JatimProv-CSIRT & Bug Bounty System
 
 <p align="center">
   <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel">
@@ -12,31 +12,31 @@
 
 ---
 
-## ✨ Fitur Unggulan Terkini
+##  Fitur Unggulan Terkini
 
-### 🌍 1. Live 3D Cyber Threat Map
+###  1. Live 3D Cyber Threat Map
 Pemetaan interaktif serangan siber secara *real-time* menggunakan rendering WebGL 3D (`Globe.gl`). Dilengkapi animasi lintasan proyektil serangan (*attack arcs*), *live counter*, dan notifikasi insiden seketika yang dapat diputar (rotasi), digeser (pan), maupun diperbesar (zoom).
 
-### 📊 2. Cyber Threat Intelligence (IoC) Dashboard
+###  2. Cyber Threat Intelligence (IoC) Dashboard
 *Dashboard* khusus intelijen ancaman siber dengan visualisasi data *dummy* dinamis untuk memantau:
 - **Kerentanan (CVE):** Skor CVSS, grafis distribusi tingkat keparahan (Critical, High, Medium).
 - **Malware & Botnet:** Identifikasi *hash* dan tipe infeksi terbaru.
 - **Phishing (Link & Domain):** Analisis TLD dan perbandingan protokol HTTP/HTTPS.
 - **IP Feeds:** Reputasi alamat IP dengan indikator berbahaya.
 
-### 🤖 3. Smart AI Assistant (Groq Cloud)
+###  3. Smart AI Assistant (Groq Cloud)
 Chatbot pintar yang dikonfigurasi secara ketat (*system prompt*) untuk hanya menjawab berdasarkan pedoman dan layanan resmi JatimProv-CSIRT. Berbekal teknologi pemrosesan bahasa alami berkecepatan tinggi yang dapat menoleransi *typo* pengguna, mengandalkan model `openai/gpt-oss-20b` (Via API Groq).
 
-### 🏆 4. Bug Bounty & Leaderboard
+###  4. Bug Bounty & Leaderboard
 Sistem penghargaan untuk *Security Researcher* atau *Hunter* dengan mekanik Poin Reputasi. Dilengkapi dengan podium 3 Besar (Gold, Silver, Bronze), dan halaman profil publik *Hunter*.
 
-### 📚 5. Pembelajaran Insiden & Layanan Terintegrasi
+###  5. Pembelajaran Insiden & Layanan Terintegrasi
 - **Grid Masonry Pembelajaran Insiden:** Koleksi studi kasus insiden siber yang diformat menjadi *card* estetik dengan kategori khusus.
 - **Modul Layanan Lengkap:** Dokumentasi komprehensif terkait Penanganan Insiden, PANDA (*Private and Secure Data Access*), ITSA (*IT Security Assessment*), CTIS, EDR/XDR, dan verifikasi kepatuhan.
 
 ---
 
-## 🛠️ Spesifikasi Teknologi
+##  Spesifikasi Teknologi
 
 - **Backend:** Laravel 10.x / PHP 8.1+
 - **Frontend:** Blade Templating, Tailwind CSS (JIT Compiler), Vanilla JS
@@ -46,13 +46,13 @@ Sistem penghargaan untuk *Security Researcher* atau *Hunter* dengan mekanik Poin
 
 ---
 
-## 🚀 Panduan Instalasi Lokal
+##  Panduan Instalasi Lokal
 
 Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan pengembangan Anda:
 
 ### 1. Kloning Repository & Instalasi Dependensi
 ```bash
-git clone https://github.com/jatimprov/csirt-portal.git
+git clone 
 cd csirt-portal
 composer install
 npm install
