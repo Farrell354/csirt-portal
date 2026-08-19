@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             // Menambah pembeda antara admin dan masyarakat (hunter)
             $table->string('role')->default('hunter')->after('email');
-            
+
             // Sistem Gamification (Poin & Avatar)
             $table->integer('poin')->default(0)->after('role');
             $table->string('avatar')->nullable()->after('poin');

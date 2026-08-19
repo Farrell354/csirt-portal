@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Artikel;
+use Illuminate\Database\Seeder;
 
 class ArtikelSeeder extends Seeder
 {
@@ -59,7 +59,7 @@ class ArtikelSeeder extends Seeder
                 'konten' => 'Berikut adalah daftar checklist untuk mengamankan perangkat seluler aparatur sipil negara saat mengakses jaringan publik...',
                 'tanggal_publikasi' => '2026-07-10',
             ],
-            
+
             // Artikel 7-12 (Tambahan Baru)
             [
                 'judul' => 'Serangan DDoS Meningkat di Kuartal Ketiga, Sektor Pemerintahan Menjadi Sasaran Utama...',

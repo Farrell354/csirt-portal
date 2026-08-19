@@ -23,11 +23,11 @@
         }
     </script>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-500 dark:bg-[#020617] dark:text-gray-200 font-sans flex flex-col min-h-screen relative overflow-x-hidden selection:bg-cyan-500 selection:text-white">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-500 dark:bg-[#020617] dark:text-gray-200 font-sans flex flex-col min-h-screen relative overflow-x-hidden selection:bg-blue-500 selection:text-white">
 
-    <!-- Latar Belakang Mesh Grid & Ambient Glow (Mewarisi style dari app.css) -->
+    <!-- Latar Belakang Mesh Grid & Ambient Glow -->
     <div class="fixed inset-0 pointer-events-none bg-mesh-grid opacity-40 dark:opacity-100 z-0"></div>
-    <div class="fixed top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/5 dark:bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+    <div class="fixed top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/5 dark:bg-blue-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
 
     <!-- NAVBAR -->
     <div class="relative z-50">
@@ -39,9 +39,9 @@
         
         <!-- Tombol Kembali -->
         <div class="opacity-0 animate-fade-in-up">
-            <a href="/dashboard" class="inline-flex items-center text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-cyan-400 mb-6 transition-transform hover:-translate-x-2 duration-300 uppercase tracking-widest bg-white/50 dark:bg-slate-900/50 px-4 py-2 rounded-full border border-gray-200 dark:border-slate-800 backdrop-blur-sm shadow-sm">
+            <a href="/dashboard" class="inline-flex items-center text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-6 transition-transform hover:-translate-x-2 duration-300 uppercase tracking-widest bg-white/50 dark:bg-slate-900/50 px-4 py-2 rounded-full border border-gray-200 dark:border-slate-800 backdrop-blur-sm shadow-sm">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali ke Ruang Komando
+                Kembali ke Dashboard
             </a>
         </div>
 
@@ -53,17 +53,17 @@
 
             <div class="px-8 pt-10 pb-8 border-b border-gray-100 dark:border-slate-800/80 bg-gray-50/50 dark:bg-[#020817]/50 relative overflow-hidden">
                 <!-- Aksen Glow Sudut Kanan Atas -->
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
-                <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-cyan-800/50 text-blue-600 dark:text-cyan-400 font-mono text-[10px] font-bold tracking-widest mb-4 uppercase rounded-full shadow-sm">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800/50 text-blue-600 dark:text-blue-400 font-mono text-[10px] font-bold tracking-widest mb-4 uppercase rounded-full shadow-sm">
                     <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500 shadow-[0_0_8px_#22d3ee]"></span>
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500 shadow-[0_0_8px_#3b82f6]"></span>
                     </span>
-                    SECURE_REPORT_CHANNEL
+                    FORM PELAPORAN
                 </div>
 
-                <h1 class="font-display text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-2">Kirim Laporan <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-cyan-400 dark:to-blue-500">Kerentanan</span></h1>
+                <h1 class="font-display text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-2">Kirim Laporan <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-400">Kerentanan</span></h1>
                 <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Bantu kami mengamankan ekosistem digital JatimProv. Pastikan laporan Anda menyertakan bukti eksploitasi (PoC) yang jelas.</p>
             </div>
 
@@ -79,7 +79,7 @@
                         </div>
                         <ul class="list-disc ml-6 text-sm text-red-700 dark:text-red-300/80 font-medium space-y-1">
                             @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                                <li class="break-words">{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -98,7 +98,7 @@
                                 <svg class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
                             </div>
                             <input type="url" name="target_url" id="target_url" required placeholder="https://vulnerable-domain.jatimprov.go.id/path" value="{{ old('target_url') }}"
-                                class="w-full pl-12 pr-5 py-4 bg-gray-50 dark:bg-slate-950/50 border border-gray-200 dark:border-slate-700/80 rounded-2xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 outline-none text-sm font-mono text-gray-900 dark:text-blue-300 transition-all shadow-sm group-hover:border-blue-300 dark:group-hover:border-slate-600 placeholder-gray-400 dark:placeholder-gray-600">
+                                class="w-full pl-12 pr-5 py-4 bg-gray-50 dark:bg-slate-950/50 border border-gray-200 dark:border-slate-700/80 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none text-sm font-mono text-gray-900 dark:text-blue-300 transition-all shadow-sm group-hover:border-blue-300 dark:group-hover:border-slate-600 placeholder-gray-400 dark:placeholder-gray-600 break-words">
                         </div>
                     </div>
 
@@ -109,7 +109,7 @@
                                 Kategori Kerentanan <span class="text-red-500 text-lg leading-none">*</span>
                             </label>
                             <div class="relative">
-                                <select name="jenis_kerentanan" id="jenis_kerentanan" required class="w-full px-5 py-3.5 bg-gray-50 dark:bg-slate-950/50 border border-gray-200 dark:border-slate-700/80 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 outline-none text-sm font-bold text-gray-900 dark:text-white cursor-pointer transition-all shadow-sm group-hover:border-blue-300 dark:group-hover:border-slate-600 appearance-none">
+                                <select name="jenis_kerentanan" id="jenis_kerentanan" required class="w-full px-5 py-3.5 bg-gray-50 dark:bg-slate-950/50 border border-gray-200 dark:border-slate-700/80 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none text-sm font-bold text-gray-900 dark:text-white cursor-pointer transition-all shadow-sm group-hover:border-blue-300 dark:group-hover:border-slate-600 appearance-none">
                                     <option value="" disabled selected class="text-gray-500">-- Pilih Jenis Kerentanan --</option>
                                     <option value="SQL Injection (SQLi)" {{ old('jenis_kerentanan') == 'SQL Injection (SQLi)' ? 'selected' : '' }} class="bg-white dark:bg-slate-800">SQL Injection (SQLi)</option>
                                     <option value="Cross-Site Scripting (XSS)" {{ old('jenis_kerentanan') == 'Cross-Site Scripting (XSS)' ? 'selected' : '' }} class="bg-white dark:bg-slate-800">Cross-Site Scripting (XSS)</option>
@@ -132,7 +132,7 @@
                                 Tingkat Keparahan <span class="text-red-500 text-lg leading-none">*</span>
                             </label>
                             <div class="relative">
-                                <select name="severity" id="severity" required class="w-full px-5 py-3.5 bg-gray-50 dark:bg-slate-950/50 border border-gray-200 dark:border-slate-700/80 rounded-xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 outline-none text-sm font-bold text-gray-900 dark:text-white cursor-pointer transition-all shadow-sm group-hover:border-blue-300 dark:group-hover:border-slate-600 appearance-none">
+                                <select name="severity" id="severity" required class="w-full px-5 py-3.5 bg-gray-50 dark:bg-slate-950/50 border border-gray-200 dark:border-slate-700/80 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none text-sm font-bold text-gray-900 dark:text-white cursor-pointer transition-all shadow-sm group-hover:border-blue-300 dark:group-hover:border-slate-600 appearance-none">
                                     <option value="" disabled selected class="text-gray-500">-- Est. Severity --</option>
                                     <option value="Low" {{ old('severity') == 'Low' ? 'selected' : '' }} class="bg-white dark:bg-slate-800">🟢 Low (Dampak minim)</option>
                                     <option value="Medium" {{ old('severity') == 'Medium' ? 'selected' : '' }} class="bg-white dark:bg-slate-800">🟡 Medium (Berdampak sebagian)</option>
@@ -152,47 +152,25 @@
                             Deskripsi & Dampak Kerentanan <span class="text-red-500 text-lg leading-none">*</span>
                         </label>
                         <textarea name="deskripsi" id="deskripsi" rows="4" required placeholder="Jelaskan secara singkat celah keamanan yang ditemukan dan dampak terburuk jika dieksploitasi..." 
-                            class="w-full px-5 py-4 bg-gray-50 dark:bg-slate-950/50 border border-gray-200 dark:border-slate-700/80 rounded-2xl focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 outline-none text-sm font-medium text-gray-900 dark:text-gray-200 transition-all leading-relaxed shadow-sm group-hover:border-blue-300 dark:group-hover:border-slate-600 placeholder-gray-400 dark:placeholder-gray-600">{{ old('deskripsi') }}</textarea>
+                            class="w-full px-5 py-4 bg-gray-50 dark:bg-slate-950/50 border border-gray-200 dark:border-slate-700/80 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none text-sm font-medium text-gray-900 dark:text-gray-200 transition-all leading-relaxed shadow-sm group-hover:border-blue-300 dark:group-hover:border-slate-600 placeholder-gray-400 dark:placeholder-gray-600 break-words">{{ old('deskripsi') }}</textarea>
                     </div>
 
-                    <!-- Proof of Concept (PoC) -> Hacker Terminal Style -->
+                    <!-- Lampiran Bukti PoC (Upload File) -->
                     <div class="mb-10 group">
-                        <label for="bukti_poc" class="block text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest flex items-center gap-2">
-                            Langkah Reproduksi (PoC) <span class="text-red-500 text-lg leading-none">*</span>
-                        </label>
-                        <div class="relative rounded-2xl overflow-hidden shadow-sm group-hover:shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-shadow">
-                            <!-- Terminal Header -->
-                            <div class="bg-gray-800 dark:bg-[#020617] px-4 py-2 border-b border-gray-700/50 flex items-center gap-2">
-                                <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
-                                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
-                                <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
-                                <span class="ml-2 text-[10px] text-gray-400 font-mono tracking-widest">EXPLOIT_SCRIPT.SH</span>
-                            </div>
-                            <textarea name="bukti_poc" id="bukti_poc" rows="6" required placeholder="1. Buka URL target&#10;2. Masukkan payload: ' OR 1=1--&#10;3. Klik tombol submit&#10;4. Halaman akan menampilkan seluruh data..." 
-                                class="w-full px-5 py-4 bg-gray-900 dark:bg-slate-900 border-x border-b border-gray-700 focus:ring-0 focus:border-cyan-500 outline-none text-emerald-400 font-mono transition-all leading-relaxed text-sm placeholder-gray-600 dark:placeholder-slate-600">{{ old('bukti_poc') }}</textarea>
-                        </div>
-                        <p class="text-[10px] text-blue-600 dark:text-cyan-500 mt-2 font-bold uppercase tracking-wider flex items-center gap-1.5">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Tuliskan langkah eksploitasi secara sistematis.
-                        </p>
-                    </div>
-
-                    <!-- Lampiran Bukti (Cyber Dropzone) -->
-                    <div class="mb-10 group">
-                        <label class="block text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest flex items-center gap-2" for="attachment">
-                            Lampiran Bukti / Screenshot <span class="text-gray-400 font-medium normal-case ml-1">(Opsional)</span>
+                        <label class="block text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest flex items-center gap-2" for="bukti_poc">
+                            Lampiran Bukti (PoC) <span class="text-red-500 text-lg leading-none">*</span>
                         </label>
                         
                         <div class="flex items-center justify-center w-full">
-                            <label for="attachment" class="flex flex-col items-center justify-center w-full h-36 border-2 border-blue-300 dark:border-slate-600 border-dashed rounded-2xl cursor-pointer bg-blue-50/50 dark:bg-slate-950/50 hover:bg-blue-50 dark:hover:bg-slate-900 transition-colors group-hover:border-blue-400 dark:group-hover:border-cyan-500/50">
+                            <label for="bukti_poc" class="flex flex-col items-center justify-center w-full h-36 border-2 border-blue-300 dark:border-slate-600 border-dashed rounded-2xl cursor-pointer bg-blue-50/50 dark:bg-slate-950/50 hover:bg-blue-50 dark:hover:bg-slate-900 transition-colors group-hover:border-blue-400 dark:group-hover:border-blue-500/50 relative overflow-hidden group/upload">
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <div class="p-3 bg-blue-100 dark:bg-slate-800 rounded-full mb-3 text-blue-500 dark:text-cyan-400 group-hover:scale-110 transition-transform">
+                                    <div class="p-3 bg-blue-100 dark:bg-slate-800 rounded-full mb-3 text-blue-500 dark:text-blue-400 group-hover/upload:scale-110 transition-transform">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                                     </div>
-                                    <p class="mb-1 text-sm text-gray-600 dark:text-gray-300"><span class="font-bold text-blue-600 dark:text-cyan-400">Klik untuk upload lampiran</span></p>
-                                    <p class="text-[11px] text-gray-500 dark:text-gray-500 font-medium">Mendukung file PNG, JPG, PDF, atau MP4 (Maks. 5MB)</p>
+                                    <p id="file-name-display" class="mb-1 text-sm text-gray-600 dark:text-gray-300 font-bold">Klik untuk upload file PoC</p>
+                                    <p class="text-[11px] text-gray-500 dark:text-gray-500 font-medium">JPG, PNG, PDF, atau MP4 (Maks. 5MB)</p>
                                 </div>
-                                <input id="attachment" name="attachment" type="file" class="hidden" accept=".png, .jpg, .jpeg, .pdf, .mp4" />
+                                <input id="bukti_poc" name="bukti_poc" type="file" required class="sr-only" accept=".jpg,.png,.pdf,.mp4" onchange="document.getElementById('file-name-display').innerText = this.files[0] ? this.files[0].name : 'Klik untuk upload file PoC'" />
                             </label>
                         </div>
                     </div>
@@ -200,7 +178,7 @@
                     <!-- NDA -->
                     <div class="mb-8 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800/50 p-5 rounded-2xl">
                         <label class="flex items-start gap-4 cursor-pointer group">
-                            <div class="relative flex items-center justify-center mt-0.5">
+                            <div class="relative flex items-center justify-center mt-0.5 shrink-0">
                                 <input type="checkbox" name="nda_agreement" required class="peer appearance-none w-5 h-5 border-2 border-amber-300 dark:border-amber-700 rounded bg-white dark:bg-slate-800 checked:bg-amber-500 checked:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 transition-all cursor-pointer">
                                 <svg class="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                             </div>
@@ -217,13 +195,13 @@
                             Batalkan
                         </a>
                         
-                        <button type="submit" class="group relative w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-sm font-bold py-3.5 px-8 rounded-xl transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.5)] hover:-translate-y-0.5 overflow-hidden">
+                        <button type="submit" class="group relative w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-sm font-bold py-3.5 px-8 rounded-xl transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] hover:-translate-y-0.5 overflow-hidden">
                             <span class="absolute right-0 translate-x-full transition-transform duration-300 ease-out group-hover:-translate-x-4">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
                             </span>
                             <span class="transition-all duration-300 ease-out group-hover:-translate-x-3 flex items-center gap-2">
                                 <svg class="w-4 h-4 group-hover:opacity-0 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                                Eksekusi Laporan
+                                Kirim Laporan
                             </span>
                         </button>
                     </div>

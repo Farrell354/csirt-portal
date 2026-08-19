@@ -27,7 +27,7 @@ class ProfileUpdateRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
             // TAMBAHKAN BARIS INI UNTUK LINKEDIN
-            'linkedin_url' => ['nullable', 'url', 'max:255'], 
+            'linkedin_url' => ['nullable', 'url', 'max:255'],
         ];
     }
 }

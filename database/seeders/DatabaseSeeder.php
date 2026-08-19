@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin_csirt',
             'email' => 'admin@example.com',
             'password' => bcrypt('11223344'),
-            'role' => 'admin' // Sesuaikan jika nama role admin Bos berbeda
+            'role' => 'admin', // Sesuaikan jika nama role admin Bos berbeda
         ]);
 
         // 2. Akun Hunter (Untuk Bos ngetes kirim laporan bug nyata)
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'farel_hunter',
             'email' => 'farel@hunter.com',
             'password' => bcrypt('11223344'),
-            'role' => 'hunter'
+            'role' => 'hunter',
         ]);
-}
+    }
 }

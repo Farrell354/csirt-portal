@@ -18,7 +18,7 @@ class ArtikelController extends Controller
 
         // Tangkap juga kalau ada pencarian
         if ($request->has('search') && $request->search != '') {
-            $query->where('judul', 'like', '%' . $request->search . '%');
+            $query->where('judul', 'like', '%'.$request->search.'%');
         }
 
         // UBAH ->get() MENJADI ->paginate(6) atau angka berapapun yang Bos mau per halamannya.

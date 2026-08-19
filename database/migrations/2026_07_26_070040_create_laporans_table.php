@@ -12,17 +12,17 @@ return new class extends Migration
             $table->id();
             // Relasi ke tabel users (Siapa hunter yang melapor)
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            
+
             // Detail Laporan
             $table->string('target_url');
             $table->string('jenis_kerentanan'); // Contoh: SQLi, XSS, dll
             $table->text('deskripsi');
             $table->string('bukti_poc'); // Link gambar atau dokumen
-            
+
             // Status Validasi Admin
             $table->enum('status', ['Menunggu', 'Valid', 'Ditolak'])->default('Menunggu');
             $table->integer('poin_diberikan')->default(0);
-            
+
             $table->timestamps();
         });
     }

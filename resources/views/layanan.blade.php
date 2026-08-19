@@ -90,7 +90,7 @@
                             Respons cepat dan penanganan tuntas atas insiden keamanan siber yang menyerang sistem pemerintahan.
                         </p>
                     </div>
-                    <a href="#" class="inline-flex items-center text-blue-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest mt-auto group-hover:text-blue-800 dark:group-hover:text-cyan-300 transition-colors relative z-10">
+                    <a href="/layanan/penanganan-insiden" class="inline-flex items-center text-blue-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest mt-auto group-hover:text-blue-800 dark:group-hover:text-cyan-300 transition-colors relative z-10">
                         Selengkapnya <svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
                 </div>
@@ -109,7 +109,7 @@
                             Laporkan konten negatif, hoaks, atau materi melanggar hukum untuk ditindaklanjuti oleh pihak berwenang.
                         </p>
                     </div>
-                    <a href="#" class="inline-flex items-center text-blue-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest mt-auto group-hover:text-blue-800 dark:group-hover:text-cyan-300 transition-colors relative z-10">
+                    <a href="/layanan/aduan-konten" class="inline-flex items-center text-blue-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest mt-auto group-hover:text-blue-800 dark:group-hover:text-cyan-300 transition-colors relative z-10">
                         Selengkapnya <svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
                 </div>
@@ -129,7 +129,7 @@
                             Enkripsi kuat tingkat lanjut yang melindungi data sensitif Anda di setiap tahap siklus penggunaannya.
                         </p>
                     </div>
-                    <a href="#" class="inline-flex items-center text-blue-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest mt-auto group-hover:text-blue-800 dark:group-hover:text-cyan-300 transition-colors relative z-10">
+                    <a href="/layanan/panda-private-and-secure-data-access" class="inline-flex items-center text-blue-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest mt-auto group-hover:text-blue-800 dark:group-hover:text-cyan-300 transition-colors relative z-10">
                         Selengkapnya <svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
                 </div>
@@ -149,7 +149,7 @@
                             Uji keamanan aplikasi secara menyeluruh dan dapatkan rekomendasi mitigasi serta status kelulusan.
                         </p>
                     </div>
-                    <a href="#" class="inline-flex items-center text-blue-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest mt-auto group-hover:text-blue-800 dark:group-hover:text-cyan-300 transition-colors relative z-10">
+                    <a href="/layanan/itsa-it-security-assessment" class="inline-flex items-center text-blue-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest mt-auto group-hover:text-blue-800 dark:group-hover:text-cyan-300 transition-colors relative z-10">
                         Selengkapnya <svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
                 </div>
@@ -169,7 +169,7 @@
                             Artikel dan *Indicator of Compromise* (IoC) terkini, siap diunduh untuk memperkuat kewaspadaan instansi.
                         </p>
                     </div>
-                    <a href="#" class="inline-flex items-center text-blue-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest mt-auto group-hover:text-blue-800 dark:group-hover:text-cyan-300 transition-colors relative z-10">
+                    <a href="/layanan/ctis-cyber-threat-information-sharing" class="inline-flex items-center text-blue-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest mt-auto group-hover:text-blue-800 dark:group-hover:text-cyan-300 transition-colors relative z-10">
                         Selengkapnya <svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
                 </div>
@@ -189,7 +189,7 @@
                             Pendampingan penilaian Indeks KAMI 5.0 dan IKASANDI secara resmi berstandar BSSN.
                         </p>
                     </div>
-                    <a href="#" class="inline-flex items-center text-blue-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest mt-auto group-hover:text-blue-800 dark:group-hover:text-cyan-300 transition-colors relative z-10">
+                    <a href="/layanan/verifikasi-ptkkss" class="inline-flex items-center text-blue-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest mt-auto group-hover:text-blue-800 dark:group-hover:text-cyan-300 transition-colors relative z-10">
                         Selengkapnya <svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
                 </div>
@@ -224,7 +224,7 @@
                         
                         <!-- Tombol CTA Dalam Banner -->
                         <div class="shrink-0 mt-4 md:mt-0">
-                            <a href="#" class="inline-flex items-center justify-center px-6 py-3.5 border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white font-bold text-xs uppercase tracking-widest transition-all rounded-xl group-hover:shadow-[0_0_15px_rgba(6,182,212,0.5)]">
+                            <a href="/layanan/endpoint-monitoring-edrxdr" class="inline-flex items-center justify-center px-6 py-3.5 border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white font-bold text-xs uppercase tracking-widest transition-all rounded-xl group-hover:shadow-[0_0_15px_rgba(6,182,212,0.5)]">
                                 Selengkapnya <svg class="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-4 4m4-4H3"></path></svg>
                             </a>
                         </div>

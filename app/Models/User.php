@@ -20,6 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
         'role',
@@ -49,6 +50,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function laporans()
     {
         return $this->hasMany(Laporan::class);
@@ -57,7 +59,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        
+
         // Cukup tambahkan tulisan 'encrypted' di sebelah nama kolom database-nya
         'email' => 'encrypted',
         'nama_asli' => 'encrypted',

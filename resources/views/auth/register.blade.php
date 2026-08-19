@@ -102,16 +102,30 @@
 
                     <!-- Nama / Nickname -->
                     <div>
-                        <label for="name" class="block text-[11px] font-bold text-gray-700 dark:text-gray-300 mb-1.5 uppercase tracking-wide">Nama / Nickname</label>
+                        <label for="name" class="block text-[11px] font-bold text-gray-700 dark:text-gray-300 mb-1.5 uppercase tracking-wide">Nama Lengkap</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                 <svg class="w-4 h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                             </div>
                             <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" 
                                 class="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-all text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600" 
-                                placeholder="Masukkan Identitas Anda">
+                                placeholder="Masukkan Nama Lengkap Anda">
                         </div>
                         <x-input-error :messages="$errors->get('name')" class="mt-1.5 text-red-500 dark:text-red-400 text-[11px] font-bold" />
+                    </div>
+
+                    <!-- Username -->
+                    <div>
+                        <label for="username" class="block text-[11px] font-bold text-gray-700 dark:text-gray-300 mb-1.5 uppercase tracking-wide">Username</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+                            </div>
+                            <input id="username" type="text" name="username" value="{{ old('username') }}" required autocomplete="username" 
+                                class="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-all text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600" 
+                                placeholder="Pilih Username Anda">
+                        </div>
+                        <x-input-error :messages="$errors->get('username')" class="mt-1.5 text-red-500 dark:text-red-400 text-[11px] font-bold" />
                     </div>
 
                     <!-- Email -->

@@ -1,20 +1,38 @@
+@php
+    $feed = request('feed', 'dokumen');
+    
+    $tabs = [
+        'dokumen' => ['label' => '< DOKUMEN >', 'desc' => 'Dokumen publikasi resmi CSIRT.', 'total' => '13'],
+        'cve' => ['label' => '< CVE >', 'desc' => 'Kerentanan (CVE) terbaru beserta skor CVSS.', 'total' => '13,207'],
+        'malware' => ['label' => '< MALWARE >', 'desc' => 'Sampel malware / keluarga malware yang terdeteksi.', 'total' => '72'],
+        'phishing-link' => ['label' => '< PHISHING LINK >', 'desc' => 'Tautan phishing aktif yang perlu diwaspadai.', 'total' => '409'],
+        'phishing-domain' => ['label' => '< PHISHING DOMAIN >', 'desc' => 'Domain phishing / typosquat yang digunakan untuk penipuan.', 'total' => '3,743'],
+        'ip' => ['label' => '< IP FEEDS >', 'desc' => 'Alamat IP berbahaya / Anomali (C2, Botnet, Scanner).', 'total' => '405']
+    ];
+    
+    if(!array_key_exists($feed, $tabs)) $feed = 'dokumen';
+    $activeTab = $tabs[$feed];
+
+    // Dummy Chart Data
+    $chart = ['mei' => 0, 'juni' => 0, 'juli' => 0, 'agustus' => 0];
+    if($feed == 'dokumen') { $chart['agustus'] = 13; $chartPct = [0,0,0,100]; }
+    elseif($feed == 'cve') { $chart['juli'] = "6,790"; $chart['agustus'] = "6,417"; $chartPct = [0,0,100,95]; }
+    elseif($feed == 'malware') { $chart['agustus'] = 72; $chartPct = [0,0,0,100]; }
+    elseif($feed == 'phishing-link') { $chart['agustus'] = 409; $chartPct = [0,0,0,100]; }
+    elseif($feed == 'phishing-domain') { $chart['mei']=33; $chart['juni']=35; $chart['juli']=933; $chart['agustus']="2,842"; $chartPct = [2,2,30,100]; }
+    elseif($feed == 'ip') { $chart['agustus'] = 405; $chartPct = [0,0,0,100]; }
+@endphp
 <!DOCTYPE html>
 <html lang="id" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoC - JatimProv-CSIRT</title>
+    <title>Ancaman Siber & IoC - JatimProv-CSIRT</title>
     <link rel="icon" type="image/png" href="{{ asset('img/logo-csirt.png') }}">
-
-    <!-- Font Premium: Space Grotesk (Display) & JetBrains Mono (Tech) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-
-    <!-- Memanggil Tailwind & Custom CSS via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <!-- SCRIPT PENDETEKSI TEMA AWAL -->
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -25,156 +43,206 @@
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-500 dark:bg-[#020617] dark:text-gray-200 font-sans flex flex-col min-h-screen overflow-x-hidden selection:bg-cyan-500 selection:text-white">
 
-    <!-- Latar Belakang Mesh Grid & Ambient Glow (Mewarisi style dari app.css) -->
     <div class="fixed inset-0 pointer-events-none bg-mesh-grid opacity-40 dark:opacity-100 z-0"></div>
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/5 dark:bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
 
-    <!-- NAVBAR -->
     <div class="relative z-50">
         <x-navbar />
     </div>
 
-    <!-- KONTEN UTAMA -->
     <div class="flex-grow relative z-10 flex flex-col items-center w-full pt-12 pb-24">
-        
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <!-- ================= HEADER HALAMAN ================= -->
-            <div class="text-center mb-12 opacity-0 animate-fade-in-up">
-                <!-- Cyber Badge -->
-                <div class="inline-flex items-center gap-2.5 px-4 py-1.5 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-cyan-500/30 text-blue-600 dark:text-cyan-400 text-xs font-bold tracking-widest uppercase rounded-full backdrop-blur-md shadow-sm dark:shadow-[0_0_15px_rgba(6,182,212,0.15)] animate-float-subtle mb-6">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500 shadow-[0_0_8px_#ef4444]"></span>
-                    </span>
-                    THREAT_INTEL_DB
-                </div>
-                
-                <!-- Judul Besar -->
-                <h1 class="font-display text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
-                    Dokumen <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-cyan-400 dark:to-blue-500">Indicator of Compromise</span>
+            <!-- HEADER -->
+            <div class="text-center mb-10 opacity-0 animate-fade-in-up">
+                <h1 class="font-display text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-4 uppercase">
+                    Dokumen IOC & Ancaman Siber
                 </h1>
-                
-                <!-- Deskripsi Pendek -->
-                <p class="text-sm md:text-base text-gray-500 dark:text-slate-400 font-medium max-w-3xl mx-auto leading-relaxed">
-                    Daftar artefak teknis, alamat IP, hash, dan domain berbahaya sebagai indikator kompromi keamanan siber di lingkungan Provinsi Jawa Timur.
+                <p class="text-xs md:text-sm text-gray-500 dark:text-slate-400 font-medium max-w-3xl mx-auto leading-relaxed">
+                    Dokumen indikator kompromi (IoC) serta kerentanan dan ancaman siber terkini yang sudah divalidasi oleh Jatimprov-CSIRT dan terintegrasi dengan CTIS BSSN. Diperbarui otomatis setiap hari.
                 </p>
             </div>
 
-            <!-- ================= AREA TABEL DOKUMEN (Glassmorphism) ================= -->
-            <div class="w-full opacity-0 animate-fade-in-up" style="animation-delay: 0.2s;">
-                <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl shadow-xl dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] border border-gray-200/50 dark:border-slate-700/80 overflow-hidden relative group">
-                    
-                    <!-- Garis Neon Atas -->
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-orange-400 to-red-500"></div>
-
-                    <!-- Header Tabel & Search Bar -->
-                    <div class="p-6 md:p-8 border-b border-gray-100 dark:border-slate-800 bg-gray-50/50 dark:bg-[#020817]/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition-colors duration-300">
-                        <h2 class="text-sm font-black uppercase tracking-widest text-slate-800 dark:text-gray-200 flex items-center gap-2">
-                            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77-1.333.192 3 1.732 3z"></path></svg>
-                            Arsip Dokumen IoC
-                        </h2>
-                        
-                        <!-- Search Input ala Terminal -->
-                        <div class="relative w-full md:w-80 group/search">
-                            <input type="text" placeholder="Cari payload, CVE, atau jenis ancaman..." class="w-full bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-700/80 text-sm px-5 py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-red-500/30 focus:border-red-500 transition-all text-gray-700 dark:text-gray-200 shadow-sm placeholder-gray-400">
-                            <svg class="w-4 h-4 absolute right-4 top-3 text-gray-400 group-focus-within/search:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        </div>
-                    </div>
-
-                    <!-- Isi Tabel -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm text-left text-gray-600 dark:text-gray-400">
-                            <thead class="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-50/80 dark:bg-slate-800/40 border-b border-gray-100 dark:border-slate-800 font-mono tracking-widest">
-                                <tr>
-                                    <th scope="col" class="px-8 py-5 font-bold w-20 text-center">No</th>
-                                    <th scope="col" class="px-6 py-5 font-bold">Nama Indikator / Laporan Ancaman</th>
-                                    <th scope="col" class="px-8 py-5 font-bold w-32 text-right">Ukuran</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100 dark:divide-slate-800/80">
-                                
-                                <!-- Komponen Baris Tabel (Looping Data Lebih Rapih) -->
-                                @php
-                                    $ioc_docs = [
-                                        ['file' => 'Ungkap Aktivitas APT Turla, Lebih dari 107 Ribu Indikasi Kompromi Terdeteksi di Indonesia - File Pendukung.pdf', 'judul' => 'Ungkap Aktivitas APT Turla, Lebih dari 107 Ribu Indikasi Kompromi Terdeteksi di Indonesia', 'size' => '1,245 KB'],
-                                        ['file' => 'Ransomware Berbasis AI Otonom Pertama Terungkap, Mampu Menyerang Tanpa Campur Tangan Manusia - File Pendukung.pdf', 'judul' => 'Ransomware Berbasis AI Otonom Pertama Terungkap, Mampu Menyerang Tanpa Campur Tangan Manusia', 'size' => '890 KB'],
-                                        ['file' => 'Ekstensi Microsoft Edge Berbahaya Jadi Senjata Baru Sebar Ransomware, Pengguna Diminta Waspada - File Pendukung.pdf', 'judul' => 'Ekstensi Microsoft Edge Berbahaya Jadi Senjata Baru Sebar Ransomware', 'size' => '1,432 KB'],
-                                        ['file' => 'Ransomware VECT 2.0 Disebut Rusak, File Korban Justru Tak Bisa Dipulihkan Permanen - File Pendukung.pdf', 'judul' => 'Ransomware VECT 2.0 Disebut Rusak, File Korban Justru Tak Bisa Dipulihkan Permanen', 'size' => '985 KB'],
-                                        ['file' => 'Warning! Malware ShadowPad \'Berevolusi\', Gandeng Ransomware Baru NailaoLocker Serang Jaringan Global - File Pendukung.pdf', 'judul' => 'Warning! Malware ShadowPad \'Berevolusi\', Gandeng Ransomware Baru NailaoLocker', 'size' => '2,104 KB'],
-                                        ['file' => 'Canggih dan Ganas, Begini Cara Kerja LockBit 5 Kelabui Sistem Keamanan - File Pendukung.pdf', 'judul' => 'Canggih dan Ganas, Begini Cara Kerja LockBit 5 Kelabui Sistem Keamanan', 'size' => '1,750 KB'],
-                                        ['file' => 'TA584 Gencar Serang Korban Global, Andalkan ClickFix dan Tsundere Bot - File Pendukung.pdf', 'judul' => 'TA584 Gencar Serang Korban Global, Andalkan ClickFix dan Tsundere Bot', 'size' => '832 KB'],
-                                        ['file' => 'Jejak Evolusi Akira Ransomware: Dari Taktik 2024 hingga Jadi Organisasi Kriminal Matang di 2026 - File Pendukung.pdf', 'judul' => 'Jejak Evolusi Akira Ransomware: Dari Taktik 2024 hingga Jadi Organisasi Kriminal Matang di 2026', 'size' => '3,120 KB'],
-                                        ['file' => 'Qilin : Ransomware-as-a-Service yang Menargetkan Windows dan Linux - File Pendukung.pdf', 'judul' => 'Qilin : Ransomware-as-a-Service yang Menargetkan Windows dan Linux', 'size' => '1,675 KB'],
-                                        ['file' => 'Penjahat Siber Memanfaatkan Popularitas DeepSeek AI - File Pendukung.pdf', 'judul' => 'Penjahat Siber Memanfaatkan Popularitas DeepSeek AI', 'size' => '945 KB'],
-                                        ['file' => 'GHOST RANSOMWARE   ANCAMAN GLOBAL PADA INFRASTRUKTUR KRITIS - File Pendukung .pdf', 'judul' => 'GHOST RANSOMWARE - ANCAMAN GLOBAL PADA INFRASTRUKTUR KRITIS', 'size' => '1,820 KB'],
-                                        ['file' => 'Lumma Stealer, Malware Stealer dengan Pemanfaatan Halaman CAPTCHA Palsu - File Pendukung.pdf', 'judul' => 'Lumma Stealer, Malware Stealer dengan Pemanfaatan Halaman CAPTCHA Palsu', 'size' => '1,115 KB']
-                                    ];
-                                @endphp
-
-                                @foreach($ioc_docs as $index => $doc)
-                                <tr class="hover:bg-red-50/50 dark:hover:bg-slate-800/50 transition-colors duration-300 group relative">
-                                    <!-- Aksen garis kiri saat di hover -->
-                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-red-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                    
-                                    <td class="px-8 py-5 font-mono text-xs font-bold text-slate-400 dark:text-slate-500 text-center group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
-                                        {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
-                                    </td>
-                                    <td class="px-6 py-5">
-                                        <a href="/ioc/lihat?file={{ $doc['file'] }}&judul={{ urlencode($doc['judul']) }}" target="_blank" class="inline-flex items-center gap-3 font-semibold text-slate-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors leading-relaxed">
-                                            <div class="p-2 bg-gray-100 dark:bg-slate-900 rounded-lg group-hover:bg-red-100 dark:group-hover:bg-red-900/30 transition-colors shrink-0">
-                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-red-600 dark:group-hover:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                                            </div>
-                                            <span class="group-hover:translate-x-1 transition-transform duration-300">{{ $doc['judul'] }}</span>
-                                        </a>
-                                    </td>
-                                    <td class="px-8 py-5 text-right font-mono text-xs text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors">
-                                        {{ $doc['size'] }}
-                                    </td>
-                                </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Footer Tabel -->
-                    <div class="p-5 border-t border-gray-100 dark:border-slate-800 bg-gray-50/50 dark:bg-[#020817]/50 text-xs font-mono font-bold uppercase tracking-widest text-gray-400 dark:text-slate-500 text-center transition-colors duration-300">
-                        Menampilkan 1 hingga 12 dari 12 dokumen IoC.
-                    </div>
+            <!-- STAT CARDS -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8 opacity-0 animate-fade-in-up" style="animation-delay: 0.1s;">
+                <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-gray-200 dark:border-slate-800 rounded-xl p-3 text-center shadow-sm">
+                    <div class="text-2xl font-display font-bold text-blue-600 dark:text-blue-500">13</div>
+                    <div class="text-[9px] font-mono font-bold uppercase tracking-widest text-slate-500 mt-1">DOKUMEN IOC</div>
+                </div>
+                <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-gray-200 dark:border-slate-800 rounded-xl p-3 text-center shadow-sm">
+                    <div class="text-2xl font-display font-bold text-cyan-600 dark:text-cyan-400">13,207</div>
+                    <div class="text-[9px] font-mono font-bold uppercase tracking-widest text-slate-500 mt-1">CVE</div>
+                </div>
+                <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-gray-200 dark:border-slate-800 rounded-xl p-3 text-center shadow-sm">
+                    <div class="text-2xl font-display font-bold text-red-600 dark:text-red-500">7,270</div>
+                    <div class="text-[9px] font-mono font-bold uppercase tracking-widest text-slate-500 mt-1">CRITICAL/HIGH</div>
+                </div>
+                <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-gray-200 dark:border-slate-800 rounded-xl p-3 text-center shadow-sm">
+                    <div class="text-2xl font-display font-bold text-amber-500 dark:text-amber-400">822</div>
+                    <div class="text-[9px] font-mono font-bold uppercase tracking-widest text-slate-500 mt-1">MALWARE</div>
+                </div>
+                <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-gray-200 dark:border-slate-800 rounded-xl p-3 text-center shadow-sm">
+                    <div class="text-2xl font-display font-bold text-teal-500 dark:text-teal-400">29,594</div>
+                    <div class="text-[9px] font-mono font-bold uppercase tracking-widest text-slate-500 mt-1">PHISHING</div>
+                </div>
+                <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-gray-200 dark:border-slate-800 rounded-xl p-3 text-center shadow-sm">
+                    <div class="text-2xl font-display font-bold text-blue-600 dark:text-blue-500">405</div>
+                    <div class="text-[9px] font-mono font-bold uppercase tracking-widest text-slate-500 mt-1">IP FEEDS</div>
                 </div>
             </div>
 
+            <!-- TABS -->
+            <div class="flex flex-wrap justify-center gap-2 mb-10 opacity-0 animate-fade-in-up" style="animation-delay: 0.15s;">
+                @foreach($tabs as $key => $tab)
+                    <a href="?feed={{ $key }}" class="px-4 py-2 font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-widest rounded-lg transition-colors {{ $feed == $key ? 'bg-transparent border border-cyan-500 text-cyan-600 dark:text-cyan-400' : 'bg-transparent border border-gray-200 dark:border-slate-700/80 text-slate-600 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800' }}">
+                        {{ $tab['label'] }}
+                    </a>
+                @endforeach
+            </div>
+
+            <div class="w-full opacity-0 animate-fade-in-up" style="animation-delay: 0.2s;">
+                
+                <!-- SYNC STATUS & TITLE -->
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2 gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_5px_#22c55e]"></span>
+                        <span class="text-[10px] font-mono font-bold text-slate-400">Terakhir disinkronkan 4 days ago</span>
+                    </div>
+                    <a href="/ioc/semua?type={{ $feed }}" class="px-4 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-white font-bold text-[10px] uppercase rounded transition-colors shadow-[0_0_10px_rgba(6,182,212,0.3)] inline-block">
+                        = Lihat Semua
+                    </a>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">{{ $activeTab['desc'] }}</p>
+
+                <!-- CHART CARD -->
+                <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-gray-200 dark:border-slate-800 rounded-2xl p-6 shadow-xl mb-6">
+                    <div class="flex justify-between items-start mb-6 border-b border-gray-100 dark:border-slate-800 pb-4">
+                        <h2 class="text-xl font-display font-bold text-slate-900 dark:text-white">Tahun 2026</h2>
+                        <div class="text-right">
+                            <div class="text-2xl font-display font-bold text-cyan-500">{{ $activeTab['total'] }}</div>
+                            <div class="text-[8px] font-mono uppercase tracking-widest text-slate-500">TOTAL {{ strtoupper(str_replace('-', ' ', $feed)) }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-[9px] font-mono font-bold uppercase tracking-widest text-slate-400 mb-5 flex items-center gap-2">
+                        <span class="w-2 h-2 border border-slate-400"></span> RINCIAN 4 BULAN TERAKHIR (ROLLING)
+                    </div>
+
+                    <div class="space-y-4">
+                        @foreach(['MEI' => 0, 'JUNI' => 1, 'JULI' => 2, 'AGUSTUS' => 3] as $month => $i)
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 text-[10px] font-mono font-bold {{ $chartPct[$i] == 100 ? 'text-cyan-500' : 'text-slate-500 dark:text-slate-400' }}">{{ $month }}</div>
+                            <div class="flex-grow bg-gray-100 dark:bg-slate-800 rounded-full h-1.5 relative">
+                                <div class="absolute left-0 top-0 h-full bg-cyan-500 rounded-full {{ $chartPct[$i] > 0 ? 'shadow-[0_0_8px_rgba(6,182,212,0.5)]' : '' }}" style="width: {{ $chartPct[$i] }}%;"></div>
+                            </div>
+                            <div class="w-12 text-right text-[10px] font-mono font-bold {{ $chartPct[$i] == 100 ? 'text-cyan-500' : 'text-slate-500' }}">{{ $chart[strtolower($month)] }}</div>
+                        </div>
+                        @endforeach
+                    </div>
+                    
+                    <p class="text-[9px] text-slate-400 dark:text-slate-500 mt-6 pt-4 border-t border-gray-100 dark:border-slate-800">
+                        <span class="inline-block w-2.5 h-2.5 rounded-full border border-slate-400 text-center leading-[8px] mr-1 text-[7px]">i</span> 
+                        Total {{ ucwords(str_replace('-', ' ', $feed)) }} = akumulasi Januari-bulan ini. Grafik = 4 bulan terakhir rolling.
+                    </p>
+                </div>
+
+                <!-- EXTRA DISTRIBUTION CHARTS -->
+                @if($feed == 'cve')
+                <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-cyan-500/30 rounded-2xl p-6 shadow-lg mb-6 shadow-cyan-500/5">
+                    <div class="text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-500 mb-5">DISTRIBUSI TINGKAT KEPARAHAN CVE</div>
+                    <div class="space-y-3">
+                        @foreach([['HIGH','6,618',100], ['MEDIUM','4,354',75], ['CRITICAL','1,752',40], ['LOW','432',15], ['NONE','4',5]] as $d)
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 text-[9px] font-mono font-bold text-white">{{ $d[0] }}</div>
+                            <div class="flex-grow bg-slate-800 h-1.5 relative">
+                                <div class="absolute left-0 top-0 h-full bg-blue-500" style="width: {{ $d[2] }}%;"></div>
+                            </div>
+                            <div class="w-10 text-right text-[9px] font-mono font-bold text-slate-400">{{ $d[1] }}</div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @elseif($feed == 'phishing-link')
+                <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-cyan-500/30 rounded-2xl p-6 shadow-lg mb-6 shadow-cyan-500/5">
+                    <div class="text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-500 mb-5">DISTRIBUSI SKEMA URL</div>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 text-[9px] font-mono font-bold text-white">HTTPS</div>
+                            <div class="flex-grow bg-slate-800 h-1.5 relative"><div class="absolute left-0 top-0 h-full bg-blue-500" style="width: 100%;"></div></div>
+                            <div class="w-10 text-right text-[9px] font-mono font-bold text-slate-400">8,568</div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 text-[9px] font-mono font-bold text-white">HTTP</div>
+                            <div class="flex-grow bg-slate-800 h-1.5 relative"><div class="absolute left-0 top-0 h-full bg-blue-500" style="width: 50%;"></div></div>
+                            <div class="w-10 text-right text-[9px] font-mono font-bold text-slate-400">4,175</div>
+                        </div>
+                    </div>
+                </div>
+                @elseif($feed == 'phishing-domain')
+                <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-cyan-500/30 rounded-2xl p-6 shadow-lg mb-6 shadow-cyan-500/5">
+                    <div class="text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-500 mb-5">DISTRIBUSI TLD</div>
+                    <div class="space-y-3">
+                        @foreach([['.COM','4,502',100], ['.DEV','1,829',40], ['.APP','1,533',35], ['.CC','1,410',30], ['.IO','807',20], ['.AU','750',18], ['.VIP','725',17], ['.YZ','346',10], ['.NET','207',8], ['.ORG','263',9]] as $d)
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 text-[9px] font-mono font-bold text-white">{{ $d[0] }}</div>
+                            <div class="flex-grow bg-slate-800 h-1.5 relative">
+                                <div class="absolute left-0 top-0 h-full bg-blue-500" style="width: {{ $d[2] }}%;"></div>
+                            </div>
+                            <div class="w-10 text-right text-[9px] font-mono font-bold text-slate-400">{{ $d[1] }}</div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+                <!-- LIST TABLE (5 TERBARU) -->
+                @if($feed != 'cve')
+                <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-gray-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                    <div class="p-5 border-b border-gray-100 dark:border-slate-800 bg-gray-50/50 dark:bg-[#020817]/50">
+                        <h2 class="text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-500">5 {{ strtoupper(str_replace('-', ' ', $feed)) }} TERBARU</h2>
+                    </div>
+                    <div class="divide-y divide-gray-100 dark:divide-slate-800/80">
+                        @php
+                            $items = [];
+                            if($feed == 'dokumen') {
+                                $items = ['Ungkap Aktivitas APT Turla, Lebih dari 107 Ribu Indikasi Kompromi Terdeteksi di Indonesia', 'Ransomware Berbasis AI Otonom Pertama Terungkap, Mampu Menyerang Tanpa Campur Tangan Manusia', 'Ekstensi Microsoft Edge Berbahaya Jadi Senjata Baru Sebar Ransomware'];
+                            } elseif($feed == 'malware') {
+                                $items = ['FakeSpy', 'FlyTrap', 'ViceLeaker', 'Red Alert 2.0', 'Manakle'];
+                            } elseif($feed == 'phishing-link') {
+                                $items = ['https://chill-farmukehums.com/', 'https://mertilostart.com/sqd3?Aq.js', 'http://kupzovo.shop:7587/collections', 'http://faanzect.click:4929/exports'];
+                            } elseif($feed == 'phishing-domain') {
+                                $items = ['1jfem.ch'];
+                            } elseif($feed == 'ip') {
+                                $items = ['110.12.255.48', '31.55.200.234', '85.215.228.204', '45.11.101.89', '38.240.222.165'];
+                            }
+                        @endphp
+                        
+                        @foreach($items as $item)
+                        <a href="/ioc/detail?type={{ $feed }}&id={{ urlencode($item) }}" class="p-5 hover:bg-slate-800/30 transition-colors flex justify-between items-center group block">
+                            <div class="font-mono text-xs {{ in_array($feed, ['phishing-link', 'phishing-domain', 'ip']) ? 'text-red-500' : 'text-slate-300' }} group-hover:text-cyan-400 transition-colors truncate pr-4">
+                                {{ $item }}
+                            </div>
+                            @if($feed != 'dokumen')
+                            <div class="text-[9px] font-mono text-slate-500 shrink-0">15 Aug 2026 07:35</div>
+                            @endif
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+            </div>
         </div>
     </div>
 
-    <!-- FOOTER -->
     <x-footer />
-
-    <!-- CHATBOT -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <x-chatbot />
 
-    <!-- SCRIPT OBSERVER UNTUK ANIMASI SCROLL -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-on-scroll', 'is-visible', 'animate-fade-in-up');
-                        entry.target.classList.remove('reveal-on-scroll', 'opacity-0');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.reveal-on-scroll, .opacity-0.animate-fade-in-up').forEach(el => {
-                if(!el.classList.contains('mb-12') && !el.classList.contains('w-full')) {
-                    observer.observe(el);
-                } else {
-                    setTimeout(() => el.style.opacity = '1', 500);
-                }
+            document.querySelectorAll('.opacity-0.animate-fade-in-up').forEach(el => {
+                setTimeout(() => el.style.opacity = '1', parseInt(el.style.animationDelay)*1000 || 300);
             });
         });
     </script>

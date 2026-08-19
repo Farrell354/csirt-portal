@@ -29,7 +29,7 @@ class LoginRequest extends FormRequest
     {
         return [
             // Sudah diganti murni ke username tanpa validasi format email
-            'username' => ['required', 'string'], 
+            'username' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }

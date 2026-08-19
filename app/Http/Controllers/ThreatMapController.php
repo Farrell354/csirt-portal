@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class ThreatMapController extends Controller
 {
     public function getThreatData()
@@ -25,22 +23,22 @@ class ThreatMapController extends Controller
         ];
 
         // Acak Jumlah Serangan yang Mendarat (Ganti interval, misal 1-4 serangan sekaligus)
-        $numRecentAttacks = rand(1, 4); 
+        $numRecentAttacks = rand(1, 4);
         $recent_attacks = [];
 
         for ($i = 0; $i < $numRecentAttacks; $i++) {
             // Pilih satu negara secara acak dari list populer
             $source = $popularSources[array_rand($popularSources)];
-            
+
             // Pilih severity secara acak (high, medium, low)
             $severities = ['high', 'medium', 'low'];
             $severity = $severities[array_rand($severities)];
-            
+
             // Tambahkan koordinat asal ke array serangan terbaru
             $recent_attacks[] = [
                 'source_lat' => $source['lat'],
                 'source_lng' => $source['lng'],
-                'severity' => $severity
+                'severity' => $severity,
             ];
         }
 
@@ -65,7 +63,7 @@ class ThreatMapController extends Controller
             $top_attacks[] = ['name' => $attack, 'count' => $score];
         }
         // Sort by count descending
-        usort($top_attacks, fn($a, $b) => $b['count'] <=> $a['count']);
+        usort($top_attacks, fn ($a, $b) => $b['count'] <=> $a['count']);
         // Take top 3
         $top_attacks = array_slice($top_attacks, 0, 3);
 
@@ -77,14 +75,14 @@ class ThreatMapController extends Controller
             ['name' => 'China', 'flag' => '🇨🇳'],
             ['name' => 'India', 'flag' => '🇮🇳'],
             ['name' => 'Germany', 'flag' => '🇩🇪'],
-            ['name' => 'Russia', 'flag' => '🇷🇺']
+            ['name' => 'Russia', 'flag' => '🇷🇺'],
         ];
         $top_countries = [];
         foreach ($countries as $country) {
             $score = floor($newCount * (rand(100, 300) / 1000)); // countries usually have higher counts than attack types
             $top_countries[] = ['name' => $country['name'], 'flag' => $country['flag'], 'count' => $score];
         }
-        usort($top_countries, fn($a, $b) => $b['count'] <=> $a['count']);
+        usort($top_countries, fn ($a, $b) => $b['count'] <=> $a['count']);
         $top_countries = array_slice($top_countries, 0, 3);
 
         // 2c. Generate Ranked Top Attacker IPs Data
@@ -94,7 +92,7 @@ class ThreatMapController extends Controller
             $score = floor($newCount * (rand(5, 20) / 1000));
             $top_ips[] = ['address' => $ip, 'count' => $score];
         }
-        usort($top_ips, fn($a, $b) => $b['count'] <=> $a['count']);
+        usort($top_ips, fn ($a, $b) => $b['count'] <=> $a['count']);
         $top_ips = array_slice($top_ips, 0, 3);
 
         // --- 3. FORMAT FINAL DATA STRUCTURE ---
@@ -103,7 +101,7 @@ class ThreatMapController extends Controller
             'recent_attacks' => $recent_attacks,
             'top_attacks' => $top_attacks, // New data
             'top_countries' => $top_countries, // New data
-            'top_ips' => $top_ips // New data
+            'top_ips' => $top_ips, // New data
         ];
 
         return response()->json($data);
