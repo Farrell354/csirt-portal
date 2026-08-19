@@ -36,3 +36,7 @@ Thumbs.db
 /.aider*
 /.cline*
 /.roocode*
+
+skill.json
+skill-lock.json
+*skill*.json
