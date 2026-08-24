@@ -160,7 +160,12 @@
                     ⚠ Kosongkan bidang ini jika tidak ingin mengubah sandi.
                 </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div>
+                        <label for="current_password" class="block text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest">Sandi Saat Ini</label>
+                        <input type="password" name="current_password" id="current_password" placeholder="Wajib jika ganti sandi..."
+                            class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 outline-none text-sm font-medium text-gray-900 dark:text-white transition-all placeholder-gray-400">
+                    </div>
                     <div>
                         <label for="password" class="block text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest">Sandi Baru</label>
                         <input type="password" name="password" id="password" placeholder="Minimal 8 karakter..." 

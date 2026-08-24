@@ -85,6 +85,7 @@
         <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-900/30 border border-blue-500/30 rounded-full backdrop-blur-md mb-3 shadow-lg">
             <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#22d3ee] shrink-0"></span>
             <span class="text-cyan-400 font-mono text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase">Live Threat Intelligence</span>
+            <span class="text-amber-300 font-mono text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase border border-amber-400/40 bg-amber-400/10 rounded-full px-2 py-0.5">Demo</span>
         </div>
         <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white mb-1 sm:mb-2">
             Peta Ancaman <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Siber Jatim</span>

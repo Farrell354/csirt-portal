@@ -9,6 +9,12 @@ class Artikel extends Model
 {
     use HasFactory;
 
-    // Membuka kunci agar semua kolom bisa diisi data
-    protected $guarded = [];
+    protected $fillable = [
+        'judul',
+        'kategori',
+        'gambar',
+        'penulis',
+        'konten',
+        'tanggal_publikasi',
+    ];
 }

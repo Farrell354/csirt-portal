@@ -66,12 +66,8 @@
                     <div class="relative group-hover:-rotate-3 group-hover:scale-105 transition-all duration-500 ease-out">
                         <div class="w-24 h-24 md:w-32 md:h-32 bg-white dark:bg-slate-800 rounded-3xl p-1.5 shadow-2xl border border-gray-100 dark:border-slate-700 transition-colors duration-300 group-hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] group-hover:border-cyan-200 dark:group-hover:border-cyan-700 overflow-hidden bg-gray-50 dark:bg-slate-900">
                             
-                            <!-- Cek upload foto vs default DiceBear -->
-                            @if($hunter->profile_photo_path)
-                                <img src="{{ asset('storage/' . $hunter->profile_photo_path) }}" alt="Foto Profil" class="w-full h-full rounded-[1.2rem] object-cover">
-                            @else
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ urlencode($hunter->name) }}&backgroundColor=dbeafe" alt="Avatar" class="w-full h-full rounded-[1.2rem] object-cover">
-                            @endif
+                            <!-- Avatar default DiceBear -->
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ urlencode($hunter->name) }}&backgroundColor=dbeafe" alt="Avatar" class="w-full h-full rounded-[1.2rem] object-cover">
 
                         </div>
                         
@@ -187,18 +183,19 @@
                     Jalur Komunikasi
                 </h3>
                 
-                <a href="mailto:{{ $hunter->email }}" class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-[#020817] rounded-2xl border border-gray-200 dark:border-slate-800 transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl hover:border-cyan-300 dark:hover:border-cyan-700/50 cursor-pointer">
+                <div class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-[#020817] rounded-2xl border border-gray-200 dark:border-slate-800 transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl hover:border-cyan-300 dark:hover:border-cyan-700/50 cursor-pointer">
                     <div class="bg-gradient-to-br from-blue-600 to-cyan-500 text-white p-3.5 rounded-xl shrink-0 group-hover:rotate-12 transition-transform duration-300 shadow-md">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     </div>
                     <div class="overflow-hidden w-full">
-                        <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">Secure Email Link</div>
+                        <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">Kontak Resmi</div>
                         <div class="text-sm md:text-base font-bold text-slate-900 dark:text-white truncate w-full flex justify-between items-center group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                            <span>{{ $hunter->email }}</span>
+                            <span>via Tim CSIRT JatimProv</span>
                             <svg class="w-4 h-4 text-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity translate-x-2 group-hover:translate-x-0 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </div>
+                        <div class="text-[11px] text-gray-500 dark:text-gray-400 mt-1 font-medium">Email hunter dijaga kerahasiaannya. Gunakan halaman Kontak untuk menyampaikan pesan.</div>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
 

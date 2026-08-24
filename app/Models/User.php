@@ -16,6 +16,9 @@ class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
+     * Catatan: 'role' dan 'poin' sengaja TIDAK mass-assignable
+     * agar tidak bisa dieskalasi lewat input request.
+     *
      * @var list<string>
      */
     protected $fillable = [
@@ -23,8 +26,6 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'role',
-        'poin',
         'avatar',
     ];
 
@@ -48,6 +49,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'email' => 'encrypted',
         ];
     }
 
@@ -56,13 +58,27 @@ class User extends Authenticatable
         return $this->hasMany(Laporan::class);
     }
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+    /**
+     * Blind index deterministik untuk pencarian email terenkripsi.
+     * Jangan pernah pakai where('email') langsung — email di DB adalah ciphertext.
+     */
+    public static function hashEmail(string $email): string
+    {
+        return hash('sha256', strtolower(trim($email)));
+    }
 
-        // Cukup tambahkan tulisan 'encrypted' di sebelah nama kolom database-nya
-        'email' => 'encrypted',
-        'nama_asli' => 'encrypted',
-        'no_rekening' => 'encrypted', // Jika ada sistem reward
-    ];
+    public function scopeWhereEmail($query, string $email)
+    {
+        return $query->where('email_hash', self::hashEmail($email));
+    }
+
+    protected static function booted(): void
+    {
+        // Sinkronkan blind index setiap kali email berubah
+        static::saving(function (User $user) {
+            if ($user->isDirty('email') && ! empty($user->email)) {
+                $user->forceFill(['email_hash' => self::hashEmail($user->email)]);
+            }
+        });
+    }
 }

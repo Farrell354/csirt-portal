@@ -9,8 +9,20 @@ class Laporan extends Model
 {
     use HasFactory;
 
-    // Membuka semua gembok kolom agar bisa diisi
-    protected $guarded = [];
+    /**
+     * Kolom yang boleh diisi mass-assignment.
+     * 'user_id' sengaja dikecualikan — kepemilikan laporan
+     * hanya boleh diset lewat relasi $user->laporans()->create().
+     */
+    protected $fillable = [
+        'target_url',
+        'jenis_kerentanan',
+        'severity',
+        'deskripsi',
+        'bukti_poc',
+        'status',
+        'poin_diberikan',
+    ];
 
     // Relasi: Laporan ini milik satu User
     public function user()
