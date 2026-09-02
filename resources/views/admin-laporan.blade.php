@@ -98,7 +98,7 @@
                         <div>
                             <div class="flex items-center gap-2 mb-1.5">
                                 <span class="px-2.5 py-1 bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-gray-300 text-[10px] font-black uppercase tracking-widest rounded-md border border-gray-300 dark:border-slate-700 font-mono shadow-sm">
-                                    ID: {{ sprintf('%04d', $laporan->id) }}
+                                    ID: #{{ strtoupper(substr((string) $laporan->id, 0, 8)) }}
                                 </span>
                                 <span class="text-[11px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 flex items-center gap-1">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -173,7 +173,7 @@
                                     <div class="truncate text-xs text-slate-300">
                                         <span class="text-emerald-400 font-bold">File:</span> {{ basename($laporan->bukti_poc) }}
                                     </div>
-                                    <a href="/laporan/file/{{ basename($laporan->bukti_poc) }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 rounded-xl text-xs font-bold transition-all shadow-sm shrink-0">
+                                    <a href="/laporan/{{ $laporan->id }}/poc" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 rounded-xl text-xs font-bold transition-all shadow-sm shrink-0">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                         Buka / Unduh Bukti PoC
                                     </a>

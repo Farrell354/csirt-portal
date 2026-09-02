@@ -2,12 +2,20 @@
 
 namespace Tests\Feature\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        RateLimiter::clear('auth|127.0.0.1');
+    }
 
     public function test_registration_screen_can_be_rendered(): void
     {
@@ -18,11 +26,13 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
+        $unique = strtolower(Str::random(8));
         $response = $this->post('/register', [
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'name'                  => 'New Hunter',
+            'username'              => 'hunter_' . $unique,
+            'email'                 => 'hunter_' . $unique . '@example.com',
+            'password'              => 'StrongPass123!',
+            'password_confirmation' => 'StrongPass123!',
         ]);
 
         $this->assertAuthenticated();

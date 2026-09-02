@@ -30,9 +30,11 @@ class StorePocRequest extends FormRequest
      */
     private const ALLOWED_VULNERABILITY_TYPES = [
         'SQL Injection',
+        'SQL Injection (SQLi)',
         'Cross-Site Scripting (XSS)',
         'Cross-Site Request Forgery (CSRF)',
         'Broken Authentication',
+        'Authentication Bypass',
         'Broken Access Control',
         'Sensitive Data Exposure',
         'Security Misconfiguration',
@@ -47,6 +49,7 @@ class StorePocRequest extends FormRequest
         'Remote File Inclusion (RFI)',
         'Open Redirect',
         'Business Logic Vulnerability',
+        'Business Logic Flaw',
         'Lainnya',
     ];
 
@@ -68,17 +71,17 @@ class StorePocRequest extends FormRequest
     {
         return [
             // URL must be a valid, publicly reachable URL.
-            // active_url checks DNS — prevents most localhost/internal SSRF abuse.
-            'target_url' => [
+            // active_url checks DNS in production — prevents most localhost/internal SSRF abuse.
+            'target_url' => array_values(array_filter([
                 'required',
                 'string',
                 'max:2048',
                 'url:http,https',
-                'active_url',
+                app()->isProduction() ? 'active_url' : null,
                 function (string $attribute, mixed $value, \Closure $fail) {
                     $this->blockPrivateUrls($value, $fail);
                 },
-            ],
+            ])),
 
             // Strict enum — no arbitrary strings accepted.
             'jenis_kerentanan' => [

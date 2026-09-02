@@ -4,13 +4,14 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class PasswordResetTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     public function test_reset_password_link_screen_can_be_rendered(): void
     {
@@ -23,7 +24,13 @@ class PasswordResetTest extends TestCase
     {
         Notification::fake();
 
-        $user = User::factory()->create();
+        $user = User::forceCreate([
+            'name'     => 'Reset Test User',
+            'username' => 'reset_usr_' . Str::random(6),
+            'email'    => 'reset_' . Str::random(6) . '@example.com',
+            'password' => bcrypt('StrongPass123!'),
+            'role'     => 'hunter',
+        ]);
 
         $this->post('/forgot-password', ['email' => $user->email]);
 
@@ -34,7 +41,13 @@ class PasswordResetTest extends TestCase
     {
         Notification::fake();
 
-        $user = User::factory()->create();
+        $user = User::forceCreate([
+            'name'     => 'Reset Test User',
+            'username' => 'reset_scr_' . Str::random(6),
+            'email'    => 'screen_' . Str::random(6) . '@example.com',
+            'password' => bcrypt('StrongPass123!'),
+            'role'     => 'hunter',
+        ]);
 
         $this->post('/forgot-password', ['email' => $user->email]);
 
@@ -51,16 +64,22 @@ class PasswordResetTest extends TestCase
     {
         Notification::fake();
 
-        $user = User::factory()->create();
+        $user = User::forceCreate([
+            'name'     => 'Reset Test User',
+            'username' => 'reset_tok_' . Str::random(6),
+            'email'    => 'token_' . Str::random(6) . '@example.com',
+            'password' => bcrypt('OldPass123!'),
+            'role'     => 'hunter',
+        ]);
 
         $this->post('/forgot-password', ['email' => $user->email]);
 
         Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user) {
             $response = $this->post('/reset-password', [
-                'token' => $notification->token,
-                'email' => $user->email,
-                'password' => 'password',
-                'password_confirmation' => 'password',
+                'token'                 => $notification->token,
+                'email'                 => $user->email,
+                'password'              => 'NewStrongPass123!',
+                'password_confirmation' => 'NewStrongPass123!',
             ]);
 
             $response

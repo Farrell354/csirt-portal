@@ -63,8 +63,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/settings', [SettingsController::class, 'edit']);
     Route::put('/settings', [SettingsController::class, 'update']);
 
-    // Unduh bukti PoC (pemilik laporan atau admin — cek di controller)
-    Route::get('/laporan/file/{filename}', [LaporanController::class, 'download']);
+    // Unduh bukti PoC (pemilik laporan atau admin — otorisasi via LaporanPolicy)
+    Route::get('/laporan/{laporan}/poc', [LaporanController::class, 'download'])->name('laporan.download');
+    Route::get('/laporan/file/{laporan}', [LaporanController::class, 'download']);
 
     // ==========================================
     // BUG BOUNTY & LAPORAN (Khusus Hunter)
@@ -85,9 +86,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/dashboard/artikel/{id}', [ArtikelController::class, 'destroy']);
 
         // ADMIN KHUSUS LAPORAN
-        Route::get('/admin/laporan', [AdminLaporanController::class, 'index']);
-        Route::post('/admin/laporan/{id}/validasi', [AdminLaporanController::class, 'validasi']);
-        Route::get('/admin/laporan/cetak', [AdminLaporanController::class, 'cetak']);
+        Route::get('/admin/laporan', [AdminLaporanController::class, 'index'])->name('admin.laporan');
+        Route::get('/admin/laporan/{laporan}/validasi', fn () => redirect()->route('admin.laporan'));
+        Route::post('/admin/laporan/{laporan}/validasi', [AdminLaporanController::class, 'validasi'])->name('admin.laporan.validasi');
+        Route::get('/admin/laporan/cetak', [AdminLaporanController::class, 'cetak'])->name('admin.laporan.cetak');
+
+        // REAL-TIME SYSTEM METRICS API
+        Route::get('/api/system-metrics', [DashboardController::class, 'systemMetrics'])->name('admin.system.metrics');
     });
 
 });

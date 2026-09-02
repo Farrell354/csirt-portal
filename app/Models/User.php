@@ -91,9 +91,9 @@ class User extends Authenticatable
 
     protected static function booted(): void
     {
-        // Sinkronkan blind index setiap kali email berubah.
+        // Sinkronkan blind index setiap kali email berubah atau jika hash masih kosong.
         static::saving(function (User $user) {
-            if ($user->isDirty('email') && ! empty($user->email)) {
+            if ((empty($user->email_hash) || $user->isDirty('email')) && ! empty($user->email)) {
                 $user->forceFill(['email_hash' => self::hashEmail($user->email)]);
             }
         });
