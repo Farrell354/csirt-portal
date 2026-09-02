@@ -75,6 +75,16 @@
 <script>
     if (typeof window.csirtBotKirim === 'undefined') {
         
+        function csirtEscapeHtml(str) {
+            if (typeof str !== 'string') return '';
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
         window.csirtBotKirim = async function(inputElement) {
             const container = inputElement.closest('.csirt-bot-container');
             const messagesArea = container.querySelector('.csirt-bot-messages');
@@ -82,11 +92,11 @@
             
             if (!text) return;
 
-            // 1. Memunculkan Chat User (Desain Premium)
+            // 1. Memunculkan Chat User (Desain Premium - Disanitasi)
             messagesArea.innerHTML += `
                 <div class="flex items-end justify-end mb-4">
                     <div class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-2xl rounded-tr-sm p-3.5 max-w-[85%] shadow-md font-medium text-[13px] leading-relaxed">
-                        ${text}
+                        ${csirtEscapeHtml(text)}
                     </div>
                 </div>
             `;
@@ -129,11 +139,12 @@
                 // Hapus indikator loading
                 document.getElementById(loadingId).remove();
 
-                // Tampilkan balasan asli dari AI (Desain Premium)
+                // Tampilkan balasan asli dari AI (Desain Premium - Disanitasi)
+                const safeReply = csirtEscapeHtml(data.reply || '').replace(/\n/g, '<br>');
                 messagesArea.innerHTML += `
                     <div class="flex items-start mb-4">
                         <div class="bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 text-gray-700 dark:text-gray-200 rounded-2xl rounded-tl-sm p-3.5 max-w-[85%] shadow-sm font-medium text-[13px] leading-relaxed">
-                            ${data.reply}
+                            ${safeReply}
                         </div>
                     </div>
                 `;

@@ -225,7 +225,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 dark:divide-slate-800/80 bg-white dark:bg-slate-900/40">
-                        @forelse($hunter->laporans()->orderBy('created_at', 'desc')->get() as $laporan)
+                        @forelse($validLaporans as $laporan)
                         <tr class="hover:bg-blue-50/50 dark:hover:bg-cyan-900/10 transition-colors duration-200 group cursor-default">
                             
                             <td class="px-6 py-4 whitespace-nowrap text-gray-500 dark:text-gray-400 text-xs font-mono group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors">
@@ -237,19 +237,9 @@
                             </td>
                             
                             <td class="px-6 py-4">
-                                @if($laporan->status === 'Valid')
-                                    <span class="inline-flex items-center gap-1.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded border border-emerald-200 dark:border-emerald-800/50 shadow-sm">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> Valid
-                                    </span>
-                                @elseif($laporan->status === 'Menunggu' || $laporan->status === 'Diproses' || $laporan->status === 'Pending')
-                                    <span class="inline-flex items-center gap-1.5 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded border border-amber-200 dark:border-amber-800/50 shadow-sm">
-                                        <svg class="w-3 h-3 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Proses
-                                    </span>
-                                @else
-                                    <span class="inline-flex items-center gap-1.5 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded border border-red-200 dark:border-red-800/50 shadow-sm">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg> Ditolak
-                                    </span>
-                                @endif
+                                <span class="inline-flex items-center gap-1.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded border border-emerald-200 dark:border-emerald-800/50 shadow-sm">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> Valid
+                                </span>
                             </td>
                             
                             <td class="px-6 py-4 text-right font-display font-black text-slate-800 dark:text-white text-lg group-hover:text-blue-600 dark:group-hover:text-cyan-400 group-hover:scale-110 transition-all origin-right">

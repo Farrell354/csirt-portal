@@ -90,40 +90,30 @@
                 <!-- BLOK FOTO PROFIL (SINKRONISASI DICEBEAR) -->
                 <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-10 bg-gray-50 dark:bg-slate-950/50 p-6 rounded-2xl border border-gray-100 dark:border-slate-800">
                     
-                    <!-- Avatar Logika: Jika ada foto di DB pakai itu, jika tidak pakai DiceBear -->
+                    <!-- Avatar Logika: Jika ada avatar di DB pakai itu, jika tidak pakai DiceBear -->
                     <div class="relative w-28 h-28 rounded-3xl overflow-hidden border-4 border-white dark:border-slate-800 shadow-[0_0_20px_rgba(59,130,246,0.3)] shrink-0 bg-blue-50 dark:bg-slate-700 group">
-                        @if(auth()->user()->profile_photo_path)
-                            <img src="{{ asset('storage/' . auth()->user()->profile_photo_path) }}" alt="Foto Profil" class="w-full h-full object-cover">
+                        @if(auth()->user()->avatar)
+                            <img src="{{ auth()->user()->avatar }}" alt="Avatar" class="w-full h-full object-cover">
                         @else
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ urlencode(auth()->user()->name) }}&backgroundColor=dbeafe" alt="Avatar Kartun" class="w-full h-full object-cover">
                         @endif
-                        
-                        <!-- Overlay Edit Foto -->
-                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        </div>
                     </div>
                     
                     <div class="text-center sm:text-left flex-grow">
                         <h4 class="text-2xl font-black text-slate-900 dark:text-white mb-1">{{ auth()->user()->name }}</h4>
-                        <p class="text-xs text-blue-600 dark:text-cyan-400 mb-4 font-bold tracking-widest uppercase">
+                        <p class="text-xs text-blue-600 dark:text-cyan-400 mb-2 font-bold tracking-widest uppercase">
                             {{ auth()->user()->role === 'admin' ? 'Administrator CSIRT' : 'Bug Hunter Elite' }}
                         </p>
-                        
-                        <div class="flex justify-center sm:justify-start">
-                            <label class="px-5 py-2.5 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 text-slate-700 dark:text-gray-200 text-xs font-bold rounded-xl transition-colors shadow-sm border border-gray-200 dark:border-slate-600 cursor-pointer flex items-center gap-2">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                                Ubah Avatar
-                                <input type="file" name="photo" class="hidden" accept="image/*">
-                            </label>
-                        </div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                            Avatar digenerate otomatis secara dinamis berdasarkan identitas nama akun Anda.
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                     <!-- Input Nama -->
                     <div>
-                        <label for="name" class="block text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest">Nama Lengkap / Username</label>
+                        <label for="name" class="block text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest">Nama Lengkap</label>
                         <input type="text" name="name" id="name" value="{{ old('name', auth()->user()->name) }}" required 
                             class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500/50 outline-none text-sm font-medium text-gray-900 dark:text-white transition-all">
                     </div>
@@ -133,18 +123,6 @@
                         <label for="email" class="block text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest">Alamat Email Taut</label>
                         <input type="email" name="email" id="email" value="{{ old('email', auth()->user()->email) }}" required 
                             class="w-full px-4 py-3 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500/50 outline-none text-sm font-medium text-gray-900 dark:text-white transition-all">
-                    </div>
-
-                    <!-- Input LinkedIn -->
-                    <div class="md:col-span-2">
-                        <label for="linkedin_url" class="block text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-widest">Tautan LinkedIn (Opsional)</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <svg class="w-4 h-4 text-blue-500 dark:text-cyan-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                            </div>
-                            <input type="text" name="linkedin_url" id="linkedin_url" value="{{ old('linkedin_url', auth()->user()->linkedin_url ?? '') }}" placeholder="Contoh: linkedin.com/in/cyber-agent" 
-                                class="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500/50 outline-none text-sm font-medium text-gray-900 dark:text-white transition-all placeholder-gray-400">
-                        </div>
                     </div>
                 </div>
 

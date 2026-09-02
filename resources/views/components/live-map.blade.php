@@ -418,6 +418,7 @@
             el.innerHTML = data.map((item,i) => gen(item,i)).join('');
         };
 
+        // Polling data backend berkala (setiap 20 detik untuk menghemat sumber daya server)
         setInterval(() => {
             fetch('/api/threat-data')
                 .then(r => { if (r.ok) return r.json(); throw new Error(); })
@@ -443,22 +444,12 @@
                             <div class="flex items-center gap-2 min-w-0"><span class="text-[9px] font-bold text-gray-500 w-4 shrink-0">${i+1}.</span><span class="truncate">${item.address}</span></div>
                             <span class="font-bold shrink-0 ml-2 ${i===0?'text-red-400':'text-orange-400'}">${item.count.toLocaleString('id-ID')}</span>
                         </li>`);
-                    if (d.recent_attacks?.length) {
-                        d.recent_attacks.forEach(a => {
-                            const arc = { startLat:a.source_lat, startLng:a.source_lng,
-                                endLat:targetJatim.lat+(Math.random()-.5)*1.5,
-                                endLng:targetJatim.lng+(Math.random()-.5)*1.5,
-                                color:a.severity==='high'?'#ef4444':a.severity==='medium'?'#f97316':'#0ea5e9' };
-                            activeAttacks.push(arc); if(activeAttacks.length>12) activeAttacks.shift();
-                            myGlobe.arcsData(activeAttacks).arcStartLat(d=>d.startLat).arcStartLng(d=>d.startLng)
-                                .arcEndLat(d=>d.endLat).arcEndLng(d=>d.endLng).arcColor(d=>['rgba(255,255,255,0)',d.color]);
-                            setTimeout(()=>{ activeRings.push({lat:arc.endLat,lng:arc.endLng,color:arc.color}); if(activeRings.length>5) activeRings.shift(); myGlobe.ringsData(activeRings); },1500);
-                        });
-                    } else { fireAttack(); }
                 })
-                .catch(fireAttack);
-        }, 3000);
+                .catch(() => {});
+        }, 20000);
 
+        // Simulasi visual animasi tembakan serangan pada browser klien
+        setInterval(fireAttack, 3000);
         setTimeout(fireAttack, 500);
 
         /* ── Resize ── */

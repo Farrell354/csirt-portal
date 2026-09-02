@@ -32,35 +32,58 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app/private'),
-            'serve' => true,
-            'throw' => false,
+            'root'   => storage_path('app/private'),
+            'serve'  => true,
+            'throw'  => false,
             'report' => false,
+        ],
+
+        /*
+        |----------------------------------------------------------------------
+        | poc_files — Defense in Depth: Isolated Private PoC Disk
+        |----------------------------------------------------------------------
+        |
+        | All Proof-of-Concept upload files are stored here exclusively.
+        | This disk is intentionally:
+        |   - Rooted inside storage/app/private/poc_files (never public/)
+        |   - serve: false  → no automatic URL generation possible
+        |   - throw: true   → storage failures bubble up as exceptions
+        |                      so FileUploadService can handle them cleanly
+        |
+        | Access is controlled solely through the LaporanPolicy + controller.
+        |
+        */
+        'poc_files' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/private/poc_files'),
+            'serve'  => false,
+            'throw'  => true,
         ],
 
         'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
+            'driver'     => 'local',
+            'root'       => storage_path('app/public'),
+            'url'        => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
-            'throw' => false,
-            'report' => false,
+            'throw'      => false,
+            'report'     => false,
         ],
 
         's3' => [
-            'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-            'endpoint' => env('AWS_ENDPOINT'),
+            'driver'                  => 's3',
+            'key'                     => env('AWS_ACCESS_KEY_ID'),
+            'secret'                  => env('AWS_SECRET_ACCESS_KEY'),
+            'region'                  => env('AWS_DEFAULT_REGION'),
+            'bucket'                  => env('AWS_BUCKET'),
+            'url'                     => env('AWS_URL'),
+            'endpoint'                => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
-            'throw' => false,
-            'report' => false,
+            'throw'                   => false,
+            'report'                  => false,
         ],
 
     ],
+
 
     /*
     |--------------------------------------------------------------------------

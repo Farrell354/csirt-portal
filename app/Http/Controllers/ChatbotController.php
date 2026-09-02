@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class ChatbotController extends Controller
 {
-    public function reply(Request $request)
+    public function reply(Request $request): \Illuminate\Http\JsonResponse
     {
         $validated = $request->validate([
             'message' => ['required', 'string', 'max:1000'],
@@ -20,7 +20,7 @@ class ChatbotController extends Controller
         $panduanCSIRT = KnowledgeBase::getInfo();
 
         try {
-            $response = Http::withHeaders([
+            $response = Http::timeout(15)->withHeaders([
                 'Authorization' => 'Bearer '.config('services.groq.key'),
                 'Content-Type' => 'application/json',
             ])->post('https://api.groq.com/openai/v1/chat/completions', [

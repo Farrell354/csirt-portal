@@ -34,16 +34,7 @@
         <x-navbar />
     </div>
 
-    <!-- AMBIL DATA DARI DATABASE -->
-    @php
-        $laporans = \App\Models\Laporan::where('user_id', auth()->id())->latest()->get();
-        
-        $totalLaporan = $laporans->count();
-        $laporanDiproses = $laporans->whereIn('status', ['Pending', 'Diproses', 'Menunggu'])->count();
-        $laporanValid = $laporans->where('status', 'Valid')->count();
-        
-        $totalPoin = auth()->user()->poin ?? 0;
-    @endphp
+
 
     <!-- KONTEN UTAMA -->
     <div class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative z-10">

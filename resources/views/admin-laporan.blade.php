@@ -169,8 +169,14 @@
                                     <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
                                     <span class="ml-2 text-[10px] text-gray-500 font-mono tracking-widest">EXPLOIT_POC.TXT</span>
                                 </div>
-                                <div class="bg-[#020617] p-5 text-sm font-mono whitespace-pre-wrap overflow-x-auto text-emerald-400 leading-relaxed">
-{{ $laporan->bukti_poc }}
+                                <div class="bg-[#020617] p-5 text-sm font-mono whitespace-pre-wrap overflow-x-auto text-emerald-400 leading-relaxed flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                    <div class="truncate text-xs text-slate-300">
+                                        <span class="text-emerald-400 font-bold">File:</span> {{ basename($laporan->bukti_poc) }}
+                                    </div>
+                                    <a href="/laporan/file/{{ basename($laporan->bukti_poc) }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 rounded-xl text-xs font-bold transition-all shadow-sm shrink-0">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                        Buka / Unduh Bukti PoC
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -220,6 +226,12 @@
                     <p class="text-gray-500 dark:text-gray-400 font-medium">Belum ada laporan kerentanan yang masuk dari para analis intelijen (Bug Hunter).</p>
                 </div>
             @endforelse
+
+            @if($laporans->hasPages())
+                <div class="mt-8">
+                    {{ $laporans->links() }}
+                </div>
+            @endif
         </div>
 
     </div>

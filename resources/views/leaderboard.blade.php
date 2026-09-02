@@ -158,7 +158,7 @@
                             </div>
                             <div class="px-4 w-1/2">
                                 <div class="text-[10px] text-emerald-500 font-bold mb-1 uppercase">Valid</div>
-                                <div class="font-display text-xl font-black text-emerald-600 dark:text-emerald-400">{{ $top3[1]->laporans->where('status', 'Valid')->count() ?? 0 }}</div>
+                                <div class="font-display text-xl font-black text-emerald-600 dark:text-emerald-400">{{ $top3[1]->valid_laporans_count ?? 0 }}</div>
                             </div>
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                             </div>
                             <div class="px-4 w-1/2 flex flex-col items-center">
                                 <div class="text-[10px] text-emerald-500 font-bold mb-1 uppercase tracking-wider flex items-center gap-1">Valid</div>
-                                <div class="font-display text-2xl font-black text-slate-800 dark:text-gray-100">{{ $top3[0]->laporans->where('status', 'Valid')->count() ?? 0 }}</div>
+                                <div class="font-display text-2xl font-black text-slate-800 dark:text-gray-100">{{ $top3[0]->valid_laporans_count ?? 0 }}</div>
                             </div>
                         </div>
                     </div>
@@ -221,7 +221,7 @@
                             </div>
                             <div class="px-4 w-1/2">
                                 <div class="text-[10px] text-emerald-500 font-bold mb-1 uppercase">Valid</div>
-                                <div class="font-display text-xl font-black text-emerald-600 dark:text-emerald-400">{{ $top3[2]->laporans->where('status', 'Valid')->count() ?? 0 }}</div>
+                                <div class="font-display text-xl font-black text-emerald-600 dark:text-emerald-400">{{ $top3[2]->valid_laporans_count ?? 0 }}</div>
                             </div>
                         </div>
                     </div>
@@ -268,14 +268,14 @@
                                     <div class="font-display font-bold text-slate-900 dark:text-white flex items-center gap-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors text-base md:text-lg">
                                         {{ $hunter->name }}
                                         @if($index + 4 <= 10) 
-                                        <span class="bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 text-[10px] px-2 py-0.5 rounded uppercase font-black tracking-widest hidden md:inline-flex items-center gap-1 border border-amber-200 dark:border-amber-800">
+                                         <span class="bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 text-[10px] px-2 py-0.5 rounded uppercase font-black tracking-widest hidden md:inline-flex items-center gap-1 border border-amber-200 dark:border-amber-800">
                                             TOP 10
                                         </span> 
                                         @endif
                                     </div>
                                     <div class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5 mt-1 font-medium">
                                         <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                                        {{ $hunter->laporans->where('status', 'Valid')->count() ?? 0 }} Valid Reports
+                                        {{ $hunter->valid_laporans_count ?? 0 }} Valid Reports
                                     </div>
                                 </div>
 

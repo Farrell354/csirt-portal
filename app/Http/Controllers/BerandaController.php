@@ -6,9 +6,11 @@ use App\Models\Artikel;
 use App\Models\Laporan;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\View\View;
+
 class BerandaController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         // 1. Ambil 3 data artikel terbaru dari tabel 'artikels'
         $artikelTerkini = Artikel::query()

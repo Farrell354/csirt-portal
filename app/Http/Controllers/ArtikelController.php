@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artikel;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ArtikelController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $query = Artikel::query();
 
@@ -24,7 +26,7 @@ class ArtikelController extends Controller
         return view('artikel', compact('artikels'));
     }
 
-    public function show($id)
+    public function show(int|string $id): View
     {
         $artikel = Artikel::findOrFail($id);
 
@@ -33,41 +35,44 @@ class ArtikelController extends Controller
 
     // --- Admin CMS Methods (Otorisasi via 'role:admin' middleware) ---
 
+    /**
+     * @return array<string, mixed>
+     */
     private function validateArtikel(Request $request): array
     {
         return $request->validate([
-            'judul' => ['required', 'string', 'max:255'],
+            'judul'    => ['required', 'string', 'max:255'],
             'kategori' => ['required', 'string', 'max:100'],
-            'gambar' => ['required', 'url', 'max:2048'],
-            'penulis' => ['required', 'string', 'max:255'],
-            'konten' => ['required', 'string'],
+            'gambar'   => ['required', 'url', 'max:2048'],
+            'penulis'  => ['required', 'string', 'max:255'],
+            'konten'   => ['required', 'string'],
         ]);
     }
 
-    public function create()
+    public function create(): View
     {
         return view('artikel-create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $this->validateArtikel($request);
 
-        Artikel::create($validated + [
-            'tanggal_publikasi' => now(),
-        ]);
+        $validated['tanggal_publikasi'] = now();
+        // @phpstan-ignore-next-line — keys are validated above and match $fillable exactly
+        Artikel::create($validated);
 
         return redirect('/dashboard');
     }
 
-    public function edit($id)
+    public function edit(int|string $id): View
     {
         $artikel = Artikel::findOrFail($id);
 
         return view('artikel-edit', compact('artikel'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, int|string $id): RedirectResponse
     {
         $validated = $this->validateArtikel($request);
 
@@ -77,7 +82,7 @@ class ArtikelController extends Controller
         return redirect('/dashboard');
     }
 
-    public function destroy($id)
+    public function destroy(int|string $id): RedirectResponse
     {
         Artikel::destroy($id);
 

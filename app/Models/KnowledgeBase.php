@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 class KnowledgeBase
 {
-    public static function getInfo()
+    public static function getInfo(): string
     {
         return "
         === PUSAT INFORMASI & BASIS PENGETAHUAN LENGKAP JATIMPROV-CSIRT ===

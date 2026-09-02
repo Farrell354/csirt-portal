@@ -23,6 +23,9 @@ Route::get('/api/threat-data', [ThreatMapController::class, 'getThreatData']);
 
 // Rute Tampilan Statis (Route::view lebih efisien dibanding closure)
 Route::view('/profil', 'profil');
+Route::view('/kontak', 'kontak');
+Route::view('/panduan', 'panduan');
+Route::view('/rfc2350', 'rfc2350');
 Route::view('/layanan', 'layanan');
 Route::get('/layanan/{slug}', fn ($slug) => view('layanan-detail', compact('slug')));
 Route::view('/panduan/lihat', 'panduan-viewer');

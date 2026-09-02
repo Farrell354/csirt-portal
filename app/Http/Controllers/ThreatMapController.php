@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 class ThreatMapController extends Controller
 {
-    public function getThreatData()
+    public function getThreatData(): \Illuminate\Http\JsonResponse
     {
         // ========================================================================
         // DATA SIMULASI: membuat peta terlihat seolah menerima serangan real-time.

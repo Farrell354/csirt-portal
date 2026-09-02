@@ -1,0 +1,15 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - app
+
+    # Level 6: catches undefined variables, return-type mismatches,
+    # unreachable code, wrong argument counts, and dead branches.
+    level: 6
+
+    checkModelProperties: true
+
+    universalObjectCratesClasses:
+        - Illuminate\Http\Request

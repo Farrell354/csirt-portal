@@ -4,7 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -31,16 +33,23 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for serialization.
+     * 'email_hash' dikecualikan agar blind-index SHA-256 tidak
+     * bocor ke JSON response / API output.
      *
      * @var list<string>
      */
     protected $hidden = [
         'password',
         'remember_token',
+        'email_hash',
     ];
 
     /**
      * Get the attributes that should be cast.
+     *
+     * Defense in Depth — Data Layer:
+     *   - 'email' : AES-256-CBC via APP_KEY (Laravel Crypt)
+     *   - 'name'  : AES-256-CBC via APP_KEY (Laravel Crypt) — PII protection
      *
      * @return array<string, string>
      */
@@ -48,12 +57,16 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'email' => 'encrypted',
+            'password'          => 'hashed',
+            'email'             => 'encrypted',
+            'name'              => 'encrypted',
         ];
     }
 
-    public function laporans()
+    /**
+     * @return HasMany<Laporan, $this>
+     */
+    public function laporans(): HasMany
     {
         return $this->hasMany(Laporan::class);
     }
@@ -67,14 +80,18 @@ class User extends Authenticatable
         return hash('sha256', strtolower(trim($email)));
     }
 
-    public function scopeWhereEmail($query, string $email)
+    /**
+     * @param  Builder<User>  $query
+     * @return Builder<User>
+     */
+    public function scopeWhereEmail(Builder $query, string $email): Builder
     {
         return $query->where('email_hash', self::hashEmail($email));
     }
 
     protected static function booted(): void
     {
-        // Sinkronkan blind index setiap kali email berubah
+        // Sinkronkan blind index setiap kali email berubah.
         static::saving(function (User $user) {
             if ($user->isDirty('email') && ! empty($user->email)) {
                 $user->forceFill(['email_hash' => self::hashEmail($user->email)]);
