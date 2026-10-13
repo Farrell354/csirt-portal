@@ -72,6 +72,14 @@ class User extends Authenticatable
     }
 
     /**
+     * @return HasMany<Certificate, $this>
+     */
+    public function certificates(): HasMany
+    {
+        return $this->hasMany(Certificate::class);
+    }
+
+    /**
      * Blind index deterministik untuk pencarian email terenkripsi.
      * Jangan pernah pakai where('email') langsung — email di DB adalah ciphertext.
      */

@@ -115,6 +115,19 @@ class StorePocRequest extends FormRequest
                 // Do NOT remove FileUploadService MIME sniff — this alone is insufficient.
                 'mimes:jpg,jpeg,png,gif,webp,pdf,mp4,webm,avi',
             ],
+
+            // Enhancement 3 — Pseudonymous Reporting (ISO/IEC 29147 / UU PDP)
+            // is_anonymous: optional boolean toggle from the submission form.
+            'is_anonymous' => ['nullable', 'boolean'],
+
+            // pseudonym: hunter-supplied handle. Only required when is_anonymous is true.
+            // Regex allows alphanumeric, spaces, hyphens, dots — no real PII characters.
+            'pseudonym' => [
+                'nullable',
+                'string',
+                'max:80',
+                'regex:/^[\w\s\-\.]+$/u',
+            ],
         ];
     }
 

@@ -3,14 +3,19 @@
 use App\Http\Controllers\AdminLaporanController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\PublicCertificateVerificationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HunterController;
+use App\Http\Controllers\HunterDashboardController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\TargetVerificationController;
 use App\Http\Controllers\ThreatMapController;
+use App\Models\Laporan;
 use Illuminate\Support\Facades\Route;
 
 // ==========================================
@@ -42,6 +47,9 @@ Route::get('/leaderboard', [LeaderboardController::class, 'index']);
 Route::get('/hunter/{id}', [HunterController::class, 'show']);
 Route::post('/chatbot-reply', [ChatbotController::class, 'reply'])->middleware('throttle:10,1');
 
+// Verifikasi Publik Sertifikat Penghargaan (UU PDP Compliant)
+Route::get('/verify-certificate/{uuid}', [PublicCertificateVerificationController::class, 'show'])->name('certificate.verify');
+
 // ==========================================
 // RUTE OTENTIKASI (Breeze)
 // ==========================================
@@ -67,12 +75,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/laporan/{laporan}/poc', [LaporanController::class, 'download'])->name('laporan.download');
     Route::get('/laporan/file/{laporan}', [LaporanController::class, 'download']);
 
+    // Unduh Sertifikat Penghargaan (pemilik laporan atau admin — otorisasi via CertificatePolicy)
+    Route::get('/certificates/{certificate}/download', [CertificateController::class, 'download'])->name('certificates.download');
+
     // ==========================================
     // BUG BOUNTY & LAPORAN (Khusus Hunter)
     // ==========================================
     Route::middleware('role:hunter')->group(function () {
         Route::view('/dashboard/lapor', 'hunter-lapor');
         Route::post('/dashboard/lapor', [LaporanController::class, 'store'])->middleware('throttle:3,60');
+        Route::get('/dashboard/laporan/{laporan}', [HunterDashboardController::class, 'show'])->name('hunter.laporan.show');
+
+        // Anti-SSRF: Live asset & scope verifier (throttled to prevent port scanning)
+        Route::post('/api/verify-target', [TargetVerificationController::class, 'verify'])
+            ->middleware('throttle:15,1')
+            ->name('api.verify-target');
     });
 
     // ==========================================
@@ -86,10 +103,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/dashboard/artikel/{id}', [ArtikelController::class, 'destroy']);
 
         // ADMIN KHUSUS LAPORAN
-        Route::get('/admin/laporan', [AdminLaporanController::class, 'index'])->name('admin.laporan');
-        Route::get('/admin/laporan/{laporan}/validasi', fn () => redirect()->route('admin.laporan'));
-        Route::post('/admin/laporan/{laporan}/validasi', [AdminLaporanController::class, 'validasi'])->name('admin.laporan.validasi');
+        Route::get('/admin/laporan', [AdminLaporanController::class, 'index'])->name('admin.laporan.index');
+        // /cetak must be declared BEFORE the {laporan} wildcard so it is not captured
         Route::get('/admin/laporan/cetak', [AdminLaporanController::class, 'cetak'])->name('admin.laporan.cetak');
+        // Single-report review page — UUID in URL via HasUuids PK (Anti-IDOR compliance)
+        Route::get('/admin/laporan/{laporan}', [AdminLaporanController::class, 'show'])->name('admin.laporan.show');
+        Route::get('/admin/laporan/{laporan}/cetak', [AdminLaporanController::class, 'cetakAdvisory'])->name('admin.laporan.advisory.cetak');
+        Route::get('/admin/laporan/{laporan}/validasi', fn (Laporan $laporan) => redirect()->route('admin.laporan.show', $laporan));
+        Route::post('/admin/laporan/{laporan}/validasi', [AdminLaporanController::class, 'validasi'])->name('admin.laporan.validasi');
+        Route::post('/admin/laporan/{laporan}/cvss', [AdminLaporanController::class, 'saveCvss'])->name('admin.laporan.cvss');
+        Route::post('/admin/laporan/{laporan}/override-quarantine', [AdminLaporanController::class, 'overrideQuarantine'])->name('admin.laporan.override-quarantine');
+        // OPD Disposition (Enhancement 5)
+        Route::post('/admin/laporan/{laporan}/disposition', [AdminLaporanController::class, 'disposition'])->name('admin.laporan.disposition');
+        // Penerbitan Sertifikat Penghargaan (VDP Certificate)
+        Route::post('/admin/laporan/{laporan}/certificate', [CertificateController::class, 'issue'])->name('admin.laporan.certificate.issue');
 
         // REAL-TIME SYSTEM METRICS API
         Route::get('/api/system-metrics', [DashboardController::class, 'systemMetrics'])->name('admin.system.metrics');

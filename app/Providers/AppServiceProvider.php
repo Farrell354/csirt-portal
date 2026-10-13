@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Auth\EncryptedEmailUserProvider;
+use App\Models\Certificate;
 use App\Models\Laporan;
+use App\Policies\CertificatePolicy;
 use App\Policies\LaporanPolicy;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
@@ -77,6 +79,7 @@ class AppServiceProvider extends ServiceProvider
         //   Gate::authorize('downloadPoc', $laporan) → LaporanPolicy::downloadPoc()
         //   Gate::authorize('update', $laporan)      → LaporanPolicy::update()
         Gate::policy(Laporan::class, LaporanPolicy::class);
+        Gate::policy(Certificate::class, CertificatePolicy::class);
 
         // ── 6. Named Rate Limiters — Defense in Depth: Network/Edge Layer ─────
         //

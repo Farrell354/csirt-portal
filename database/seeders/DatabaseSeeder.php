@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Administrator CSIRT',
             'username' => 'admin_csirt',
             'email' => 'admin@example.com',
+            'email_hash' => User::hashEmail('admin@example.com'),
             'password' => bcrypt('11223344'),
             'role' => 'admin',
         ]);
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Farel',
             'username' => 'farel_hunter',
             'email' => 'farel@hunter.com',
+            'email_hash' => User::hashEmail('farel@hunter.com'),
             'password' => bcrypt('11223344'),
             'role' => 'hunter',
         ]);

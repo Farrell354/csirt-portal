@@ -60,6 +60,23 @@ return [
             'throw'  => true,
         ],
 
+        /*
+        |----------------------------------------------------------------------
+        | certificates — Defense in Depth: Isolated Private Certificates Disk
+        |----------------------------------------------------------------------
+        |
+        | All generated PDF certificates are stored here exclusively.
+        | Non-public, serve: false (no direct HTTP URL access).
+        | Downloads are gated by CertificatePolicy.
+        |
+        */
+        'certificates' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/private/certificates'),
+            'serve'  => false,
+            'throw'  => true,
+        ],
+
         'public' => [
             'driver'     => 'local',
             'root'       => storage_path('app/public'),

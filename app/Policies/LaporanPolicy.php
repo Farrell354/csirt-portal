@@ -102,4 +102,22 @@ class LaporanPolicy
     {
         return $user->id === $laporan->user_id;
     }
+
+    /**
+     * Determine whether the user can view an activity log for a report.
+     * Non-admin hunters may ONLY see their own reports' external-facing logs.
+     * Internal CSIRT actions (DISPOSITION_SENT, etc.) are strictly forbidden.
+     */
+    public function viewActivityLog(User $user, Laporan $laporan, ?\App\Models\LaporanActivityLog $log = null): bool
+    {
+        if ($user->id !== $laporan->user_id) {
+            return false;
+        }
+
+        if ($log !== null && in_array($log->action, \App\Models\LaporanActivityLog::INTERNAL_ACTIONS, true)) {
+            return false;
+        }
+
+        return true;
+    }
 }

@@ -25,7 +25,7 @@ class DashboardController extends Controller
             return view('dashboard', compact('artikels', 'systemMetrics'));
         }
 
-        $laporans        = $user->laporans()->orderBy('created_at', 'desc')->get();
+        $laporans        = $user->laporans()->with('certificate')->orderBy('created_at', 'desc')->get();
         $totalLaporan    = $laporans->count();
         $laporanDiproses = $laporans->whereIn('status', ['Pending', 'Diproses', 'Menunggu'])->count();
         $laporanValid    = $laporans->where('status', 'Valid')->count();
