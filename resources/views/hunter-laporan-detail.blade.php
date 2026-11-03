@@ -269,7 +269,6 @@
 
     </div>
 
-    <x-chatbot />
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {

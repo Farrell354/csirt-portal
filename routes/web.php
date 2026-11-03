@@ -4,7 +4,6 @@ use App\Http\Controllers\AdminLaporanController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\CertificateController;
-use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\PublicCertificateVerificationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HunterController;
@@ -41,11 +40,10 @@ Route::view('/ioc', 'ioc');
 Route::view('/ioc/lihat', 'panduan-viewer');
 
 // ==========================================
-// LEADERBOARD & CHATBOT
+// LEADERBOARD
 // ==========================================
 Route::get('/leaderboard', [LeaderboardController::class, 'index']);
 Route::get('/hunter/{id}', [HunterController::class, 'show']);
-Route::post('/chatbot-reply', [ChatbotController::class, 'reply'])->middleware('throttle:10,1');
 
 // Verifikasi Publik Sertifikat Penghargaan (UU PDP Compliant)
 Route::get('/verify-certificate/{uuid}', [PublicCertificateVerificationController::class, 'show'])->name('certificate.verify');

@@ -38,8 +38,6 @@
         @yield('content')
     </main>
 
-    <!-- CHATBOT PUSAT -->
-    <x-chatbot />
 
 </body>
 </html>

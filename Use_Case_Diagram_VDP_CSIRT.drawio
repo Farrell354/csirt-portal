@@ -1,0 +1,463 @@
+<mxfile host="app.diagrams.net" modified="2026-10-19T07:05:00.000Z" agent="Antigravity" version="24.7.17" type="device">
+  <diagram id="uc-fokus-skripsi" name="1. Use Case - Fokus Skripsi (Bab I &amp; III)">
+    <mxGraphModel dx="1600" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- SYSTEM BOUNDARY -->
+        <mxCell id="sys_boundary" value="Sistem Pelaporan dan Triase Vulnerability Disclosure Program (JatimProv-CSIRT)" style="swimlane;startSize=40;fillColor=#FFFFFF;strokeColor=#1E293B;strokeWidth=2;fontStyle=1;fontSize=14;fontFamily=Helvetica; fontColor=#0F172A;rounded=0;swimlaneFillColor=#FAFAFA;" vertex="1" parent="1">
+          <mxGeometry x="260" y="40" width="1130" height="1060" as="geometry" />
+        </mxCell>
+
+        <!-- SUB-GROUP VISUAL GUIDES (Subtle Dashed Containers Inside System Boundary) -->
+        <mxCell id="grp_hunter" value="Modul Pelaporan Kerentanan (Bug Hunter)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;dashed=1;verticalAlign=top;align=left;spacingLeft=12;spacingTop=6;fontStyle=2;fontSize=11;fontColor=#475569;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="30" y="60" width="1070" height="390" as="geometry" />
+        </mxCell>
+
+        <mxCell id="grp_shared" value="Modul Umum, Berkas Bukti (PoC) &amp; Jejak Audit" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;dashed=1;verticalAlign=top;align=left;spacingLeft=12;spacingTop=6;fontStyle=2;fontSize=11;fontColor=#475569;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="30" y="465" width="1070" height="145" as="geometry" />
+        </mxCell>
+
+        <mxCell id="grp_admin" value="Modul Triase, Kalkulasi CVSS v3.1 &amp; Manajemen Laporan (Analis CSIRT)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;dashed=1;verticalAlign=top;align=left;spacingLeft=12;spacingTop=6;fontStyle=2;fontSize=11;fontColor=#475569;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="30" y="625" width="1070" height="410" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== ACTORS ==================== -->
+        <mxCell id="actor_hunter" value="Pelapor&#xa;(Bug Hunter)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#DBEAFE;strokeColor=#1D4ED8;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#1E3A8A;" vertex="1" parent="1">
+          <mxGeometry x="90" y="250" width="55" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="actor_admin" value="Analis CSIRT&#xa;(Admin)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FEE2E2;strokeColor=#B91C1C;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#7F1D1D;" vertex="1" parent="1">
+          <mxGeometry x="1485" y="740" width="55" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== USE CASES: HUNTER ==================== -->
+        <!-- UC1: Registrasi & Kelola Profil (Enkripsi AES-256-CBC & Blind Index SHA-256) -->
+        <mxCell id="uc_register_profile" value="Melakukan Registrasi &amp;&#xa;Mengelola Profil Akun&#xa;(Enkripsi AES-256-CBC)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#1D4ED8;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#1E3A8A;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="80" y="90" width="240" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC2: Mengirim Laporan Kerentanan -->
+        <mxCell id="uc_submit_report" value="Mengirim Laporan&#xa;Kerentanan Baru" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#1D4ED8;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#1E3A8A;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="80" y="210" width="240" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC3: Melacak Status & Detail Laporan -->
+        <mxCell id="uc_track_report" value="Melacak Status &amp;&#xa;Melihat Detail Laporan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#1D4ED8;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#1E3A8A;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="80" y="345" width="240" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC2a (Extend): Memilih Mode Pelaporan Pseudonim -->
+        <mxCell id="uc_pseudonym" value="Memilih Mode Pelaporan&#xa;Pseudonim (Penyamaran Identitas)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=11;fontColor=#1E293B;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="455" y="85" width="245" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- UC2b (Extend): Memverifikasi Keterjangkauan URL Target (Anti-SSRF) -->
+        <mxCell id="uc_verify_target" value="Memverifikasi Keterjangkauan&#xa;URL Target (*.jatimprov.go.id / Anti-SSRF)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=11;fontColor=#1E293B;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="455" y="180" width="265" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC2c (Include): Memvalidasi, Sanitasi EXIF & Memindai Heuristik Berkas PoC -->
+        <mxCell id="uc_process_poc" value="Memvalidasi, Sanitasi EXIF,&#xa;Hitung Hash SHA-256 &amp; Pindai&#xa;Heuristik Berkas PoC" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF9C3;strokeColor=#CA8A04;strokeWidth=1.5;fontSize=11;fontColor=#713F12;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="455" y="280" width="265" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== USE CASES: SHARED ==================== -->
+        <!-- UC_Auth: Melakukan Autentikasi (Login) -->
+        <mxCell id="uc_login" value="Melakukan Autentikasi&#xa;Pengguna (Login)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#334155;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#0F172A;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="80" y="500" width="240" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC_Download_PoC (Extend): Mengunduh Berkas Bukti (PoC) -->
+        <mxCell id="uc_download_poc" value="Mengunduh Berkas Bukti (PoC)&#xa;(Otorisasi LaporanPolicy)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#475569;strokeWidth=1.5;fontSize=11;fontColor=#0F172A;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="455" y="500" width="245" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC_Audit_Log (Include): Mencatat Jejak Audit Laporan (Append-Only) -->
+        <mxCell id="uc_audit_log" value="Mencatat Jejak Aktivitas&#xa;Laporan (Append-Only Audit Log)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF9C3;strokeColor=#CA8A04;strokeWidth=1.5;fontSize=11;fontColor=#713F12;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="800" y="500" width="255" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== USE CASES: ADMIN / ANALIS CSIRT ==================== -->
+        <!-- UC4: Melihat & Memfilter Daftar Laporan Masuk -->
+        <mxCell id="uc_list_reports" value="Melihat &amp; Memfilter&#xa;Daftar Laporan Masuk" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#B91C1C;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#7F1D1D;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="815" y="655" width="240" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC5: Meninjau Detail Laporan, Identitas & Jejak Audit -->
+        <mxCell id="uc_review_report" value="Meninjau Detail Laporan,&#xa;Identitas Pelapor &amp; Jejak Audit" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#B91C1C;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#7F1D1D;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="815" y="760" width="240" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC6: Menghitung & Menyimpan Skor CVSS v3.1 -->
+        <mxCell id="uc_calculate_cvss" value="Menghitung &amp; Menyimpan&#xa;Skor Keparahan CVSS v3.1&#xa;(8 Base Metrics &amp; Vector String)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#B91C1C;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#7F1D1D;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="805" y="860" width="255" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- UC7: Memvalidasi & Memperbarui Status Triase Laporan -->
+        <mxCell id="uc_validate_status" value="Memvalidasi &amp; Memperbarui&#xa;Status Triase Laporan&#xa;(Beserta Catatan Analis)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#B91C1C;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#7F1D1D;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="815" y="950" width="245" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- UC4a (Extend): Mencari Laporan via Blind Index Email (SHA-256) -->
+        <mxCell id="uc_search_blind_index" value="Mencari Laporan berdasarkan&#xa;Email (Blind Index SHA-256)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EF4444;strokeWidth=1.5;fontSize=11;fontColor=#1E293B;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="440" y="645" width="245" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- UC4b (Extend): Mencetak Rekapitulasi Laporan (PDF) -->
+        <mxCell id="uc_print_recap" value="Mencetak Rekapitulasi&#xa;Daftar Laporan (PDF)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EF4444;strokeWidth=1.5;fontSize=11;fontColor=#1E293B;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="440" y="730" width="245" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- UC5a (Extend): Membuka Karantina Berkas PoC -->
+        <mxCell id="uc_override_quarantine" value="Membuka Karantina Berkas PoC&#xa;(Override Quarantine)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EF4444;strokeWidth=1.5;fontSize=11;fontColor=#1E293B;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="440" y="810" width="245" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- UC5b (Extend): Mencetak Dokumen Security Advisory (PDF) -->
+        <mxCell id="uc_print_advisory" value="Mencetak Dokumen&#xa;Security Advisory (PDF)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EF4444;strokeWidth=1.5;fontSize=11;fontColor=#1E293B;" vertex="1" parent="sys_boundary">
+          <mxGeometry x="440" y="890" width="245" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== ASSOCIATIONS: HUNTER ==================== -->
+        <mxCell id="assoc_h1" style="endArrow=none;html=1;strokeColor=#1D4ED8;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="actor_hunter" target="uc_register_profile">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc_h2" style="endArrow=none;html=1;strokeColor=#1D4ED8;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="actor_hunter" target="uc_submit_report">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc_h3" style="endArrow=none;html=1;strokeColor=#1D4ED8;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="actor_hunter" target="uc_track_report">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc_h4" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="actor_hunter" target="uc_login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== ASSOCIATIONS: ADMIN ==================== -->
+        <mxCell id="assoc_a1" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc_login" target="actor_admin">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="615" />
+              <mxPoint x="1420" y="615" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc_a2" style="endArrow=none;html=1;strokeColor=#B91C1C;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc_list_reports" target="actor_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc_a3" style="endArrow=none;html=1;strokeColor=#B91C1C;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc_review_report" target="actor_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc_a4" style="endArrow=none;html=1;strokeColor=#B91C1C;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc_calculate_cvss" target="actor_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc_a5" style="endArrow=none;html=1;strokeColor=#B91C1C;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="uc_validate_status" target="actor_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ==================== INCLUDE & EXTEND RELATIONS ==================== -->
+        <!-- Extend: Pseudonym -> Submit Report -->
+        <mxCell id="rel_ext_pseudo" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#2563EB;fontSize=11;fontStyle=2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.2;entryDx=0;entryDy=0;" edge="1" parent="sys_boundary" source="uc_pseudonym" target="uc_submit_report">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Extend: Verify Target -> Submit Report -->
+        <mxCell id="rel_ext_verify" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#2563EB;fontSize=11;fontStyle=2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sys_boundary" source="uc_verify_target" target="uc_submit_report">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Include: Submit Report -> Process PoC -->
+        <mxCell id="rel_inc_poc" value="«include»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#CA8A04;fontSize=11;fontStyle=2;exitX=1;exitY=0.8;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sys_boundary" source="uc_submit_report" target="uc_process_poc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Include: Submit Report -> Audit Log -->
+        <mxCell id="rel_inc_audit_submit" value="«include»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#CA8A04;fontSize=11;fontStyle=2;exitX=0.95;exitY=0.75;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="sys_boundary" source="uc_submit_report" target="uc_audit_log">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="270" />
+              <mxPoint x="380" y="420" />
+              <mxPoint x="928" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Extend: Download PoC -> Track Report (Hunter) -->
+        <mxCell id="rel_ext_dl_hunter" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#475569;fontSize=11;fontStyle=2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sys_boundary" source="uc_download_poc" target="uc_track_report">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="538" />
+              <mxPoint x="380" y="383" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Extend: Download PoC -> Review Report (Admin) -->
+        <mxCell id="rel_ext_dl_admin" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#475569;fontSize=11;fontStyle=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.2;entryY=0.1;entryDx=0;entryDy=0;" edge="1" parent="sys_boundary" source="uc_download_poc" target="uc_review_report">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="750" y="538" />
+              <mxPoint x="750" y="768" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Extend: Search Blind Index -> List Reports -->
+        <mxCell id="rel_ext_blind_idx" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#DC2626;fontSize=11;fontStyle=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="sys_boundary" source="uc_search_blind_index" target="uc_list_reports">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Extend: Print Recap -> List Reports -->
+        <mxCell id="rel_ext_recap" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#DC2626;fontSize=11;fontStyle=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="sys_boundary" source="uc_print_recap" target="uc_list_reports">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Extend: Override Quarantine -> Review Report -->
+        <mxCell id="rel_ext_quarantine" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#DC2626;fontSize=11;fontStyle=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sys_boundary" source="uc_override_quarantine" target="uc_review_report">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Extend: Print Advisory -> Review Report -->
+        <mxCell id="rel_ext_advisory" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#DC2626;fontSize=11;fontStyle=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.8;entryDx=0;entryDy=0;" edge="1" parent="sys_boundary" source="uc_print_advisory" target="uc_review_report">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Include: Calculate CVSS -> Audit Log -->
+        <mxCell id="rel_inc_audit_cvss" value="«include»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#CA8A04;fontSize=11;fontStyle=2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.35;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="sys_boundary" source="uc_calculate_cvss" target="uc_audit_log">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="780" y="900" />
+              <mxPoint x="780" y="610" />
+              <mxPoint x="889" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Include: Validate Status -> Audit Log -->
+        <mxCell id="rel_inc_audit_val" value="«include»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#CA8A04;fontSize=11;fontStyle=2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.7;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="sys_boundary" source="uc_validate_status" target="uc_audit_log">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="765" y="988" />
+              <mxPoint x="765" y="625" />
+              <mxPoint x="978" y="625" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="uc-sistem-lengkap" name="2. Use Case - Sistem Lengkap (Seluruh Fitur Aplikasi)">
+    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- SYSTEM BOUNDARY -->
+        <mxCell id="full_boundary" value="Portal JatimProv-CSIRT (Seluruh Fitur Aplikasi)" style="swimlane;startSize=40;fillColor=#FFFFFF;strokeColor=#1E293B;strokeWidth=2;fontStyle=1;fontSize=14;fontFamily=Helvetica;fontColor=#0F172A;rounded=0;swimlaneFillColor=#FAFAFA;" vertex="1" parent="1">
+          <mxGeometry x="260" y="40" width="1130" height="1200" as="geometry" />
+        </mxCell>
+
+        <!-- ACTORS -->
+        <mxCell id="full_actor_public" value="Pengunjung&#xa;Publik" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#DCFCE7;strokeColor=#15803D;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#14532D;" vertex="1" parent="1">
+          <mxGeometry x="90" y="130" width="55" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="full_actor_hunter" value="Pelapor&#xa;(Bug Hunter)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#DBEAFE;strokeColor=#1D4ED8;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#1E3A8A;" vertex="1" parent="1">
+          <mxGeometry x="90" y="460" width="55" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="full_actor_admin" value="Analis CSIRT&#xa;(Admin)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FEE2E2;strokeColor=#B91C1C;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#7F1D1D;" vertex="1" parent="1">
+          <mxGeometry x="1485" y="840" width="55" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- PUBLIC USE CASES -->
+        <mxCell id="f_uc_portal" value="Melihat Informasi Profil,&#xa;RFC 2350, Panduan &amp; Artikel" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#15803D;strokeWidth=1.5;fontSize=11;fontStyle=1;fontColor=#14532D;" vertex="1" parent="full_boundary">
+          <mxGeometry x="80" y="65" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_leaderboard" value="Melihat Hall of Fame&#xa;(Leaderboard Bug Hunter)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#15803D;strokeWidth=1.5;fontSize=11;fontStyle=1;fontColor=#14532D;" vertex="1" parent="full_boundary">
+          <mxGeometry x="80" y="145" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_verify_cert" value="Memverifikasi Keaslian Sertifikat&#xa;Penghargaan (/verify-certificate/{uuid})" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#15803D;strokeWidth=1.5;fontSize=11;fontStyle=1;fontColor=#14532D;" vertex="1" parent="full_boundary">
+          <mxGeometry x="80" y="225" width="265" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- HUNTER USE CASES -->
+        <mxCell id="f_uc_reg" value="Melakukan Registrasi &amp; Kelola Profil&#xa;(Enkripsi AES-256-CBC)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#1D4ED8;strokeWidth=1.5;fontSize=11;fontStyle=1;fontColor=#1E3A8A;" vertex="1" parent="full_boundary">
+          <mxGeometry x="80" y="330" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_submit" value="Mengirim Laporan&#xa;Kerentanan Baru" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#1D4ED8;strokeWidth=1.5;fontSize=11;fontStyle=1;fontColor=#1E3A8A;" vertex="1" parent="full_boundary">
+          <mxGeometry x="80" y="420" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_track" value="Melacak Status &amp; Detail&#xa;Laporan Kerentanan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#1D4ED8;strokeWidth=1.5;fontSize=11;fontStyle=1;fontColor=#1E3A8A;" vertex="1" parent="full_boundary">
+          <mxGeometry x="80" y="510" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_dl_cert" value="Mengunduh Sertifikat&#xa;Penghargaan VDP (PDF)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#1D4ED8;strokeWidth=1.5;fontSize=11;fontStyle=1;fontColor=#1E3A8A;" vertex="1" parent="full_boundary">
+          <mxGeometry x="80" y="600" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_pseudo" value="Memilih Mode Pelaporan&#xa;Pseudonim" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82F6;fontSize=11;" vertex="1" parent="full_boundary">
+          <mxGeometry x="455" y="330" width="235" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_ssrf" value="Memverifikasi URL Target&#xa;(*.jatimprov.go.id / Anti-SSRF)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82F6;fontSize=11;" vertex="1" parent="full_boundary">
+          <mxGeometry x="455" y="405" width="235" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_poc_scan" value="Validasi, Sanitasi EXIF, Hash SHA-256&#xa;&amp; Pindai Heuristik Berkas PoC" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF9C3;strokeColor=#CA8A04;fontSize=11;" vertex="1" parent="full_boundary">
+          <mxGeometry x="455" y="480" width="250" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- SHARED -->
+        <mxCell id="f_uc_dl_poc" value="Mengunduh Berkas Bukti (PoC)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#475569;fontSize=11;" vertex="1" parent="full_boundary">
+          <mxGeometry x="455" y="565" width="235" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_audit" value="Mencatat Jejak Aktivitas Laporan&#xa;(Append-Only Audit Log)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF9C3;strokeColor=#CA8A04;fontSize=11;" vertex="1" parent="full_boundary">
+          <mxGeometry x="795" y="560" width="255" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- ADMIN USE CASES -->
+        <mxCell id="f_uc_list" value="Melihat &amp; Memfilter Daftar Laporan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#B91C1C;fontStyle=1;fontSize=11;fontColor=#7F1D1D;" vertex="1" parent="full_boundary">
+          <mxGeometry x="815" y="660" width="240" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_review" value="Meninjau Detail Laporan, Identitas&#xa;&amp; Jejak Audit" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#B91C1C;fontStyle=1;fontSize=11;fontColor=#7F1D1D;" vertex="1" parent="full_boundary">
+          <mxGeometry x="815" y="735" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_cvss" value="Menghitung Skor CVSS v3.1&#xa;(8 Base Metrics &amp; Vector String)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#B91C1C;fontStyle=1;fontSize=11;fontColor=#7F1D1D;" vertex="1" parent="full_boundary">
+          <mxGeometry x="815" y="815" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_validasi" value="Memvalidasi &amp; Memperbarui&#xa;Status Triase Laporan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#B91C1C;fontStyle=1;fontSize=11;fontColor=#7F1D1D;" vertex="1" parent="full_boundary">
+          <mxGeometry x="815" y="895" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_opd" value="Mencatat Disposisi Laporan ke OPD&#xa;(SLA Tracking)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#B91C1C;fontStyle=1;fontSize=11;fontColor=#7F1D1D;" vertex="1" parent="full_boundary">
+          <mxGeometry x="815" y="975" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_issue_cert" value="Menerbitkan Sertifikat Penghargaan&#xa;(SHA-256 &amp; QR Verification)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#B91C1C;fontStyle=1;fontSize=11;fontColor=#7F1D1D;" vertex="1" parent="full_boundary">
+          <mxGeometry x="815" y="1055" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_cms" value="Mengelola Artikel Keamanan (CMS)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#B91C1C;fontStyle=1;fontSize=11;fontColor=#7F1D1D;" vertex="1" parent="full_boundary">
+          <mxGeometry x="815" y="1130" width="240" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_blind" value="Mencari Laporan via Blind Index&#xa;Email (SHA-256)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EF4444;fontSize=11;" vertex="1" parent="full_boundary">
+          <mxGeometry x="455" y="655" width="235" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_quar" value="Membuka Karantina Berkas PoC&#xa;(Override Quarantine)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EF4444;fontSize=11;" vertex="1" parent="full_boundary">
+          <mxGeometry x="455" y="735" width="235" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f_uc_adv" value="Mencetak Security Advisory &amp;&#xa;Rekapitulasi Laporan (PDF)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EF4444;fontSize=11;" vertex="1" parent="full_boundary">
+          <mxGeometry x="455" y="815" width="235" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ASSOCIATIONS PUBLIC -->
+        <mxCell id="fa_p1" style="endArrow=none;html=1;strokeColor=#15803D;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="full_actor_public" target="f_uc_portal">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fa_p2" style="endArrow=none;html=1;strokeColor=#15803D;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="full_actor_public" target="f_uc_leaderboard">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fa_p3" style="endArrow=none;html=1;strokeColor=#15803D;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="full_actor_public" target="f_uc_verify_cert">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ASSOCIATIONS HUNTER -->
+        <mxCell id="fa_h1" style="endArrow=none;html=1;strokeColor=#1D4ED8;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="full_actor_hunter" target="f_uc_reg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fa_h2" style="endArrow=none;html=1;strokeColor=#1D4ED8;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="full_actor_hunter" target="f_uc_submit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fa_h3" style="endArrow=none;html=1;strokeColor=#1D4ED8;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="full_actor_hunter" target="f_uc_track">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fa_h4" style="endArrow=none;html=1;strokeColor=#1D4ED8;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="full_actor_hunter" target="f_uc_dl_cert">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ASSOCIATIONS ADMIN -->
+        <mxCell id="fa_a1" style="endArrow=none;html=1;strokeColor=#B91C1C;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="f_uc_list" target="full_actor_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fa_a2" style="endArrow=none;html=1;strokeColor=#B91C1C;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="f_uc_review" target="full_actor_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fa_a3" style="endArrow=none;html=1;strokeColor=#B91C1C;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="f_uc_cvss" target="full_actor_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fa_a4" style="endArrow=none;html=1;strokeColor=#B91C1C;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="f_uc_validasi" target="full_actor_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fa_a5" style="endArrow=none;html=1;strokeColor=#B91C1C;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="f_uc_opd" target="full_actor_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fa_a6" style="endArrow=none;html=1;strokeColor=#B91C1C;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="f_uc_issue_cert" target="full_actor_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fa_a7" style="endArrow=none;html=1;strokeColor=#B91C1C;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="f_uc_cms" target="full_actor_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- RELATIONS FULL -->
+        <mxCell id="fr_1" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#2563EB;fontSize=10;exitX=0;exitY=0.5;entryX=1;entryY=0.25;" edge="1" parent="full_boundary" source="f_uc_pseudo" target="f_uc_submit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fr_2" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#2563EB;fontSize=10;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="full_boundary" source="f_uc_ssrf" target="f_uc_submit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fr_3" value="«include»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#CA8A04;fontSize=10;exitX=1;exitY=0.75;entryX=0;entryY=0.5;" edge="1" parent="full_boundary" source="f_uc_submit" target="f_uc_poc_scan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fr_4" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#475569;fontSize=10;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="full_boundary" source="f_uc_dl_poc" target="f_uc_track">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fr_5" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#475569;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.3;" edge="1" parent="full_boundary" source="f_uc_dl_poc" target="f_uc_review">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fr_6" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#DC2626;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="full_boundary" source="f_uc_blind" target="f_uc_list">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fr_7" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#DC2626;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="full_boundary" source="f_uc_quar" target="f_uc_review">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fr_8" value="«extend»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#DC2626;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.8;" edge="1" parent="full_boundary" source="f_uc_adv" target="f_uc_review">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fr_9" value="«include»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#CA8A04;fontSize=10;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="full_boundary" source="f_uc_cvss" target="f_uc_audit">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="770" y="845" />
+              <mxPoint x="770" y="640" />
+              <mxPoint x="922" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fr_10" value="«include»" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#CA8A04;fontSize=10;exitX=0;exitY=0.5;entryX=0.75;entryY=1;" edge="1" parent="full_boundary" source="f_uc_validasi" target="f_uc_audit">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="755" y="928" />
+              <mxPoint x="755" y="650" />
+              <mxPoint x="986" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

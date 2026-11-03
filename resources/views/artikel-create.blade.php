@@ -164,8 +164,5 @@
             </div>
         </div>
     </div>
-
-    <!-- Chatbot Bawaan Bos -->
-    <x-chatbot />
 </body>
 </html>

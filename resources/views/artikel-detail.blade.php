@@ -105,10 +105,7 @@
     <!-- FOOTER -->
     <x-footer />
 
-    <!-- CHATBOT -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- Saya ganti logika hardcoded chatbot di file lawas dengan komponen Blade kita yang sudah mantap -->
-    <x-chatbot />
 
     <!-- SCRIPT OBSERVER UNTUK ANIMASI SCROLL -->
     <script>

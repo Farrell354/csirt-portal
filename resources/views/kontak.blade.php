@@ -218,9 +218,7 @@
 
     <x-footer />
 
-    <!-- WIDGET CHATBOT CSIRT -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <x-chatbot />
 
     <!-- ========================================== -->
     <!-- SCRIPT OBSERVER UNTUK ANIMASI SCROLL -->

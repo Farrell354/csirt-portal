@@ -211,7 +211,6 @@
     <x-footer />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <x-chatbot />
 
     <!-- ========================================== -->
     <!-- SCRIPT ANIMASI SCROLL & NUMBER COUNTER -->

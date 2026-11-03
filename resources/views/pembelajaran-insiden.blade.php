@@ -144,7 +144,6 @@
 
     <x-footer />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <x-chatbot />
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {

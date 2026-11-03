@@ -556,8 +556,6 @@
 
     </div>
 
-    <!-- CHATBOT -->
-    <x-chatbot />
 
     <!-- SCRIPT OBSERVER UNTUK ANIMASI SCROLL -->
     <script>

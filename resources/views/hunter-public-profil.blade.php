@@ -268,9 +268,7 @@
     <!-- FOOTER -->
     <x-footer />
     
-    <!-- CHATBOT -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <x-chatbot />
 
 </body>
 </html>

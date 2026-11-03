@@ -386,7 +386,6 @@
 
     </main>
 
-    <x-chatbot />
 
     <!-- LIVE TELEMETRY POLLING SCRIPT -->
     <script nonce="{{ csp_nonce() }}">

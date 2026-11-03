@@ -229,8 +229,6 @@
 
     </div>
 
-    <!-- CHATBOT -->
-    <x-chatbot />
 
 </body>
 </html>

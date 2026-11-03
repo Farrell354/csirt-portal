@@ -928,7 +928,6 @@
 
     </div>{{-- /container --}}
 
-    <x-chatbot />
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {

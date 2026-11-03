@@ -142,7 +142,6 @@
     </div>
 
     <x-footer />
-    <x-chatbot />
 
     @include('partials.home-scripts')
 
