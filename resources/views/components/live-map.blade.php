@@ -521,7 +521,40 @@
         controls.minDistance     = 115;
         controls.maxDistance     = 480;
 
-        /* ── 2. Pre-bind Arc & Ring Accessors ONCE (Zero Shader Re-compilation!) ── */
+        /* ── 2. Responsive Zoom-Adaptive Arc & Ring Scaling (Thin when Zoomed In, Bold when Zoomed Out) ── */
+        let currentZoomScale = 1.0;
+        let lastAppliedScale = 1.0;
+        let zoomScaleTimer   = null;
+
+        const computeZoomScale = () => {
+            const alt = myGlobe.pointOfView()?.altitude ?? altitudeFinal;
+            // Scale proportionally with camera altitude:
+            // Zoomed in close (alt ~ 0.55) -> ~0.30 (sleek, fine laser lines)
+            // Default view   (alt ~ 1.55) -> ~0.95 (standard thickness)
+            // Zoomed out far (alt ~ 2.5+) -> ~1.45 (bold global visibility)
+            return Math.min(1.45, Math.max(0.22, Math.pow(alt / 1.6, 0.95)));
+        };
+
+        const getResponsiveArcStroke = () => +(1.15 * currentZoomScale).toFixed(2);
+        const getResponsiveArcAltScale = () => +(0.18 + 0.18 * Math.min(1.2, currentZoomScale)).toFixed(2);
+        const getResponsiveRingRadius = d => +(d.maxR * currentZoomScale).toFixed(2);
+
+        const syncArcZoomScale = () => {
+            currentZoomScale = computeZoomScale();
+            if (Math.abs(currentZoomScale - lastAppliedScale) < 0.06) return;
+            lastAppliedScale = currentZoomScale;
+            myGlobe
+                .arcStroke(getResponsiveArcStroke)
+                .arcAltitudeAutoScale(getResponsiveArcAltScale)
+                .ringMaxRadius(getResponsiveRingRadius);
+        };
+
+        controls.addEventListener('change', () => {
+            currentZoomScale = computeZoomScale();
+            if (zoomScaleTimer) clearTimeout(zoomScaleTimer);
+            zoomScaleTimer = setTimeout(syncArcZoomScale, 75);
+        });
+
         myGlobe
             .arcStartLat(d => d.startLat)
             .arcStartLng(d => d.startLng)
@@ -532,10 +565,10 @@
             .arcDashLength(0.45)
             .arcDashGap(0.2)
             .arcDashAnimateTime(1500)
-            .arcStroke(1.3)
-            .arcAltitudeAutoScale(0.38)
+            .arcStroke(getResponsiveArcStroke)
+            .arcAltitudeAutoScale(getResponsiveArcAltScale)
             .ringColor(d => t => `rgba(${d.rgb}, ${Math.max(0, 1 - t)})`)
-            .ringMaxRadius(d => d.maxR)
+            .ringMaxRadius(getResponsiveRingRadius)
             .ringPropagationSpeed(2.2)
             .ringRepeatPeriod(0);
 
@@ -834,6 +867,7 @@
             // Stage 1 (+240ms mid-flight): Pop in 3D target marker & emit smooth radar sonar ring
             selectStageTimer1 = setTimeout(() => {
                 if (selectedPolygon !== feat) return;
+                syncArcZoomScale();
                 updateHtmlMarkers();
                 activeRings.push(
                     { lat, lng, rgb: '16, 185, 129', maxR: 5.0 },
@@ -846,6 +880,7 @@
             // Stage 2 (+520ms as camera arrives): Fire targeted cyber attack laser arc into the province
             selectStageTimer2 = setTimeout(() => {
                 if (selectedPolygon !== feat) return;
+                syncArcZoomScale();
                 fireAttackToProvince(lat, lng, provName);
             }, 520);
         };
